@@ -23,5 +23,5 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.tec9rushbgroup.ourspace", appContext.getPackageName());
     }
-    //test2
+
 }
