@@ -28,24 +28,22 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 4000;
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
-    private TextView logo,slogan;
-    private Animation topAnim,bottomAnim;
     String TAG = "onActivityResult";
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    Button b;
+    private FirebaseUser user;
+    Button singInButton,signOutButton;
+    TextView welcomeTV,continueTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         auth = FirebaseAuth.getInstance();
+        // already signed in
         if (auth.getCurrentUser() != null) {
-            // already signed in
             setContentView(R.layout.activity_logedin);
-            b = findViewById(R.id.signout);
-            b.setOnClickListener(new View.OnClickListener() {
+            signOutButton = findViewById(R.id.signout);
+            signOutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AuthUI.getInstance()
@@ -61,11 +59,16 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-        } else {
-            // not signed in
+        }
+        // not signed in
+        else {
             setContentView(R.layout.activity_login);
-            b = findViewById(R.id.b1);
-            b.setOnClickListener(new View.OnClickListener() {
+            welcomeTV = findViewById(R.id.welcome_text);
+            continueTV = findViewById(R.id.continue_text);
+            welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"hello.otf"));
+            continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
+            singInButton = findViewById(R.id.sign_in_button);
+            singInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -83,9 +86,6 @@ public class Login extends AppCompatActivity {
 
         }
 
-
-
-        //test
     }
 
     @Override
@@ -100,10 +100,10 @@ public class Login extends AppCompatActivity {
                 // Successfully signed in
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 startActivity(new Intent(Login.this, Login.class));
-                Toast.makeText(Login.this, "successfully signed in! New User? : " + response.isNewUser(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Login.this, "successfully signed in! New User? : " + response.isNewUser(), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(Login.this, "sign in failed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Login.this, "sign in failed", Toast.LENGTH_SHORT).show();
 
             }
         }

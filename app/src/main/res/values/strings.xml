@@ -5,5 +5,9 @@
     <string name="sign_out">Sign Out</string>
     <string name="signed_in">Signed in</string>
     <string name="slogan">Just You and Me</string>
+    <string name="welcome">WELCOME TO    OURSPACE</string>
+    <string name="prompt">Sign in to continue</string>
+    <string name="forget">Forget Password?</string>
+    <string name="new_user">New User?</string>
 
 </resources>
