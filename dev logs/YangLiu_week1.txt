@@ -1,8 +1,8 @@
 Yang Liu
 101038916
-week 1
+Week 1
 
 This weeek what I have done:
-1. splash screen
-3. UI for login screen
-2. google login using firebase
+1. splash screen.
+3. UI for login screen.
+2. google login using firebase.
