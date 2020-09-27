@@ -9,5 +9,6 @@
     <string name="prompt">Sign in to continue</string>
     <string name="forget">Forget Password?</string>
     <string name="new_user">New User?</string>
+    <string name="google_sign">Sign in with Google</string>
 
 </resources>

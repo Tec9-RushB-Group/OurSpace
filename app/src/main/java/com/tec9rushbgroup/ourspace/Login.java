@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "onActivityResult";
     private FirebaseUser user;
-    Button singInButton,signOutButton;
+    Button googleSignButton,singInButton,signOutButton;
     TextView welcomeTV,continueTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class Login extends AppCompatActivity {
             continueTV = findViewById(R.id.continue_text);
             welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"hello.otf"));
             continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
-            singInButton = findViewById(R.id.sign_in_button);
-            singInButton.setOnClickListener(new View.OnClickListener() {
+            googleSignButton = findViewById(R.id.google_sign_button);
+            googleSignButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     List<AuthUI.IdpConfig> providers = Arrays.asList(

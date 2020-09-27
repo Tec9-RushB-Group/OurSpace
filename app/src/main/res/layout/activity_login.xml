@@ -75,6 +75,15 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
         <Button
+            android:id="@+id/google_sign_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4081EC"
+            android:textColor="#fff"
+            android:text="@string/google_sign"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+        <Button
             android:id="@+id/new_user_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,7 +92,6 @@
             android:layout_gravity="right"
             android:elevation="0dp"
             android:layout_margin="5dp"
-            android:fontFamily="@font/antic"
             android:textColor="#000"/>
     </LinearLayout>
 
