@@ -4,10 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -22,15 +28,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private static int SPLASH_SCREEN = 4000;
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
+    private TextView logo,slogan;
+    private Animation topAnim,bottomAnim;
     String TAG = "onActivityResult";
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     Button b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             // already signed in
@@ -73,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
+
+
 
         //test
     }
