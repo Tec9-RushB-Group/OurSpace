@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 4000;
     private FirebaseAuth auth;
@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     AuthUI.getInstance()
-                            .signOut(MainActivity.this)
+                            .signOut(Login.this)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     // user is now signed out
                                     user = FirebaseAuth.getInstance().getCurrentUser();
-                                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                                    startActivity(new Intent(Login.this, Login.class));
                                     finish();
                                 }
                             });
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             // not signed in
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_login);
             b = findViewById(R.id.b1);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 user = FirebaseAuth.getInstance().getCurrentUser();
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
-                Toast.makeText(MainActivity.this, "successfully signed in! New User? : " + response.isNewUser(), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Login.this, Login.class));
+                Toast.makeText(Login.this, "successfully signed in! New User? : " + response.isNewUser(), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Toast.makeText(MainActivity.this, "sign in failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "sign in failed", Toast.LENGTH_SHORT).show();
 
             }
         }
