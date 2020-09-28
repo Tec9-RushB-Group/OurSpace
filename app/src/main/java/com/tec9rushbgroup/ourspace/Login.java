@@ -28,12 +28,13 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
 
+
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
     String TAG = "onActivityResult";
     private FirebaseUser user;
-    Button googleSignButton,singInButton,signOutButton;
-    TextView welcomeTV,continueTV;
+    Button googleSignButton,singInButton,signOutButton,newUserButton;
+    private TextView welcomeTV,continueTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +64,21 @@ public class Login extends AppCompatActivity {
         // not signed in
         else {
             setContentView(R.layout.activity_login);
+
             welcomeTV = findViewById(R.id.welcome_text);
             continueTV = findViewById(R.id.continue_text);
             welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"hello.otf"));
             continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
             googleSignButton = findViewById(R.id.google_sign_button);
+            newUserButton = findViewById(R.id.new_user_button);
+
+            newUserButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Login.this,SignUp.class);
+                    startActivity(intent);
+                }
+            });
             googleSignButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,6 +99,14 @@ public class Login extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = auth.getCurrentUser();
+        //updateUI(currentUser);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

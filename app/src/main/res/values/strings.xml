@@ -2,6 +2,7 @@
     <string name="app_name">OurSpace</string>
 
     <string name="sign_in">Sign In</string>
+    <string name="sign_up_button">Sign Up</string>
     <string name="sign_out">Sign Out</string>
     <string name="signed_in">Signed in</string>
     <string name="slogan">Just You and Me</string>
@@ -10,5 +11,9 @@
     <string name="forget">Forget Password?</string>
     <string name="new_user">New User?</string>
     <string name="google_sign">Sign in with Google</string>
+    <string name="sign_up">SignUp to enter OurSpace</string>
+    <string name="have_an_acc">Already have an account? LogIn</string>
+
+
 
 </resources>
