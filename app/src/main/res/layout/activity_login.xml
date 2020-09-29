@@ -14,14 +14,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:transitionName="logo_text"/>
 
     <TextView
         android:id="@+id/continue_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/prompt"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:transitionName="slogan_text"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +36,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:hint="Username"
+            android:transitionName="username_tran"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -48,6 +51,7 @@
             android:id="@+id/password"
             android:hint="Password"
             app:passwordToggleEnabled="true"
+            android:transitionName="password_tran"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -73,7 +77,8 @@
             android:textColor="#fff"
             android:text="@string/sign_in"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:transitionName="sign_in_tran"/>
         <Button
             android:id="@+id/google_sign_button"
             android:layout_width="match_parent"
@@ -92,7 +97,8 @@
             android:layout_gravity="right"
             android:elevation="0dp"
             android:layout_margin="5dp"
-            android:textColor="#000"/>
+            android:textColor="#000"
+            android:transitionName="sign_up_tran"/>
     </LinearLayout>
 
 </LinearLayout>

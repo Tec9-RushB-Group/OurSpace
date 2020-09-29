@@ -3,11 +3,13 @@ package com.tec9rushbgroup.ourspace;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -20,6 +22,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,8 +36,9 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "onActivityResult";
     private FirebaseUser user;
-    Button googleSignButton,singInButton,signOutButton,newUserButton;
+    private Button googleSignButton,singInButton,signOutButton,newUserButton;
     private TextView welcomeTV,continueTV;
+    private TextInputLayout username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +75,25 @@ public class Login extends AppCompatActivity {
             continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
             googleSignButton = findViewById(R.id.google_sign_button);
             newUserButton = findViewById(R.id.new_user_button);
+            username = findViewById(R.id.username);
+            password = findViewById(R.id.password);
+            singInButton = findViewById(R.id.sign_in_button);
 
             newUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Login.this,SignUp.class);
-                    startActivity(intent);
+                    Pair[] pairs = new Pair[6];
+                    pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
+                    pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
+                    pairs[2] = new Pair<View,String>(username,"username_tran");
+                    pairs[3] = new Pair<View,String>(password,"password_tran");
+                    pairs[4] = new Pair<View,String>(singInButton,"sign_in_tran");
+                    pairs[5] = new Pair<View,String>(newUserButton,"sign_up_tran");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+                    startActivity(intent,options.toBundle());
+
                 }
             });
             googleSignButton.setOnClickListener(new View.OnClickListener() {
