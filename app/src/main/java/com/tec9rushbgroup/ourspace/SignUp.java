@@ -61,7 +61,7 @@ public class SignUp extends AppCompatActivity {
                 }
                 String emailText = email.getEditText().getText().toString();
                 String passwordText = password.getEditText().getText().toString();
-                Log.d(TAG, "email: "+emailText+"   password: "+passwordText);
+                //Log.d(TAG, "email: "+emailText+"   password: "+passwordText);
                 createAccount(emailText,passwordText);
             }
 
