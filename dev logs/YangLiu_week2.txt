@@ -1,0 +1,8 @@
+Yang Liu
+101038916
+Week 2
+
+This weeek what I have done:
+1. implement buttons on login screen and sign up screen
+3. you can now sign up and log in with email address
+2. add transitions between login screen, sign up screen and splash screen
