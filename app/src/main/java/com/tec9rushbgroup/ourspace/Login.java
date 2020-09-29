@@ -36,9 +36,9 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "onActivityResult";
     private FirebaseUser user;
-    private Button googleSignButton,singInButton,signOutButton,newUserButton;
+    private Button googleSignButton,signInButton,signOutButton,newUserButton;
     private TextView welcomeTV,continueTV;
-    private TextInputLayout username,password;
+    private TextInputLayout email,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,9 +75,9 @@ public class Login extends AppCompatActivity {
             continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
             googleSignButton = findViewById(R.id.google_sign_button);
             newUserButton = findViewById(R.id.new_user_button);
-            username = findViewById(R.id.username);
+            email = findViewById(R.id.email);
             password = findViewById(R.id.password);
-            singInButton = findViewById(R.id.sign_in_button);
+            signInButton = findViewById(R.id.sign_in_button);
 
             newUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,9 +86,9 @@ public class Login extends AppCompatActivity {
                     Pair[] pairs = new Pair[6];
                     pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
                     pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
-                    pairs[2] = new Pair<View,String>(username,"username_tran");
+                    pairs[2] = new Pair<View,String>(email,"email_tran");
                     pairs[3] = new Pair<View,String>(password,"password_tran");
-                    pairs[4] = new Pair<View,String>(singInButton,"sign_in_tran");
+                    pairs[4] = new Pair<View,String>(signInButton,"sign_in_tran");
                     pairs[5] = new Pair<View,String>(newUserButton,"sign_up_tran");
 
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
