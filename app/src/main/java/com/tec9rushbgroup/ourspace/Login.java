@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
 
             welcomeTV = findViewById(R.id.welcome_text);
             continueTV = findViewById(R.id.continue_text);
-            welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"hello.otf"));
+            welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
             continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
             googleSignButton = findViewById(R.id.google_sign_button);
             newUserButton = findViewById(R.id.new_user_button);

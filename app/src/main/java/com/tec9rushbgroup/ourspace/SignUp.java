@@ -20,7 +20,7 @@ public class SignUp extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         welcomeTV = findViewById(R.id.welcome_text);
         signUpTV = findViewById(R.id.sign_up_text);
-        welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"hello.otf"));
+        welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
         signUpTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
     }
 }

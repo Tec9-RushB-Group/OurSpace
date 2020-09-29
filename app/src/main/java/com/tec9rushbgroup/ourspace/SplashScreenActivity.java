@@ -2,10 +2,13 @@ package com.tec9rushbgroup.ourspace;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Pair;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -37,7 +40,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashScreenActivity.this,Login.class);
-                startActivity(intent);
+                Pair[] pairs = new Pair[2];
+                pairs[0] = new Pair<View,String>(logo,"logo_text");
+                pairs[1] = new Pair<View,String>(slogan,"slogan_text");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this,pairs);
+                startActivity(intent,options.toBundle());
                 finish();
             }
         },SPLASH_SCREEN);
