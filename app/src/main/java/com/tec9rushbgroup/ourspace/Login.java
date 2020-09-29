@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,7 +36,7 @@ public class Login extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 123;
-    String TAG = "onActivityResult";
+    String TAG = "Login";
     private FirebaseUser user;
     private Button googleSignButton,signInButton,signOutButton,newUserButton;
     private TextView welcomeTV,continueTV;
@@ -46,6 +48,7 @@ public class Login extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         // already signed in
         if (auth.getCurrentUser() != null) {
+            user = auth.getCurrentUser();
             setContentView(R.layout.activity_logedin);
             signOutButton = findViewById(R.id.signout);
             signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +81,17 @@ public class Login extends AppCompatActivity {
             email = findViewById(R.id.email);
             password = findViewById(R.id.password);
             signInButton = findViewById(R.id.sign_in_button);
-
+            signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String emailText = email.getEditText().getText().toString();
+                    String passwordText = password.getEditText().getText().toString();
+                    if (!validateForm()) {
+                        return;
+                    }
+                    signIn(emailText,passwordText);
+                }
+            });
             newUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -144,4 +157,73 @@ public class Login extends AppCompatActivity {
             }
         }
     }
+
+
+    private boolean validateForm() {
+        boolean valid = true;
+        String regex = "\\w+@\\w+(\\.[a-zA-z]+)+";
+        TextInputLayout emailField = findViewById(R.id.email);
+        String emailText = email.getEditText().getText().toString();
+        if (TextUtils.isEmpty(emailText)) {
+            emailField.setError("Required.");
+            valid = false;
+        }else if(!emailText.matches(regex)){
+            emailField.setError("Invalid Email address.");
+            valid = false;
+        }
+        else {
+            emailField.setError(null);
+        }
+
+        TextInputLayout passwordField = findViewById(R.id.password);
+        String passwordText = password.getEditText().getText().toString();
+
+        if (TextUtils.isEmpty(passwordText)) {
+            passwordField.setError("Required.");
+            valid = false;
+        }
+        else {
+            passwordField.setError(null);
+        }
+
+        return valid;
+    }
+    private void signIn(String email, String password) {
+
+
+        // [START sign_in_with_email]
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = auth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            updateUI(null);
+
+                        }
+
+                        // [START_EXCLUDE]
+
+                    }
+                });
+        // [END sign_in_with_email]
+    }
+    private void updateUI(FirebaseUser user) {
+        TextInputLayout passwordField = findViewById(R.id.password);
+        TextInputLayout emailField = findViewById(R.id.email);
+        if (user != null) {
+            Intent intent = new Intent(Login.this,Login.class);
+            startActivity(intent);
+        }else{
+            emailField.setError("LogIn filed (Invalid email/password)");
+            passwordField.setError("LogIn filed (Invalid email/password)");
+        }
+    }
+
 }
