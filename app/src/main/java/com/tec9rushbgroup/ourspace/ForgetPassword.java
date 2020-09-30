@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -54,8 +56,11 @@ public class ForgetPassword extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    email.setEnabled(false);
+                                    sendButton.setEnabled(false);
+                                    sendButton.setText("Email sent");
+                                    sendButton.setBackgroundColor(Color.parseColor("#EEEEEE"));
 
-                                    Log.d(TAG, "Email sent.");
                                 }else{
                                     email.setError("Send filed (Invalid email/User does not exist)");
                                 }
