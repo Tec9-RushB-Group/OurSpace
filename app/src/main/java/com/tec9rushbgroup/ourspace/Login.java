@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "Login";
     private FirebaseUser user;
-    private Button googleSignButton,signInButton,signOutButton,newUserButton;
+    private Button googleSignButton,signInButton,signOutButton,newUserButton,forgetPasswordButton;
     private TextView welcomeTV,continueTV;
     private TextInputLayout email,password;
     @Override
@@ -72,6 +72,7 @@ public class Login extends AppCompatActivity {
         else {
             setContentView(R.layout.activity_login);
 
+
             welcomeTV = findViewById(R.id.welcome_text);
             continueTV = findViewById(R.id.continue_text);
             welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
@@ -81,6 +82,23 @@ public class Login extends AppCompatActivity {
             email = findViewById(R.id.email);
             password = findViewById(R.id.password);
             signInButton = findViewById(R.id.sign_in_button);
+            forgetPasswordButton = findViewById(R.id.forget_button);
+
+            forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Login.this,ForgetPassword.class);
+                    Pair[] pairs = new Pair[5];
+                    pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
+                    pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
+                    pairs[2] = new Pair<View,String>(email,"email_tran");
+                    pairs[3] = new Pair<View,String>(signInButton,"sign_in_tran");
+                    pairs[4] = new Pair<View,String>(newUserButton,"sign_up_tran");
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+                    startActivity(intent,options.toBundle());
+                }
+            });
+
             signInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -140,11 +158,11 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG,"requestCode: "+requestCode+"-------resultCode: "+ resultCode+"------data: "+data + "");
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-
+            Log.i(TAG,"requestCode: "+requestCode+"-------resultCode: "+ resultCode+"------data: "+data + "response: "+ response);
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 user = FirebaseAuth.getInstance().getCurrentUser();

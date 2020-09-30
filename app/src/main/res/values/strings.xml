@@ -13,7 +13,9 @@
     <string name="google_sign">Sign in with Google</string>
     <string name="sign_up">SignUp to enter OurSpace</string>
     <string name="have_an_acc">Already have an account? LogIn</string>
-
+    <string name="forget_password">Send a recovery email to reset password.</string>
+    <string name="send">Send</string>
+    <string name="back">Back to Login</string>
 
 
 </resources>
