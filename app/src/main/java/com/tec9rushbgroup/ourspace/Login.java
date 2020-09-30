@@ -4,8 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -16,6 +22,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +35,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,8 +50,9 @@ public class Login extends AppCompatActivity {
     String TAG = "Login";
     private FirebaseUser user;
     private Button googleSignButton,signInButton,signOutButton,newUserButton,forgetPasswordButton;
-    private TextView welcomeTV,continueTV;
+    private TextView welcomeTV,continueTV,usernameTV;
     private TextInputLayout email,password;
+    private ImageViewHelper profileImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +63,29 @@ public class Login extends AppCompatActivity {
             user = auth.getCurrentUser();
             setContentView(R.layout.activity_logedin);
             signOutButton = findViewById(R.id.signout);
+            profileImage = findViewById(R.id.profile_image);
+            usernameTV = findViewById(R.id.display_name);
+            usernameTV.setTypeface(Typeface.createFromAsset(getAssets(),"username.otf"));
+            Uri uri = user.getPhotoUrl();
+            String usernameText = user.getDisplayName();
+
+            //set profile image
+            if (uri!=null){
+                String url = uri+"";
+                Log.i(TAG,"url: "+url);
+                profileImage.setImageURL(url);
+            }
+
+            //set display name
+            if (usernameText == null){
+                usernameTV.setText("No UserName");
+            }else if(usernameText.equals("")){
+                usernameTV.setText("No UserName");
+            }else{
+                usernameTV.setText(usernameText);
+            }
+
+
             signOutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -241,6 +276,17 @@ public class Login extends AppCompatActivity {
         }else{
             emailField.setError("LogIn filed (Invalid email/password)");
             passwordField.setError("LogIn filed (Invalid email/password)");
+        }
+    }
+
+    public static Bitmap getLoacalBitmap(String url) {
+        try {
+            FileInputStream fis = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fis);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
