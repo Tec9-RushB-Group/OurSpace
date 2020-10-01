@@ -31,7 +31,7 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView welcomeTV,signUpTV;
     private Button haveAnAccButton,signUpButton;
-    private TextInputLayout password,email,confirm;
+    private TextInputLayout password,email,confirm, username;
     String TAG = "SignUp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class SignUp extends AppCompatActivity {
         //fullName = findViewById(R.id.name);
         email = findViewById(R.id.email);
         confirm = findViewById(R.id.confirm);
+        username = findViewById(R.id.username);
 
         //set fonts
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
@@ -143,7 +144,6 @@ public class SignUp extends AppCompatActivity {
 
         return valid;
     }
-
     private void createAccount(String email, String password) {
 
         TextInputLayout emailField = findViewById(R.id.email);

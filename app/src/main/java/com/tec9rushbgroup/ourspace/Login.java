@@ -49,7 +49,12 @@ public class Login extends AppCompatActivity {
         // already signed in
         if (auth.getCurrentUser() != null) {
             user = auth.getCurrentUser();
-            setContentView(R.layout.activity_logedin);
+            //setContentView(R.layout.activity_logedin);
+            Intent i = new Intent(this, MainScreenActivity.class);
+            startActivity(i);
+
+
+            /*
             signOutButton = findViewById(R.id.signout);
             signOutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,6 +71,7 @@ public class Login extends AppCompatActivity {
                             });
                 }
             });
+            */
 
         }
         // not signed in
