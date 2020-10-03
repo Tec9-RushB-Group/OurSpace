@@ -16,6 +16,7 @@
     <string name="forget_password">Send a recovery email to reset password.</string>
     <string name="send">Send</string>
     <string name="back">Back to Login</string>
+    <string name="crete_space">Create Space</string>
 
 
 </resources>

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".logedin"></activity>
+        <activity android:name=".CreateSpace"></activity>
+        <activity android:name=".logedin" />
         <activity android:name=".ForgetPassword" />
         <activity
             android:name=".SignUp"

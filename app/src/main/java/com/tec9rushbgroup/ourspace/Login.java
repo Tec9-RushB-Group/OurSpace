@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "Login";
     private FirebaseUser user;
-    private Button googleSignButton,signInButton,signOutButton,newUserButton,forgetPasswordButton;
+    private Button googleSignButton,signInButton,signOutButton,newUserButton,forgetPasswordButton,createSpaceButton;
     private TextView welcomeTV,continueTV,usernameTV;
     private TextInputLayout email,password;
     private ImageViewHelper profileImage;
@@ -63,6 +63,7 @@ public class Login extends AppCompatActivity {
             user = auth.getCurrentUser();
             setContentView(R.layout.activity_logedin);
             signOutButton = findViewById(R.id.signout);
+            createSpaceButton = findViewById(R.id.create_space);
             profileImage = findViewById(R.id.profile_image);
             usernameTV = findViewById(R.id.display_name);
             usernameTV.setTypeface(Typeface.createFromAsset(getAssets(),"username.otf"));
@@ -84,7 +85,13 @@ public class Login extends AppCompatActivity {
             }else{
                 usernameTV.setText(usernameText);
             }
-
+            createSpaceButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Login.this, CreateSpace.class);
+                    startActivity(intent);
+                }
+            });
 
             signOutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
