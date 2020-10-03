@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateSpace">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="138dp"
+        android:text="Create A New Space!"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000"
+        android:textSize="40sp"
+        android:transitionName="logo_text" />
+
+    <Button
+        android:id="@+id/invite_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#226"
+        android:textColor="#fff"
+        android:text="Send Invitation"
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="-382dp"
+        android:layout_marginRight="23dp"
+        android:transitionName="sign_in_tran"/>
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:text="@string/back"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="-382dp"
+        android:layout_marginRight="26dp"
+        android:transitionName="sign_up_tran"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:hint="  Please enter the email/username."
+        android:layout_marginTop="140dp"
+        android:layout_marginLeft="-386dp"
+        android:layout_marginRight="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:drawableStart="@drawable/ic_baseline_email_24">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
