@@ -58,63 +58,75 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         // already signed in
-        if (auth.getCurrentUser() != null) {
-            user = auth.getCurrentUser();
-            setContentView(R.layout.activity_logedin);
-            signOutButton = findViewById(R.id.signout);
-            createSpaceButton = findViewById(R.id.create_space);
-            profileImage = findViewById(R.id.profile_image);
-            usernameTV = findViewById(R.id.display_name);
-            usernameTV.setTypeface(Typeface.createFromAsset(getAssets(),"username.otf"));
-            Uri uri = user.getPhotoUrl();
-            String usernameText = user.getDisplayName();
-
-            //set profile image
-            if (uri!=null){
-                String url = uri+"";
-                Log.i(TAG,"url: "+url);
-                profileImage.setImageURL(url);
-            }
-
-            //set display name
-            if (usernameText == null){
-                usernameTV.setText("No UserName");
-            }else if(usernameText.equals("")){
-                usernameTV.setText("No UserName");
+        if (user != null) {
+            boolean emailVerified = user.isEmailVerified();
+            Log.i(TAG,"isEmailVerified: "+emailVerified);
+            if(!emailVerified){
+                Intent intent = new Intent(Login.this,VerifyEmail.class);
+                Pair[] pairs = new Pair[4];
+                pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
+                pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
+                pairs[2] = new Pair<View,String>(signInButton,"sign_in_tran");
+                pairs[3] = new Pair<View,String>(newUserButton,"sign_up_tran");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+                startActivity(intent,options.toBundle());
             }else{
-                usernameTV.setText(usernameText);
-            }
-            createSpaceButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Login.this, CreateSpace.class);
-                    startActivity(intent);
-                }
-            });
+                setContentView(R.layout.activity_logedin);
+                signOutButton = findViewById(R.id.signout);
+                createSpaceButton = findViewById(R.id.create_space);
+                profileImage = findViewById(R.id.profile_image);
+                usernameTV = findViewById(R.id.display_name);
+                usernameTV.setTypeface(Typeface.createFromAsset(getAssets(),"username.otf"));
+                Uri uri = user.getPhotoUrl();
+                String usernameText = user.getDisplayName();
 
-            signOutButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AuthUI.getInstance()
-                            .signOut(Login.this)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    // user is now signed out
-                                    user = FirebaseAuth.getInstance().getCurrentUser();
-                                    startActivity(new Intent(Login.this, Login.class));
-                                    finish();
-                                }
-                            });
+                //set profile image
+                if (uri!=null){
+                    String url = uri+"";
+                    Log.i(TAG,"url: "+url);
+                    profileImage.setImageURL(url);
                 }
-            });
+
+                //set display name
+                if (usernameText == null){
+                    usernameTV.setText("No UserName");
+                }else if(usernameText.equals("")){
+                    usernameTV.setText("No UserName");
+                }else{
+                    usernameTV.setText(usernameText);
+                }
+                createSpaceButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Login.this, CreateSpace.class);
+                        startActivity(intent);
+                    }
+                });
+
+                signOutButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AuthUI.getInstance()
+                                .signOut(Login.this)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        // user is now signed out
+                                        user = FirebaseAuth.getInstance().getCurrentUser();
+                                        startActivity(new Intent(Login.this, Login.class));
+                                        finish();
+                                    }
+                                });
+                    }
+                });
+            }
+
 
         }
         // not signed in
         else {
             setContentView(R.layout.activity_login);
-
-
             welcomeTV = findViewById(R.id.welcome_text);
             continueTV = findViewById(R.id.continue_text);
             welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
