@@ -16,7 +16,9 @@
         android:layout_gravity="center"
         android:text="@string/welcome"
         android:textSize="74sp"
-        android:transitionName="logo_text" />
+        android:layout_gravity="center"
+        android:textColor="#000"
+        android:transitionName="logo_text"/>
 
     <TextView
         android:id="@+id/sign_up_text"
@@ -45,15 +47,15 @@
                 android:inputType="text">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
-
+-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:hint="Username"
+            android:id="@+id/display_name"
+            android:hint="Display Name"
             app:counterEnabled="true"
-            app:counterMaxLength="15"
+            app:counterMaxLength="16"
             android:transitionName="username_tran"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +66,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
--->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
