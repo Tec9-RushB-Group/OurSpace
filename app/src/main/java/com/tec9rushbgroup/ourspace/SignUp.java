@@ -194,6 +194,7 @@ public class SignUp extends AppCompatActivity {
                             }
                         }
                     });
+
             Intent intent = new Intent(SignUp.this,Login.class);
             Pair[] pairs = new Pair[6];
             pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");

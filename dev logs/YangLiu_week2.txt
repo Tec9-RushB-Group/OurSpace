@@ -8,4 +8,5 @@ This weeek what I have done:
 3. add transitions between login screen, sign up screen and splash screen.
 4. implement "forget password?" function.
 5. implement user profile photo and profile name function.
+6. implement verify email function.
 

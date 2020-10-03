@@ -59,6 +59,7 @@ public class Login extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
         // already signed in
         if (user != null) {
             boolean emailVerified = user.isEmailVerified();
