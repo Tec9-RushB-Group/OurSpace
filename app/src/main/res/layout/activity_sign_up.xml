@@ -16,7 +16,6 @@
         android:layout_gravity="center"
         android:text="@string/welcome"
         android:textSize="74sp"
-        android:layout_gravity="center"
         android:textColor="#000"
         android:transitionName="logo_text"/>
 
