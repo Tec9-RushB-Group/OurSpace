@@ -17,6 +17,9 @@
     <string name="send">Send</string>
     <string name="back">Back to Login</string>
     <string name="crete_space">Create Space</string>
+    <string name="verify">Verify your email to continue!</string>
+    <string name="verify_button">Send Email Verification</string>
+    <string name="verified">Verified? Log in!</string>
 
 
 </resources>

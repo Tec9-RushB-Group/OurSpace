@@ -46,15 +46,15 @@
                 android:inputType="text">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
-
+-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:hint="Username"
+            android:id="@+id/display_name"
+            android:hint="Display Name"
             app:counterEnabled="true"
-            app:counterMaxLength="15"
+            app:counterMaxLength="16"
             android:transitionName="username_tran"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +65,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
--->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
