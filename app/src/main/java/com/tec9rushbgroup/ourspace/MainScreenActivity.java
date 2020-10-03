@@ -2,7 +2,9 @@ package com.tec9rushbgroup.ourspace;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +23,11 @@ public class MainScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
 
         ((TextView)findViewById(R.id.hello)).setText(getString(R.string.welcome_message,firstName));
+    }
+
+    public void onClick(View v){
+        Intent i = new Intent(this, SpaceActivity.class);
+        startActivity(i);
     }
 
 
