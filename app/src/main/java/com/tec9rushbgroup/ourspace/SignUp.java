@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +33,8 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView welcomeTV,signUpTV;
     private Button haveAnAccButton,signUpButton;
-    private TextInputLayout password,email,confirm, username;
+    private TextInputLayout password,email,displayName;
+    private String displayNameText;
     String TAG = "SignUp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,7 @@ public class SignUp extends AppCompatActivity {
         password = findViewById(R.id.password);
         //fullName = findViewById(R.id.name);
         email = findViewById(R.id.email);
-        confirm = findViewById(R.id.confirm);
-        username = findViewById(R.id.username);
-
+        displayName = findViewById(R.id.display_name);
         //set fonts
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
         signUpTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
@@ -62,8 +63,9 @@ public class SignUp extends AppCompatActivity {
                 }
                 String emailText = email.getEditText().getText().toString();
                 String passwordText = password.getEditText().getText().toString();
-                Log.d(TAG, "email: "+emailText+"   password: "+passwordText);
+                //Log.d(TAG, "email: "+emailText+"   password: "+passwordText);
                 createAccount(emailText,passwordText);
+
             }
 
         });
@@ -156,6 +158,7 @@ public class SignUp extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = auth.getCurrentUser();
+                            displayNameText = displayName.getEditText().getText().toString();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -175,6 +178,21 @@ public class SignUp extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {
+
+
+            FirebaseUser tempUser = FirebaseAuth.getInstance().getCurrentUser();
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayNameText)
+                    .build();
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User profile updated.");
+                            }
+                        }
+                    });
 
             Intent intent = new Intent(SignUp.this,Login.class);
             Pair[] pairs = new Pair[6];
