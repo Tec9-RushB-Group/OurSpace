@@ -48,11 +48,7 @@
         android:id="@+id/add_space"
         android:layout_width="wrap_content"
         android:layout_height="93dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="288dp"
-        android:layout_marginBottom="371dp"
-        android:text="@string/Add" />
+        android:text="Add" />
 
 
 </RelativeLayout>
