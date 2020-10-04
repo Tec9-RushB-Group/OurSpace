@@ -45,7 +45,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/email"
+        android:id="@+id/get_email"
         android:hint="  Please enter the email/username."
         android:layout_marginTop="140dp"
         android:layout_marginLeft="-386dp"
