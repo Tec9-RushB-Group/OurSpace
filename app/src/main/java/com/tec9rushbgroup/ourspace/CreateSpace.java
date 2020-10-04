@@ -22,11 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-
 public class CreateSpace extends AppCompatActivity {
     private TextView welcomeTV;
     private Button backButton, inviteButton;
-    private TextInputLayout getEmail;
+    private TextInputLayout getEmail, getSpaceName;
     private FirebaseAuth auth;
     private FirebaseUser user;
     String TAG = "CreateSpace";
@@ -48,6 +47,7 @@ public class CreateSpace extends AppCompatActivity {
         getEmail = findViewById(R.id.get_email);
         backButton = findViewById(R.id.back_button);
         inviteButton = findViewById(R.id.invite_button);
+        getSpaceName = findViewById(R.id.get_space_name);
 
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
 
@@ -76,12 +76,12 @@ public class CreateSpace extends AppCompatActivity {
     private void search_email(){
         String user1 = user.getEmail();
         String user2 = getEmail.getEditText().getText().toString();
+        String space_name = getSpaceName.getEditText().getText().toString();
 
         if(!TextUtils.isEmpty(user2)){
 
-            String id = databaseSpaces.push().getKey();
-            Space space = new Space(user1, user2, "./", "Test_space", true, true, true);
-            databaseSpaces.child(id).setValue(space);
+            Space space = new Space(user1, user2, "./", space_name, true, true, true);
+            databaseSpaces.child(space_name).setValue(space);
 
             Toast.makeText(CreateSpace.this, "Space added", Toast.LENGTH_LONG).show();
 

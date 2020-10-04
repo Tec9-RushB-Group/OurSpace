@@ -11,7 +11,7 @@ public class Space {
 
     public Space(){}
 
-    public Space(String user1, String user2, String folder, String name, Boolean stat1, Boolean stat2, Boolean status) {
+    public Space(String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status) {
         this.user1 = user1;
         this.user2 = user2;
         this.folder = folder;
