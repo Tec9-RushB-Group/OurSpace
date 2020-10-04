@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,12 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class CreateSpace extends AppCompatActivity {
     private TextView welcomeTV;
     private Button backButton, inviteButton;
-    private EditText getEmail;
+    private TextInputLayout getEmail;
     private FirebaseAuth auth;
     private FirebaseUser user;
     String TAG = "CreateSpace";
-
-    DatabaseReference databaseSpaces;
+    private DatabaseReference databaseSpaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,11 @@ public class CreateSpace extends AppCompatActivity {
         setContentView(R.layout.activity_create_space);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        databaseSpaces = FirebaseDatabase.getInstance().getReference("Spaces");
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        databaseSpaces = database.getReference();
 
         welcomeTV = findViewById(R.id.create_space_text);
         getEmail = findViewById(R.id.get_email);
@@ -73,7 +75,7 @@ public class CreateSpace extends AppCompatActivity {
     }
     private void search_email(){
         String user1 = user.getEmail();
-        String user2 = getEmail.getText().toString();
+        String user2 = getEmail.getEditText().getText().toString();
 
         if(!TextUtils.isEmpty(user2)){
 
