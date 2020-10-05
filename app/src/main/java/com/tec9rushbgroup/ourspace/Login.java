@@ -61,6 +61,7 @@ public class Login extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         // already signed in
+
         if (user != null) {
             boolean emailVerified = user.isEmailVerified();
             Log.i(TAG,"isEmailVerified: "+emailVerified);
@@ -98,6 +99,8 @@ public class Login extends AppCompatActivity {
                 }else{
                     usernameTV.setText(usernameText);
                 }
+              
+      
                 createSpaceButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -122,7 +125,6 @@ public class Login extends AppCompatActivity {
                     }
                 });
             }
-
 
         }
         // not signed in
