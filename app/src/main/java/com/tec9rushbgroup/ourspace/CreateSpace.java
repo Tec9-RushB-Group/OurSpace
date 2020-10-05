@@ -56,7 +56,6 @@ public class CreateSpace extends AppCompatActivity {
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         sloganTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
 
-        //for "Back to Main Botton".
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +68,6 @@ public class CreateSpace extends AppCompatActivity {
             }
         });
 
-        //for edit text and inviteButton.
         inviteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,24 +113,5 @@ public class CreateSpace extends AppCompatActivity {
 
         return valid;
     }
-    /*
-    private void search_email(){
-        String user1 = user.getEmail();
-        String user2 = getEmail.getEditText().getText().toString();
-        String space_name = getSpaceName.getEditText().getText().toString();
 
-        if(!TextUtils.isEmpty(user2)){
-
-            databaseReference = database.getReference("Spaces");
-            Space space = new Space(user1, user2, "./", space_name, true, true, true);
-            databaseReference.setValue(space);
-
-            Toast.makeText(CreateSpace.this, "Space added", Toast.LENGTH_LONG).show();
-
-        }else{
-            Toast.makeText(CreateSpace.this, "You should enter an email!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-     */
 }
