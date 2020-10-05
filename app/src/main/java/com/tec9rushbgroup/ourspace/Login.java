@@ -75,6 +75,11 @@ public class Login extends AppCompatActivity {
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
                 startActivity(intent,options.toBundle());
             }else{
+                Intent i = new Intent(Login.this,MainScreenActivity.class);
+                startActivity(i);
+
+                //I think we should change screens here. This should bring us to our main screen -Austin
+                /*
                 setContentView(R.layout.activity_logedin);
                 signOutButton = findViewById(R.id.signout);
                 createSpaceButton = findViewById(R.id.create_space);
@@ -85,7 +90,7 @@ public class Login extends AppCompatActivity {
                 String usernameText = user.getDisplayName();
 
                 //set profile image
-                if (uri!=null){
+                if (uri!=null){                        //All this code here can be used for the profile section - Austin
                     String url = uri+"";
                     Log.i(TAG,"url: "+url);
                     profileImage.setImageURL(url);
@@ -124,6 +129,8 @@ public class Login extends AppCompatActivity {
                                 });
                     }
                 });
+                */
+
             }
 
         }

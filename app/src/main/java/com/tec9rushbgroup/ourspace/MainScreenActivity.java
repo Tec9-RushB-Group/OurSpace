@@ -26,7 +26,12 @@ public class MainScreenActivity extends AppCompatActivity {
     }
 
     public void onClick(View v){
-        Intent i = new Intent(this, SpaceActivity.class);
+        Intent i = new Intent(MainScreenActivity.this, SpaceActivity.class);
+        startActivity(i);
+    }
+
+    public void createSpace(View v){
+        Intent i = new Intent(MainScreenActivity.this, CreateSpace.class);
         startActivity(i);
     }
 

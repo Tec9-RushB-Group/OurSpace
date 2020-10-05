@@ -56,7 +56,7 @@ public class CreateSpace extends AppCompatActivity {
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         sloganTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
 
-        //for "Back to Main Botton".
+        //for "Back to Main Button".
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
