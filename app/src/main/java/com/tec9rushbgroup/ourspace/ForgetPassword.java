@@ -73,7 +73,7 @@ public class ForgetPassword extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ForgetPassword.this,Login.class);
+                Intent intent = new Intent(ForgetPassword.this, Login.class);
                 Pair[] pairs = new Pair[5];
                 pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
                 pairs[1] = new Pair<View,String>(forgetTV,"slogan_text");

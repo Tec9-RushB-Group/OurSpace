@@ -15,7 +15,6 @@
         <activity android:name=".MainScreenActivity"></activity>
         <activity android:name=".VerifyEmail"></activity>
         <activity android:name=".CreateSpace" />
-        <activity android:name=".logedin" />
         <activity android:name=".ForgetPassword" />
         <activity
             android:name=".SignUp"

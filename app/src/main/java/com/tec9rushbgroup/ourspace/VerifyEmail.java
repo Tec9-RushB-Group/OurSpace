@@ -67,18 +67,18 @@ public class VerifyEmail extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 // user is now signed out
                                 user = FirebaseAuth.getInstance().getCurrentUser();
-                                startActivity(new Intent(VerifyEmail.this, Login.class));
+                                Intent intent = new Intent(VerifyEmail.this,Login.class);
+                                Pair[] pairs = new Pair[4];
+                                pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
+                                pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
+                                pairs[2] = new Pair<View,String>(sendVerificationButton,"sign_in_tran");
+                                pairs[3] = new Pair<View,String>(verifiedButton,"sign_up_tran");
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(VerifyEmail.this,pairs);
+                                startActivity(intent,options.toBundle());
                                 finish();
                             }
                         });
-                Intent intent = new Intent(VerifyEmail.this,Login.class);
-                Pair[] pairs = new Pair[4];
-                pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
-                pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
-                pairs[2] = new Pair<View,String>(sendVerificationButton,"sign_in_tran");
-                pairs[3] = new Pair<View,String>(verifiedButton,"sign_up_tran");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(VerifyEmail.this,pairs);
-                startActivity(intent,options.toBundle());
+
             }
         });
 

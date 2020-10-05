@@ -179,8 +179,6 @@ public class SignUp extends AppCompatActivity {
 
         if (user != null) {
 
-
-            FirebaseUser tempUser = FirebaseAuth.getInstance().getCurrentUser();
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayNameText)
                     .build();
@@ -189,22 +187,20 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Log.d(TAG, "User profile updated.");
+                                Intent intent = new Intent(SignUp.this,Login.class);
+                                Pair[] pairs = new Pair[6];
+                                pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
+                                pairs[1] = new Pair<View,String>(signUpTV,"slogan_text");
+                                pairs[2] = new Pair<View,String>(email,"email_tran");
+                                pairs[3] = new Pair<View,String>(password,"password_tran");
+                                pairs[4] = new Pair<View,String>(signUpButton,"sign_in_tran");
+                                pairs[5] = new Pair<View,String>(haveAnAccButton,"sign_up_tran");
+
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this,pairs);
+                                startActivity(intent,options.toBundle());
                             }
                         }
                     });
-
-            Intent intent = new Intent(SignUp.this,Login.class);
-            Pair[] pairs = new Pair[6];
-            pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
-            pairs[1] = new Pair<View,String>(signUpTV,"slogan_text");
-            pairs[2] = new Pair<View,String>(email,"email_tran");
-            pairs[3] = new Pair<View,String>(password,"password_tran");
-            pairs[4] = new Pair<View,String>(signUpButton,"sign_in_tran");
-            pairs[5] = new Pair<View,String>(haveAnAccButton,"sign_up_tran");
-
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this,pairs);
-            startActivity(intent,options.toBundle());
 
         }
     }
