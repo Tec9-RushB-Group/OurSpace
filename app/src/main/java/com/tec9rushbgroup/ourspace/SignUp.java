@@ -25,32 +25,52 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SignUp extends AppCompatActivity {
-    private FirebaseAuth auth;
+
     private TextView welcomeTV, signUpTV;
     private Button haveAnAccButton, signUpButton;
     private TextInputLayout password, email, displayName;
     private String displayNameText;
     String TAG = "SignUp";
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase database;
+    private DatabaseReference spaceDatabaseReference, userDatabaseReference;
+    private List<User> userList;
+    private List<Space> spaceList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        auth = FirebaseAuth.getInstance();
         welcomeTV = findViewById(R.id.welcome_text);
         signUpTV = findViewById(R.id.sign_up_text);
         haveAnAccButton = findViewById(R.id.have_an_acc_button);
         signUpButton = findViewById(R.id.sign_up_button);
         password = findViewById(R.id.password);
-        //fullName = findViewById(R.id.name);
         email = findViewById(R.id.email);
         displayName = findViewById(R.id.display_name);
+        // initialize environment
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
+
         //set fonts
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         signUpTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
@@ -59,14 +79,17 @@ public class SignUp extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateForm()) {
-                    return;
+                if (validateForm()) {
+                    String userEmail = email.getEditText().getText().toString();
+                    String userName = displayName.getEditText().getText().toString();
+                    String userPassword = password.getEditText().getText().toString();
+                    if (isAbleToCreateUser(userName)) {
+                        String uid = userDatabaseReference.push().getKey();
+                        User user = new User(userEmail,userName);
+                        userDatabaseReference.child(uid).setValue(user);
+                        createAccount(userEmail,userPassword);
+                    }
                 }
-                String emailText = email.getEditText().getText().toString();
-                String passwordText = password.getEditText().getText().toString();
-                //Log.d(TAG, "email: "+emailText+"   password: "+passwordText);
-                createAccount(emailText, passwordText);
-
             }
 
         });
@@ -91,12 +114,38 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    private boolean isAbleToCreateUser(String nameText){
+        boolean result = true;
+        for (User user : userList){
+            if(user.getUserName().equals(nameText)){
+                displayName.setError("This name already exists.");
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
 
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        //updateUI(currentUser);
+        firebaseUser = firebaseAuth.getCurrentUser();
+        userDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                userList.clear();
+
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    User user = userSnapshot.getValue(User.class);
+                    userList.add(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
     private boolean validateForm() {
@@ -146,14 +195,14 @@ public class SignUp extends AppCompatActivity {
 
         TextInputLayout emailField = findViewById(R.id.email);
         // [START create_user_with_email]
-        auth.createUserWithEmailAndPassword(email, password)
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = auth.getCurrentUser();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             displayNameText = displayName.getEditText().getText().toString();
                             updateUI(user);
                         } else {
@@ -191,9 +240,10 @@ public class SignUp extends AppCompatActivity {
                                 pairs[3] = new Pair<View, String>(password, "password_tran");
                                 pairs[4] = new Pair<View, String>(signUpButton, "sign_in_tran");
                                 pairs[5] = new Pair<View, String>(haveAnAccButton, "sign_up_tran");
-
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this, pairs);
                                 startActivity(intent, options.toBundle());
+                                finish();
+
                             }
                         }
                     });

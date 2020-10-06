@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,14 +36,15 @@ import java.util.List;
 
 
 public class CreateSpace extends AppCompatActivity {
+    String TAG = "CreateSpace";
     private TextView welcomeTV, sloganTV;
     private Button backButton, inviteButton;
     private TextInputLayout email, spaceName;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    String TAG = "CreateSpace";
     private FirebaseDatabase database;
-    private DatabaseReference databaseReference, databaseReference2;
+    private DatabaseReference spaceDatabaseReference, userDatabaseReference;
+    private List<User> userList;
     private List<Space> spaceList;
     private String currentUserEmail;
 
@@ -53,15 +55,14 @@ public class CreateSpace extends AppCompatActivity {
         setContentView(R.layout.activity_create_space);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // initialize environment
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
-        //For space list
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Spaces");
-        databaseReference2 = database.getReference("User");
-
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
         spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
 
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.create_text);
@@ -91,10 +92,10 @@ public class CreateSpace extends AppCompatActivity {
                     String user2 = email.getEditText().getText().toString();
                     String space_name = spaceName.getEditText().getText().toString();
 
-                    if (isAbleToCreateSpace(user2, spaceList, space_name)) {
-                        String uid = databaseReference.push().getKey();
+                    if (isAbleToCreateSpace(user2, space_name)) {
+                        String uid = spaceDatabaseReference.push().getKey();
                         Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true);
-                        databaseReference.child(uid).setValue(space);
+                        spaceDatabaseReference.child(uid).setValue(space);
                         Toast.makeText(CreateSpace.this, "Space added", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(CreateSpace.this, Login.class);
                         startActivity(intent);
@@ -107,11 +108,23 @@ public class CreateSpace extends AppCompatActivity {
     }
 
 
-    private boolean isAbleToCreateSpace(String emailText, List<Space> spaceList, String name) {
+    private boolean isAbleToCreateSpace(String emailText, String name) {
         boolean result = true;
         if (currentUserEmail.equals(emailText)) {
             email.setError("You can not create space with yourself!");
             result = false;
+        }
+        boolean tempResult = false;
+        for (User user : userList) {
+            if (user.getEmail().equals(emailText)){
+                tempResult = true;
+                break;
+            }
+        }
+        if (!tempResult){
+            email.setError("This user does not exist!");
+            result = false;
+            return result;
         }
         for (Space space : spaceList) {
             if (currentUserEmail.equals(space.user1) || currentUserEmail.equals(space.user2)) {
@@ -126,6 +139,7 @@ public class CreateSpace extends AppCompatActivity {
                 }
             }
         }
+
         return result;
     }
 
@@ -133,8 +147,26 @@ public class CreateSpace extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
         currentUserEmail = firebaseUser.getEmail();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+        userDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                userList.clear();
+                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
+                    User user = spaceSnapshot.getValue(User.class);
+                    userList.add(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
+        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 spaceList.clear();
