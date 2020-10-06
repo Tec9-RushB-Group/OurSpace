@@ -43,10 +43,10 @@ public class CreateSpace extends AppCompatActivity {
     String TAG = "CreateSpace";
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-
     //spaces list
     private ListView listViewSpaces;
     private List<Space> spaceList;
+
 
 
     @Override
@@ -58,6 +58,13 @@ public class CreateSpace extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
+        //For space list
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("Spaces");
+
+        //For space list
+        listViewSpaces = (ListView) findViewById(R.id.list_view_spaces);
+        spaceList = new ArrayList<>();
 
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.create_text);
@@ -65,10 +72,6 @@ public class CreateSpace extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
         inviteButton = findViewById(R.id.invite_button);
         spaceName = findViewById(R.id.space_name);
-
-        //space list
-        listViewSpaces = (ListView) findViewById(R.id.list_view_spaces);
-        spaceList = new ArrayList<>();
 
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         sloganTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
@@ -94,9 +97,6 @@ public class CreateSpace extends AppCompatActivity {
                     String user2 = email.getEditText().getText().toString();
                     String space_name = spaceName.getEditText().getText().toString();
 
-
-                    database = FirebaseDatabase.getInstance();
-                    databaseReference = database.getReference("Spaces");
                     String uid = databaseReference.push().getKey();
                     Space space = new Space(uid, user1, user2, "./", space_name, true, true, true);
                     databaseReference.child(uid).setValue(space);
