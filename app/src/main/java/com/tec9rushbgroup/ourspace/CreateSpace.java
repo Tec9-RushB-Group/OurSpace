@@ -1,5 +1,6 @@
 package com.tec9rushbgroup.ourspace;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
@@ -10,8 +11,10 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +24,14 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CreateSpace extends AppCompatActivity {
@@ -34,6 +43,10 @@ public class CreateSpace extends AppCompatActivity {
     String TAG = "CreateSpace";
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+
+    //spaces list
+    private ListView listViewSpaces;
+    private List<Space> spaceList;
 
 
     @Override
@@ -52,6 +65,10 @@ public class CreateSpace extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
         inviteButton = findViewById(R.id.invite_button);
         spaceName = findViewById(R.id.space_name);
+
+        //space list
+        listViewSpaces = (ListView) findViewById(R.id.list_view_spaces);
+        spaceList = new ArrayList<>();
 
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         sloganTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
@@ -90,6 +107,37 @@ public class CreateSpace extends AppCompatActivity {
             }
         });
     }
+
+    //for space list.
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                spaceList.clear();
+
+                for (DataSnapshot spaceSnapshot: snapshot.getChildren()){
+                    Space space = spaceSnapshot.getValue(Space.class);
+
+                    spaceList.add(space);
+                }
+                enter_spaces_buttons_list adapter = new enter_spaces_buttons_list(CreateSpace.this, spaceList);
+                listViewSpaces.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
+
+
 
     private boolean validateForm() {
         boolean valid = true;
