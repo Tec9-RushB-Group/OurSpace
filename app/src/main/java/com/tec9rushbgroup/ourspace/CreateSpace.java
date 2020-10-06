@@ -78,7 +78,12 @@ public class CreateSpace extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateSpace.this, Login.class);
-                startActivity(intent);
+                Pair[] pairs = new Pair[3];
+                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
+                pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
+                startActivity(intent, options.toBundle());
                 finish();
             }
         });
@@ -96,9 +101,13 @@ public class CreateSpace extends AppCompatActivity {
                         String uid = spaceDatabaseReference.push().getKey();
                         Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true);
                         spaceDatabaseReference.child(uid).setValue(space);
-                        Toast.makeText(CreateSpace.this, "Space added", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(CreateSpace.this, Login.class);
-                        startActivity(intent);
+                        Pair[] pairs = new Pair[3];
+                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
+                        pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
+                        startActivity(intent, options.toBundle());
                         finish();
                     }
 
