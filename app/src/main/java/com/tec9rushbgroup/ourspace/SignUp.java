@@ -117,10 +117,12 @@ public class SignUp extends AppCompatActivity {
     private boolean isAbleToCreateUser(String nameText){
         boolean result = true;
         for (User user : userList){
-            if(user.getUserName().equals(nameText)){
-                displayName.setError("This name already exists.");
-                result = false;
-                break;
+            if (user.getUserName()!=null) {
+                if (user.getUserName().equals(nameText)) {
+                    displayName.setError("This name already exists.");
+                    result = false;
+                    break;
+                }
             }
         }
         return result;
