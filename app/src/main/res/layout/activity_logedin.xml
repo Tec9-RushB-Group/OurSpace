@@ -1,80 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#fff"
-    >
+    android:orientation="vertical">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:padding="5dp"
-        android:background="#FFDAA6">
+        android:background="#FFDAA6"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/welcome_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome"
             android:layout_above="@id/profile_image"
+            android:text="@string/welcome"
 
             android:textColor="#000"
             android:textSize="25sp"
             android:transitionName="logo_text" />
+
         <com.tec9rushbgroup.ourspace.ImageViewHelper
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/userphoto"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/userphoto" />
+
         <TextView
             android:id="@+id/display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:includeFontPadding="false"
             android:text="Username"
             android:textSize="30sp"
-            android:layout_toRightOf="@id/profile_image"
-            android:layout_centerVertical="true"
-            android:includeFontPadding="false"
-            android:layout_marginLeft="15dp"
-            android:transitionName="slogan_text"/>
+            android:transitionName="slogan_text" />
 
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+    <ListView
+        android:id="@+id/list_view_spaces"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp" />
 
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
 
-        <ListView
-            android:id="@+id/list_view_spaces"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:background="#000"
+        android:text="@string/sign_out"
+        android:textColor="#fff"
+        android:transitionName="sign_in_tran" />
 
-        <Button
-            android:id="@+id/signout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_out"
-            android:background="#000"
-            android:textColor="#fff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:transitionName="sign_in_tran"/>
+    <Button
+        android:id="@+id/create_space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
 
-        <Button
-            android:id="@+id/create_space"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/crete_space"
-            android:background="#000"
-            android:textColor="#fff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
-
+        android:layout_marginBottom="5dp"
+        android:background="#000"
+        android:text="@string/crete_space"
+        android:textColor="#fff" />
+    </LinearLayout>
 </LinearLayout>
