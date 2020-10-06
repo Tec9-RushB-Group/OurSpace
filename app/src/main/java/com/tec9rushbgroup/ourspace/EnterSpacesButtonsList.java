@@ -12,11 +12,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class enter_spaces_buttons_list extends ArrayAdapter<Space> {
+public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
     private Activity context;
     private List<Space> spaceList;
 
-    public enter_spaces_buttons_list(Activity context, List<Space> spaceList){
+    public EnterSpacesButtonsList(Activity context, List<Space> spaceList){
         super(context, R.layout.spaces_list_layout, spaceList);
         this.context = context;
         this.spaceList = spaceList;

@@ -124,7 +124,7 @@ public class CreateSpace extends AppCompatActivity {
 
                     spaceList.add(space);
                 }
-                enter_spaces_buttons_list adapter = new enter_spaces_buttons_list(CreateSpace.this, spaceList);
+                EnterSpacesButtonsList adapter = new EnterSpacesButtonsList(CreateSpace.this, spaceList);
                 listViewSpaces.setAdapter(adapter);
             }
 
