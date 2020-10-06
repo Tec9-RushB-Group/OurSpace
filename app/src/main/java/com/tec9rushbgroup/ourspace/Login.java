@@ -131,15 +131,19 @@ public class Login extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         // user is now signed out
                                         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                        startActivity(new Intent(Login.this, Login.class));
+                                        Intent intent = new Intent(Login.this, Login.class);
+                                        Pair[] pairs = new Pair[3];
+                                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                                        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
+                                        pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
+                                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                                        startActivity(intent, options.toBundle());
                                         finish();
                                     }
                                 });
                     }
                 });
             }
-
-
         }
         // not signed in
         else {
@@ -294,7 +298,15 @@ public class Login extends AppCompatActivity {
                     Log.i(TAG, "update google user");
                 }
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                startActivity(new Intent(Login.this, Login.class));
+                Intent intent = new Intent(Login.this, Login.class);
+                Pair[] pairs = new Pair[5];
+                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                pairs[1] = new Pair<View, String>(continueTV, "slogan_text");
+                pairs[2] = new Pair<View, String>(email, "email_tran");
+                pairs[3] = new Pair<View, String>(signInButton, "sign_in_tran");
+                pairs[4] = new Pair<View, String>(newUserButton, "sign_up_tran");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                startActivity(intent, options.toBundle());
                 //Toast.makeText(Login.this, "successfully signed in! New User? : " + response.isNewUser(), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
