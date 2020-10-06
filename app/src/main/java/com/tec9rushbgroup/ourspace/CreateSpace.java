@@ -125,12 +125,12 @@ public class CreateSpace extends AppCompatActivity {
         }
         boolean tempResult = false;
         for (User user : userList) {
-            if (user.getEmail().equals(emailText)){
+            if (user.getEmail().equals(emailText)) {
                 tempResult = true;
                 break;
             }
         }
-        if (!tempResult){
+        if (!tempResult) {
             email.setError("This user does not exist!");
             result = false;
             return result;
