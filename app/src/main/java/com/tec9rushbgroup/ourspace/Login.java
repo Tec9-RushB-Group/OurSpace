@@ -60,20 +60,30 @@ public class Login extends AppCompatActivity {
     private TextView welcomeTV,continueTV,usernameTV;
     private TextInputLayout email,password;
     private ImageViewHelper profileImage;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    //spaces list
+    private ListView spaceListView;
+    private List<Space> spaceList;
+    private String currentUserEmail;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        spaceListView = findViewById(R.id.list_view_spaces);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("Spaces");
+        spaceList = new ArrayList<>();
 
         // already signed in
         if (user != null) {
             boolean emailVerified = user.isEmailVerified();
             Log.i(TAG,"isEmailVerified: "+emailVerified);
+            //go to verifyEmail Screen
             if(!emailVerified){
                 Intent intent = new Intent(Login.this,VerifyEmail.class);
                 Pair[] pairs = new Pair[4];
@@ -83,8 +93,13 @@ public class Login extends AppCompatActivity {
                 pairs[3] = new Pair<View,String>(newUserButton,"sign_up_tran");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
                 startActivity(intent,options.toBundle());
-            }else{
+            }
+            //go to dashboard
+            else{
                 setContentView(R.layout.activity_logedin);
+
+
+                spaceListView = findViewById(R.id.list_view_spaces);
                 signOutButton = findViewById(R.id.signout);
                 createSpaceButton = findViewById(R.id.create_space);
                 profileImage = findViewById(R.id.profile_image);
@@ -96,7 +111,6 @@ public class Login extends AppCompatActivity {
                 //set profile image
                 if (uri!=null){
                     String url = uri+"";
-                    Log.i(TAG,"url: "+url);
                     profileImage.setImageURL(url);
                 }
 
@@ -217,8 +231,33 @@ public class Login extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
+        if (user != null) {
+            currentUserEmail = user.getEmail();
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+
+                    spaceList.clear();
+
+                    for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
+                        Space space = spaceSnapshot.getValue(Space.class);
+                        if(isCurrentUsersSpace(space)){
+                            spaceList.add(space);
+                        }
+                    }
+                    EnterSpacesButtonsList adapter = new EnterSpacesButtonsList(Login.this, spaceList);
+                    spaceListView.setAdapter(adapter);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+
+            });
+        }
         //updateUI(currentUser);
     }
 
@@ -273,6 +312,15 @@ public class Login extends AppCompatActivity {
 
         return valid;
     }
+
+    private boolean isCurrentUsersSpace(Space space){
+        if (space.getUser1().equals(currentUserEmail) || space.getUser2().equals(currentUserEmail)){
+            return true;
+        }
+        return false;
+    }
+
+
     private void signIn(String email, String password) {
 
 

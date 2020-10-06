@@ -42,10 +42,9 @@ public class CreateSpace extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     String TAG = "CreateSpace";
     private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
-    //spaces list
-    private ListView listViewSpaces;
+    private DatabaseReference databaseReference,databaseReference2;
     private List<Space> spaceList;
+    private String currentUserEmail;
 
 
 
@@ -61,9 +60,8 @@ public class CreateSpace extends AppCompatActivity {
         //For space list
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Spaces");
+        databaseReference2 = database.getReference("User");
 
-        //For space list
-        listViewSpaces = (ListView) findViewById(R.id.list_view_spaces);
         spaceList = new ArrayList<>();
 
         welcomeTV = findViewById(R.id.welcome_text);
@@ -80,11 +78,8 @@ public class CreateSpace extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateSpace.this, Login.class);
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                pairs[1] = new Pair<View, String>(backButton, "sign_up_tran");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
-                startActivity(intent, options.toBundle());
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -93,39 +88,62 @@ public class CreateSpace extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (validateForm()) {
-                    String user1 = firebaseUser.getEmail();
+                    currentUserEmail =firebaseUser.getEmail();
                     String user2 = email.getEditText().getText().toString();
                     String space_name = spaceName.getEditText().getText().toString();
 
-                    String uid = databaseReference.push().getKey();
-                    Space space = new Space(uid, user1, user2, "./", space_name, true, true, true);
-                    databaseReference.child(uid).setValue(space);
-                    Toast.makeText(CreateSpace.this, "Space added", Toast.LENGTH_LONG).show();
+                    if (isAbleToCreateSpace(user2,spaceList,space_name)){
+                        String uid = databaseReference.push().getKey();
+                        Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true);
+                        databaseReference.child(uid).setValue(space);
+                        Toast.makeText(CreateSpace.this, "Space added", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(CreateSpace.this, Login.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
             }
         });
     }
 
-    //for space list.
 
+    private boolean isAbleToCreateSpace(String emailText,List<Space> spaceList, String name){
+        boolean result = true;
+        if (currentUserEmail.equals(emailText)){
+            email.setError("You can not create space with yourself!");
+            result = false;
+        }
+        for (Space space: spaceList){
+            if(currentUserEmail.equals(space.user1)||currentUserEmail.equals(space.user2)){
+                if (space.getName().equals(name)){
+                    spaceName.setError("You already have a space with this name!");
+                    result = false;
+                }
+                if ((currentUserEmail.equals(space.user1) && emailText.equals(space.user2)) ||
+                        (currentUserEmail.equals(space.user2) && emailText.equals(space.user1)) ){
+                    email.setError("You can only have one space with this user!");
+                    result = false;
+                }
+            }
+        }
+        return result;
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        currentUserEmail = firebaseUser.getEmail();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
                 spaceList.clear();
 
                 for (DataSnapshot spaceSnapshot: snapshot.getChildren()){
                     Space space = spaceSnapshot.getValue(Space.class);
-
                     spaceList.add(space);
                 }
-                EnterSpacesButtonsList adapter = new EnterSpacesButtonsList(CreateSpace.this, spaceList);
-                listViewSpaces.setAdapter(adapter);
             }
 
             @Override
@@ -134,7 +152,6 @@ public class CreateSpace extends AppCompatActivity {
             }
         });
     }
-
 
 
     private boolean validateForm() {
