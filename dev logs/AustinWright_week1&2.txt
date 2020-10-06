@@ -1,9 +1,0 @@
-Austin Wright
-101072025
-Week 1 & 2
-
-This week what I've done:
-1. Watched a 4 hour video on how to code with Android studio
-2. Started the main screen of our app
-3. Minor tweak to the login, added a username text box, but haven't used it anywhere yet.
-

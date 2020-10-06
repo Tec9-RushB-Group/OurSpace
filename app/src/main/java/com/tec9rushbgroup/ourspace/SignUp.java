@@ -146,6 +146,7 @@ public class SignUp extends AppCompatActivity {
 
         return valid;
     }
+
     private void createAccount(String email, String password) {
 
         TextInputLayout emailField = findViewById(R.id.email);
