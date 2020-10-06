@@ -97,6 +97,8 @@ public class Login extends AppCompatActivity {
             //go to dashboard
             else {
                 setContentView(R.layout.activity_logedin);
+                welcomeTV = findViewById(R.id.welcome_text);
+                welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
                 signOutButton = findViewById(R.id.signout);
                 createSpaceButton = findViewById(R.id.create_space);
                 profileImage = findViewById(R.id.profile_image);

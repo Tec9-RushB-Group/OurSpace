@@ -13,8 +13,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:padding="20dp"
+        android:padding="5dp"
         android:background="#FFDAA6">
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:layout_above="@id/profile_image"
+
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:transitionName="logo_text" />
         <com.tec9rushbgroup.ourspace.ImageViewHelper
             android:id="@+id/profile_image"
             android:layout_width="100dp"
@@ -30,7 +41,8 @@
             android:layout_toRightOf="@id/profile_image"
             android:layout_centerVertical="true"
             android:includeFontPadding="false"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="15dp"
+            android:transitionName="slogan_text"/>
 
 
     </RelativeLayout>
@@ -52,7 +64,8 @@
             android:background="#000"
             android:textColor="#fff"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:transitionName="sign_in_tran"/>
 
         <Button
             android:id="@+id/create_space"
