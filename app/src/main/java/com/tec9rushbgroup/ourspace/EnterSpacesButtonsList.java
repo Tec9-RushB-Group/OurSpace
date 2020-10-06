@@ -16,7 +16,7 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
     private Activity context;
     private List<Space> spaceList;
 
-    public EnterSpacesButtonsList(Activity context, List<Space> spaceList){
+    public EnterSpacesButtonsList(Activity context, List<Space> spaceList) {
         super(context, R.layout.spaces_list_layout, spaceList);
         this.context = context;
         this.spaceList = spaceList;
@@ -27,7 +27,7 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.spaces_list_layout,null,true);
+        View listViewItem = inflater.inflate(R.layout.spaces_list_layout, null, true);
         TextView currentSpaceName = (TextView) listViewItem.findViewById(R.id.current_space_name);
         TextView currentSpaceStatus = (TextView) listViewItem.findViewById(R.id.current_space_status);
 

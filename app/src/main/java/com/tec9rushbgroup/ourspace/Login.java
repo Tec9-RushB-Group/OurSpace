@@ -56,9 +56,9 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "Login";
     private FirebaseUser user;
-    private Button googleSignButton,signInButton,signOutButton,newUserButton,forgetPasswordButton,createSpaceButton;
-    private TextView welcomeTV,continueTV,usernameTV;
-    private TextInputLayout email,password;
+    private Button googleSignButton, signInButton, signOutButton, newUserButton, forgetPasswordButton, createSpaceButton;
+    private TextView welcomeTV, continueTV, usernameTV;
+    private TextInputLayout email, password;
     private ImageViewHelper profileImage;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         spaceListView = findViewById(R.id.list_view_spaces);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -82,20 +82,20 @@ public class Login extends AppCompatActivity {
         // already signed in
         if (user != null) {
             boolean emailVerified = user.isEmailVerified();
-            Log.i(TAG,"isEmailVerified: "+emailVerified);
+            Log.i(TAG, "isEmailVerified: " + emailVerified);
             //go to verifyEmail Screen
-            if(!emailVerified){
-                Intent intent = new Intent(Login.this,VerifyEmail.class);
+            if (!emailVerified) {
+                Intent intent = new Intent(Login.this, VerifyEmail.class);
                 Pair[] pairs = new Pair[4];
-                pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
-                pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
-                pairs[2] = new Pair<View,String>(signInButton,"sign_in_tran");
-                pairs[3] = new Pair<View,String>(newUserButton,"sign_up_tran");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
-                startActivity(intent,options.toBundle());
+                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                pairs[1] = new Pair<View, String>(continueTV, "slogan_text");
+                pairs[2] = new Pair<View, String>(signInButton, "sign_in_tran");
+                pairs[3] = new Pair<View, String>(newUserButton, "sign_up_tran");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                startActivity(intent, options.toBundle());
             }
             //go to dashboard
-            else{
+            else {
                 setContentView(R.layout.activity_logedin);
 
 
@@ -104,22 +104,22 @@ public class Login extends AppCompatActivity {
                 createSpaceButton = findViewById(R.id.create_space);
                 profileImage = findViewById(R.id.profile_image);
                 usernameTV = findViewById(R.id.display_name);
-                usernameTV.setTypeface(Typeface.createFromAsset(getAssets(),"username.otf"));
+                usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "username.otf"));
                 Uri uri = user.getPhotoUrl();
                 String usernameText = user.getDisplayName();
 
                 //set profile image
-                if (uri!=null){
-                    String url = uri+"";
+                if (uri != null) {
+                    String url = uri + "";
                     profileImage.setImageURL(url);
                 }
 
                 //set display name
-                if (usernameText == null){
+                if (usernameText == null) {
                     usernameTV.setText("No UserName");
-                }else if(usernameText.equals("")){
+                } else if (usernameText.equals("")) {
                     usernameTV.setText("No UserName");
-                }else{
+                } else {
                     usernameTV.setText(usernameText);
                 }
                 createSpaceButton.setOnClickListener(new View.OnClickListener() {
@@ -154,8 +154,8 @@ public class Login extends AppCompatActivity {
             setContentView(R.layout.activity_login);
             welcomeTV = findViewById(R.id.welcome_text);
             continueTV = findViewById(R.id.continue_text);
-            welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
-            continueTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
+            welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
+            continueTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
             googleSignButton = findViewById(R.id.google_sign_button);
             newUserButton = findViewById(R.id.new_user_button);
             email = findViewById(R.id.email);
@@ -166,15 +166,15 @@ public class Login extends AppCompatActivity {
             forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Login.this,ForgetPassword.class);
+                    Intent intent = new Intent(Login.this, ForgetPassword.class);
                     Pair[] pairs = new Pair[5];
-                    pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
-                    pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
-                    pairs[2] = new Pair<View,String>(email,"email_tran");
-                    pairs[3] = new Pair<View,String>(signInButton,"sign_in_tran");
-                    pairs[4] = new Pair<View,String>(newUserButton,"sign_up_tran");
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
-                    startActivity(intent,options.toBundle());
+                    pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                    pairs[1] = new Pair<View, String>(continueTV, "slogan_text");
+                    pairs[2] = new Pair<View, String>(email, "email_tran");
+                    pairs[3] = new Pair<View, String>(signInButton, "sign_in_tran");
+                    pairs[4] = new Pair<View, String>(newUserButton, "sign_up_tran");
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                    startActivity(intent, options.toBundle());
                 }
             });
 
@@ -186,23 +186,23 @@ public class Login extends AppCompatActivity {
                     if (!validateForm()) {
                         return;
                     }
-                    signIn(emailText,passwordText);
+                    signIn(emailText, passwordText);
                 }
             });
             newUserButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Login.this,SignUp.class);
+                    Intent intent = new Intent(Login.this, SignUp.class);
                     Pair[] pairs = new Pair[6];
-                    pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
-                    pairs[1] = new Pair<View,String>(continueTV,"slogan_text");
-                    pairs[2] = new Pair<View,String>(email,"email_tran");
-                    pairs[3] = new Pair<View,String>(password,"password_tran");
-                    pairs[4] = new Pair<View,String>(signInButton,"sign_in_tran");
-                    pairs[5] = new Pair<View,String>(newUserButton,"sign_up_tran");
+                    pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                    pairs[1] = new Pair<View, String>(continueTV, "slogan_text");
+                    pairs[2] = new Pair<View, String>(email, "email_tran");
+                    pairs[3] = new Pair<View, String>(password, "password_tran");
+                    pairs[4] = new Pair<View, String>(signInButton, "sign_in_tran");
+                    pairs[5] = new Pair<View, String>(newUserButton, "sign_up_tran");
 
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
-                    startActivity(intent,options.toBundle());
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                    startActivity(intent, options.toBundle());
 
                 }
             });
@@ -227,7 +227,6 @@ public class Login extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -243,7 +242,7 @@ public class Login extends AppCompatActivity {
 
                     for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
                         Space space = spaceSnapshot.getValue(Space.class);
-                        if(isCurrentUsersSpace(space)){
+                        if (isCurrentUsersSpace(space)) {
                             spaceList.add(space);
                         }
                     }
@@ -268,7 +267,7 @@ public class Login extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
-            Log.i(TAG,"requestCode: "+requestCode+"-------resultCode: "+ resultCode+"------data: "+data + "response: "+ response);
+            Log.i(TAG, "requestCode: " + requestCode + "-------resultCode: " + resultCode + "------data: " + data + "response: " + response);
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 user = FirebaseAuth.getInstance().getCurrentUser();
@@ -291,11 +290,10 @@ public class Login extends AppCompatActivity {
         if (TextUtils.isEmpty(emailText)) {
             emailField.setError("Required.");
             valid = false;
-        }else if(!emailText.matches(regex)){
+        } else if (!emailText.matches(regex)) {
             emailField.setError("Invalid Email address.");
             valid = false;
-        }
-        else {
+        } else {
             emailField.setError(null);
         }
 
@@ -305,16 +303,15 @@ public class Login extends AppCompatActivity {
         if (TextUtils.isEmpty(passwordText)) {
             passwordField.setError("Required.");
             valid = false;
-        }
-        else {
+        } else {
             passwordField.setError(null);
         }
 
         return valid;
     }
 
-    private boolean isCurrentUsersSpace(Space space){
-        if (space.getUser1().equals(currentUserEmail) || space.getUser2().equals(currentUserEmail)){
+    private boolean isCurrentUsersSpace(Space space) {
+        if (space.getUser1().equals(currentUserEmail) || space.getUser2().equals(currentUserEmail)) {
             return true;
         }
         return false;
@@ -347,13 +344,14 @@ public class Login extends AppCompatActivity {
                 });
         // [END sign_in_with_email]
     }
+
     private void updateUI(FirebaseUser user) {
         TextInputLayout passwordField = findViewById(R.id.password);
         TextInputLayout emailField = findViewById(R.id.email);
         if (user != null) {
-            Intent intent = new Intent(Login.this,Login.class);
+            Intent intent = new Intent(Login.this, Login.class);
             startActivity(intent);
-        }else{
+        } else {
             emailField.setError("LogIn filed (Invalid email/password)");
             passwordField.setError("LogIn filed (Invalid email/password)");
         }

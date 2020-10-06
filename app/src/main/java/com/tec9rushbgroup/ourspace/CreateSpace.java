@@ -35,17 +35,16 @@ import java.util.List;
 
 
 public class CreateSpace extends AppCompatActivity {
-    private TextView welcomeTV,sloganTV;
+    private TextView welcomeTV, sloganTV;
     private Button backButton, inviteButton;
     private TextInputLayout email, spaceName;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     String TAG = "CreateSpace";
     private FirebaseDatabase database;
-    private DatabaseReference databaseReference,databaseReference2;
+    private DatabaseReference databaseReference, databaseReference2;
     private List<Space> spaceList;
     private String currentUserEmail;
-
 
 
     @Override
@@ -72,7 +71,7 @@ public class CreateSpace extends AppCompatActivity {
         spaceName = findViewById(R.id.space_name);
 
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
-        sloganTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
+        sloganTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +87,11 @@ public class CreateSpace extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (validateForm()) {
-                    currentUserEmail =firebaseUser.getEmail();
+                    currentUserEmail = firebaseUser.getEmail();
                     String user2 = email.getEditText().getText().toString();
                     String space_name = spaceName.getEditText().getText().toString();
 
-                    if (isAbleToCreateSpace(user2,spaceList,space_name)){
+                    if (isAbleToCreateSpace(user2, spaceList, space_name)) {
                         String uid = databaseReference.push().getKey();
                         Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true);
                         databaseReference.child(uid).setValue(space);
@@ -108,20 +107,20 @@ public class CreateSpace extends AppCompatActivity {
     }
 
 
-    private boolean isAbleToCreateSpace(String emailText,List<Space> spaceList, String name){
+    private boolean isAbleToCreateSpace(String emailText, List<Space> spaceList, String name) {
         boolean result = true;
-        if (currentUserEmail.equals(emailText)){
+        if (currentUserEmail.equals(emailText)) {
             email.setError("You can not create space with yourself!");
             result = false;
         }
-        for (Space space: spaceList){
-            if(currentUserEmail.equals(space.user1)||currentUserEmail.equals(space.user2)){
-                if (space.getName().equals(name)){
+        for (Space space : spaceList) {
+            if (currentUserEmail.equals(space.user1) || currentUserEmail.equals(space.user2)) {
+                if (space.getName().equals(name)) {
                     spaceName.setError("You already have a space with this name!");
                     result = false;
                 }
                 if ((currentUserEmail.equals(space.user1) && emailText.equals(space.user2)) ||
-                        (currentUserEmail.equals(space.user2) && emailText.equals(space.user1)) ){
+                        (currentUserEmail.equals(space.user2) && emailText.equals(space.user1))) {
                     email.setError("You can only have one space with this user!");
                     result = false;
                 }
@@ -140,7 +139,7 @@ public class CreateSpace extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 spaceList.clear();
 
-                for (DataSnapshot spaceSnapshot: snapshot.getChildren()){
+                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
                     Space space = spaceSnapshot.getValue(Space.class);
                     spaceList.add(space);
                 }

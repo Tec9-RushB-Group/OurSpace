@@ -3,23 +3,14 @@ package com.tec9rushbgroup.ourspace;
 public class Space {
     String user1;
     String user2;
-    String folder;
+    String folder;//folder path in firebase store.
     String name;
-    Boolean user1_stat;
-    Boolean user2_stat;
-    Boolean space_stat;
+    Boolean user1_stat;//is user 1 willing to have this space?
+    Boolean user2_stat;//is user 2 willing to have this space?
+    Boolean space_stat;//Can this space be displayed?
     String spaceUid;
 
     public Space() {
-        this.user1 = "";
-        this.user2 = "";
-        this.folder = "";
-        this.name = "";
-        this.spaceUid = "";
-        this.user1_stat = false;
-        this.user2_stat = false;
-        this.space_stat = false;
-
     }
 
     public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status) {
