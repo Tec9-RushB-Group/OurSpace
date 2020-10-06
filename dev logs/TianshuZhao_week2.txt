@@ -1,6 +1,6 @@
 Tianshu Zhao
 101081964
-Week 1
+Week 2
 
 Finished:
 1. space.java for creating space object.

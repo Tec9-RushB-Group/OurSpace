@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
         LayoutInflater inflater = context.getLayoutInflater();
 
         View listViewItem = inflater.inflate(R.layout.spaces_list_layout, null, true);
-        TextView currentSpaceName = (TextView) listViewItem.findViewById(R.id.current_space_name);
+        Button currentSpaceName = (Button) listViewItem.findViewById(R.id.current_space_name);
         TextView currentSpaceStatus = (TextView) listViewItem.findViewById(R.id.current_space_status);
 
         Space space = spaceList.get(position);
