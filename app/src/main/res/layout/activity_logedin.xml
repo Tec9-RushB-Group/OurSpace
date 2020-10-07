@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/dashboard">
 
 
     <RelativeLayout
@@ -50,16 +51,15 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="5dp">
     <ListView
         android:id="@+id/list_view_spaces"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="200dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
@@ -72,7 +72,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-
+        android:layout_below="@+id/list_view_spaces"
         android:layout_marginBottom="5dp"
         android:background="#000"
         android:text="@string/crete_space"
@@ -85,11 +85,27 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-
+        android:layout_below="@+id/create_space"
         android:layout_marginBottom="5dp"
         android:background="#000"
         android:text="@string/sign_out"
         android:textColor="#fff"
         android:transitionName="sign_in_tran" />
-    </LinearLayout>
+
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cnb_menuResource="@menu/bottom_nav_menu"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_corners"
+            app:cnb_unselectedColor="#000"
+            app:cnb_radius="6dp"
+            app:cnb_orientationMode="horizontal"
+            android:layout_margin="5dp"
+            android:elevation="3dp"/>
+
+
+    </RelativeLayout>
+
 </LinearLayout>
