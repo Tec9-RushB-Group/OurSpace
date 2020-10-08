@@ -85,7 +85,7 @@ public class SignUp extends AppCompatActivity {
                     String userPassword = password.getEditText().getText().toString();
                     if (isAbleToCreateUser(userName)) {
                         String uid = userDatabaseReference.push().getKey();
-                        User user = new User(userEmail,userName);
+                        User user = new User(userEmail,userName,uid,"");
                         userDatabaseReference.child(uid).setValue(user);
                         createAccount(userEmail,userPassword);
                     }

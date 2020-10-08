@@ -105,44 +105,8 @@ public class Login extends AppCompatActivity {
                 signOutButton = findViewById(R.id.signout);
                 usernameTV = findViewById(R.id.display_name);
                 usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "username.otf"));
-                //initialize
-                bottomNavigationView = findViewById(R.id.bottom_nav_bar);
-                //set dashboard selected
-                bottomNavigationView.setSelectedItemId(R.id.bottom_nav_dashboard);
-                //perform itemSelectedListener
-                bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
-                            case R.id.bottom_nav_add:
-                                Intent intent = new Intent(Login.this, CreateSpace.class);
-                                Pair[] pairs = new Pair[2];
-                                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                                pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
+                initializeBottomNavBar();
 
-                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
-                                startActivity(intent, options.toBundle());
-                                overridePendingTransition(0,0);
-                                return true;
-                            case R.id.bottom_nav_profile:
-                                Intent intent2 = new Intent(Login.this, Profile.class);
-                                Pair[] pairs2 = new Pair[2];
-                                pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                                pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
-
-                                ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs2);
-                                startActivity(intent2, options2.toBundle());
-                                overridePendingTransition(0,0);
-                                return true;
-                            case R.id.bottom_nav_dashboard:
-                                return true;
-                        }
-                        return false;
-                    }
-                });
-
-                Uri uri = firebaseUser.getPhotoUrl();
-                //set profile image
 
             }
         }
@@ -294,7 +258,7 @@ public class Login extends AppCompatActivity {
                 // Successfully signed in
                 if (response.isNewUser()) {
                     String uid = userDatabaseReference.push().getKey();
-                    User user = new User(firebaseUser.getEmail(), firebaseUser.getDisplayName());
+                    User user = new User(firebaseUser.getEmail(), firebaseUser.getDisplayName(),uid,firebaseUser.getPhotoUrl()+"");
                     userDatabaseReference.child(uid).setValue(user);
                     Log.i(TAG, "update google user");
                 }
@@ -417,6 +381,43 @@ public class Login extends AppCompatActivity {
             }
         }
         return "No UserName's Spaces";
+    }
+    private void initializeBottomNavBar(){
+        //initialize
+        bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+        //set dashboard selected
+        bottomNavigationView.setSelectedItemId(R.id.bottom_nav_dashboard);
+        //perform itemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.bottom_nav_add:
+                        Intent intent = new Intent(Login.this, CreateSpace.class);
+                        Pair[] pairs = new Pair[2];
+                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
+
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                        startActivity(intent, options.toBundle());
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottom_nav_profile:
+                        Intent intent2 = new Intent(Login.this, Profile.class);
+                        Pair[] pairs2 = new Pair[2];
+                        pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
+
+                        ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs2);
+                        startActivity(intent2, options2.toBundle());
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottom_nav_dashboard:
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
 }

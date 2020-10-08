@@ -55,12 +55,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_name"
+            android:hint="New Name"
+            app:counterEnabled="true"
+            app:counterMaxLength="16"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:transitionName="username_tran"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="#000"
+            android:text="Submit"
+            android:textColor="#fff" />
 
         <Button
             android:id="@+id/change_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/change_username"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
@@ -76,7 +110,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/change_photo"
+            android:layout_above="@+id/signout"
             android:layout_marginBottom="5dp"
             android:background="#000"
             android:text="Edit Username"
@@ -89,7 +123,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/change_username"
+            android:layout_above="@+id/bottom_nav_bar"
             android:layout_marginBottom="5dp"
             android:background="#000"
             android:text="@string/sign_out"
@@ -119,6 +153,7 @@
             app:itemTextColor="@color/black"
             app:itemIconTint="@color/black"
             app:menu="@menu/bottom_nav_menu"
+            android:layout_marginTop="5dp"
             android:layout_alignParentBottom="true" />
 
     </RelativeLayout>

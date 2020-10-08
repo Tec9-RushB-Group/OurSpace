@@ -3,6 +3,7 @@ package com.tec9rushbgroup.ourspace;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -51,12 +53,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Profile  extends AppCompatActivity {
+public class Profile extends AppCompatActivity {
 
     String TAG = "Profile";
     private TextView welcomeTV, usernameTV;
-    private Button changeUsernameButton, changePhotoButton,signOutButton;
-    private TextInputLayout email, spaceName;
+    private Button changeUsernameButton, changePhotoButton, signOutButton, submitButton;
+    private TextInputLayout newName, spaceName;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
@@ -80,23 +82,25 @@ public class Profile  extends AppCompatActivity {
         userDatabaseReference = database.getReference("User");
         spaceList = new ArrayList<>();
         userList = new ArrayList<>();
-
-
-        signOutButton= findViewById(R.id.signout);
-        changeUsernameButton =findViewById(R.id.change_username);
+        newName = findViewById(R.id.new_name);
+        currentUserEmail = firebaseUser.getEmail();
+        signOutButton = findViewById(R.id.signout);
+        changeUsernameButton = findViewById(R.id.change_username);
         changePhotoButton = findViewById(R.id.change_photo);
         welcomeTV = findViewById(R.id.welcome_text);
         profileImage = findViewById(R.id.profile_image);
         usernameTV = findViewById(R.id.display_name);
+        submitButton = findViewById(R.id.submit);
         usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "username.otf"));
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
-        Uri uri = firebaseUser.getPhotoUrl();
         //set profile image
-        if (uri != null) {
-            String url = uri + "";
-            profileImage.setImageURL(url);
-        }
 
+
+        initializeBottomNavBar();
+        newName.setVisibility(View.INVISIBLE);
+        newName.setEnabled(false);
+        submitButton.setVisibility(View.INVISIBLE);
+        submitButton.setEnabled(false);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,49 +116,44 @@ public class Profile  extends AppCompatActivity {
                                 pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                                 pairs[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
-                                startActivity(intent,options.toBundle());
-                                overridePendingTransition(0,0);
+                                startActivity(intent, options.toBundle());
+                                overridePendingTransition(0, 0);
                             }
                         });
             }
         });
-
-        //initialize
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_bar);
-        //set dashboard selected
-        bottomNavigationView.setSelectedItemId(R.id.bottom_nav_profile);
-        //perform itemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        changeUsernameButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.bottom_nav_dashboard:
-                        Intent intent = new Intent(Profile.this, Login.class);
-                        Pair[] pairs = new Pair[3];
-                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                        pairs[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
-                        startActivity(intent,options.toBundle());
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.bottom_nav_add:
-                        Intent intent2 = new Intent(Profile.this, CreateSpace.class);
-                        Pair[] pairs2 = new Pair[3];
-                        pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                        pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                        pairs2[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
-                        ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs2);
-                        startActivity(intent2,options2.toBundle());
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.bottom_nav_profile:
-                        return true;
-                }
-                return false;
+            public void onClick(View v) {
+                newName.setVisibility(View.VISIBLE);
+                newName.setEnabled(true);
+                submitButton.setVisibility(View.VISIBLE);
+                submitButton.setEnabled(true);
             }
         });
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validateForm()) {
+                    if (!findUserUid().equals("")) {
+                        String newNameText = newName.getEditText().getText().toString();
+                        DatabaseReference r = database.getReference("User/" + findUserUid());
+                        r.child("userName").setValue(newNameText);
+                        newName.setVisibility(View.INVISIBLE);
+                        newName.setEnabled(false);
+                        submitButton.setVisibility(View.INVISIBLE);
+                        submitButton.setEnabled(false);
+                        hideSoftInput(Profile.this);
+                    }
+                }
+
+
+            }
+        });
+
+
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -162,13 +161,21 @@ public class Profile  extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 userList.clear();
+                //update userList
                 for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
                     User user = spaceSnapshot.getValue(User.class);
                     userList.add(user);
                 }
                 if (usernameTV != null && firebaseUser != null) {
+                    //set userName
                     String displayName = findDisplayName(firebaseUser.getEmail());
                     usernameTV.setText(displayName);
+                    //set photo
+                    if (getCurrentUser() != null) {
+                        if (!getCurrentUser().photoPath.equals("")) {
+                            profileImage.setImageURL(getCurrentUser().getPhotoPath());
+                        }
+                    }
                 }
             }
 
@@ -216,6 +223,17 @@ public class Profile  extends AppCompatActivity {
 
     }
 
+    private User getCurrentUser() {
+        if (firebaseUser.getEmail() != null) {
+            for (User u : userList) {
+                if (firebaseUser.getEmail().equals(u.getEmail())) {
+                    return u;
+                }
+            }
+        }
+        return null;
+    }
+
     private String findDisplayName(String emailText) {
         //Log.i(TAG, "findDisplayName()");
         //Log.i(TAG, "findDisplayName(): userList: " + userList.toString());
@@ -225,7 +243,7 @@ public class Profile  extends AppCompatActivity {
                 //Log.i(TAG, "emailText: " + emailText);
                 //Log.i(TAG, "user.getEmail(): " + user.getEmail());
                 //Log.i(TAG, "user.getUserName(): " + user.getUserName());
-                if (user.getUserName() ==null){
+                if (user.getUserName() == null) {
                     break;
                 }
                 return user.getUserName();
@@ -234,4 +252,74 @@ public class Profile  extends AppCompatActivity {
         return "No UserName";
     }
 
+    private void initializeBottomNavBar() {
+        //initialize
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+        //set dashboard selected
+        bottomNavigationView.setSelectedItemId(R.id.bottom_nav_profile);
+        //perform itemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.bottom_nav_dashboard:
+                        Intent intent = new Intent(Profile.this, Login.class);
+                        Pair[] pairs = new Pair[3];
+                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
+                        pairs[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
+                        startActivity(intent, options.toBundle());
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.bottom_nav_add:
+                        Intent intent2 = new Intent(Profile.this, CreateSpace.class);
+                        Pair[] pairs2 = new Pair[3];
+                        pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
+                        pairs2[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
+                        ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs2);
+                        startActivity(intent2, options2.toBundle());
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.bottom_nav_profile:
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private String findUserUid() {
+        if (firebaseUser.getEmail() != null) {
+            for (User u : userList) {
+                if (firebaseUser.getEmail().equals(u.getEmail())) {
+                    return u.getUid();
+                }
+            }
+        }
+        return "";
+
+    }
+
+    public static void hideSoftInput(final Activity activity) {
+        InputMethodManager imm =
+                (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
+        View view = activity.getCurrentFocus();
+        if (view == null) view = new View(activity);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+        String newNameText = newName.getEditText().getText().toString();
+        if (TextUtils.isEmpty(newNameText)) {
+            newName.setError("Required.");
+            valid = false;
+        } else {
+            newName.setError(null);
+        }
+        return valid;
+    }
 }
