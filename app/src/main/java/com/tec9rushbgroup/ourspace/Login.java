@@ -259,7 +259,7 @@ public class Login extends AppCompatActivity {
                 // Successfully signed in
                 if (response.isNewUser()) {
                     String uid = userDatabaseReference.push().getKey();
-                    User user = new User(firebaseUser.getEmail(), firebaseUser.getDisplayName(),uid,firebaseUser.getPhotoUrl()+"");
+                    User user = new User(firebaseUser.getEmail(), firebaseUser.getDisplayName(),uid,"1");
                     userDatabaseReference.child(uid).setValue(user);
                     Log.i(TAG, "update google user");
                 }
