@@ -6,62 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".CreateSpace"
     android:orientation="vertical"
-    android:background="#fff"
-    android:padding="20dp">
+    android:background="#fff">
 
-    <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:textSize="74sp"
-        android:layout_gravity="center"
-        android:textColor="#000"
-        android:transitionName="logo_text"/>
-    <TextView
-        android:id="@+id/create_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create a space with another user!"
-        android:textSize="18sp"
-        android:transitionName="slogan_text"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#fff"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:textSize="74sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000"
+            android:transitionName="logo_text"/>
+        <TextView
+            android:id="@+id/create_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create a space with another user!"
+            android:layout_below="@id/welcome_text"
+            android:textSize="18sp"
+            android:transitionName="slogan_text"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:hint="His/Her Email"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="His/Her Email">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:drawableStart="@drawable/ic_baseline_email_24">
+                android:drawableStart="@drawable/ic_baseline_email_24"
+                android:inputType="textEmailAddress">
+
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/space_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/space_name"
-            android:hint="Space Name"
+            android:layout_below="@+id/email"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
+            android:hint="Space Name"
             app:counterEnabled="true"
-            app:counterMaxLength="16"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:counterMaxLength="16">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress">
+
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,24 +90,28 @@
             android:id="@+id/invite_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#000"
-            android:textColor="#fff"
-            android:text="Send Invitation"
+            android:layout_below="@+id/space_name"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
-            android:transitionName="sign_in_tran"/>
+            android:background="#000"
+            android:text="Send Invitation"
+            android:textColor="#fff"
+            android:transitionName="sign_in_tran" />
 
-        <Button
-            android:id="@+id/back_button"
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:text="Back to Main"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:transitionName="sign_up_tran"/>
+            android:layout_alignParentBottom="true"
+            app:itemBackground="@color/white"
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/black"
+            app:menu="@menu/bottom_nav_menu" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

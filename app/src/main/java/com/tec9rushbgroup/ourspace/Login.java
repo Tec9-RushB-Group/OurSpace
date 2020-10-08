@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -31,6 +32,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,10 +57,10 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "Login";
 
-    private Button googleSignButton, signInButton, signOutButton, newUserButton, forgetPasswordButton, createSpaceButton;
+    private Button googleSignButton, signInButton, signOutButton, newUserButton, forgetPasswordButton;
     private TextView welcomeTV, continueTV, usernameTV;
     private TextInputLayout email, password;
-    private ImageViewHelper profileImage;
+
     //spaces list
     private ListView spaceListView;
     private String currentUserEmail;
@@ -69,6 +71,7 @@ public class Login extends AppCompatActivity {
     private DatabaseReference spaceDatabaseReference, userDatabaseReference;
     private List<User> userList;
     private List<Space> spaceList;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -100,54 +103,47 @@ public class Login extends AppCompatActivity {
                 welcomeTV = findViewById(R.id.welcome_text);
                 welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
                 signOutButton = findViewById(R.id.signout);
-                createSpaceButton = findViewById(R.id.create_space);
-                profileImage = findViewById(R.id.profile_image);
                 usernameTV = findViewById(R.id.display_name);
                 usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "username.otf"));
+                //initialize
+                bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+                //set dashboard selected
+                bottomNavigationView.setSelectedItemId(R.id.bottom_nav_dashboard);
+                //perform itemSelectedListener
+                bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.bottom_nav_add:
+                                Intent intent = new Intent(Login.this, CreateSpace.class);
+                                Pair[] pairs = new Pair[2];
+                                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                                pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
+
+                                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
+                                startActivity(intent, options.toBundle());
+                                overridePendingTransition(0,0);
+                                return true;
+                            case R.id.bottom_nav_profile:
+                                Intent intent2 = new Intent(Login.this, Profile.class);
+                                Pair[] pairs2 = new Pair[2];
+                                pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                                pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
+
+                                ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs2);
+                                startActivity(intent2, options2.toBundle());
+                                overridePendingTransition(0,0);
+                                return true;
+                            case R.id.bottom_nav_dashboard:
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+
                 Uri uri = firebaseUser.getPhotoUrl();
                 //set profile image
-                if (uri != null) {
-                    String url = uri + "";
-                    profileImage.setImageURL(url);
-                }
-                //set display name
-                Log.i(TAG, "firebaseUser.getEmail(): " + firebaseUser.getEmail());
 
-
-                createSpaceButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Login.this, CreateSpace.class);
-                        Pair[] pairs = new Pair[3];
-                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                        pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
-                        startActivity(intent, options.toBundle());
-                    }
-                });
-
-                signOutButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AuthUI.getInstance()
-                                .signOut(Login.this)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        // user is now signed out
-                                        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                        Intent intent = new Intent(Login.this, Login.class);
-                                        Pair[] pairs = new Pair[3];
-                                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                                        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                                        pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
-                                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
-                                        startActivity(intent, options.toBundle());
-                                        finish();
-                                    }
-                                });
-                    }
-                });
             }
         }
         // not signed in
@@ -416,10 +412,11 @@ public class Login extends AppCompatActivity {
                 if (user.getUserName() ==null){
                     break;
                 }
-                return user.getUserName();
+                String s = user.getUserName()+ "'s Spaces";
+                return s;
             }
         }
-        return "No UserName";
+        return "No UserName's Spaces";
     }
 
 }

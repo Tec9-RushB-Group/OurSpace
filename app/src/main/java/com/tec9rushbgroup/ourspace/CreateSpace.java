@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -38,7 +40,7 @@ import java.util.List;
 public class CreateSpace extends AppCompatActivity {
     String TAG = "CreateSpace";
     private TextView welcomeTV, sloganTV;
-    private Button backButton, inviteButton;
+    private Button inviteButton;
     private TextInputLayout email, spaceName;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -47,7 +49,7 @@ public class CreateSpace extends AppCompatActivity {
     private List<User> userList;
     private List<Space> spaceList;
     private String currentUserEmail;
-
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,24 +69,46 @@ public class CreateSpace extends AppCompatActivity {
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.create_text);
         email = findViewById(R.id.email);
-        backButton = findViewById(R.id.back_button);
+
         inviteButton = findViewById(R.id.invite_button);
         spaceName = findViewById(R.id.space_name);
 
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         sloganTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        //initialize
+        bottomNavigationView = findViewById(R.id.bottom_nav_bar);
+        //set dashboard selected
+        bottomNavigationView.setSelectedItemId(R.id.bottom_nav_add);
+        //perform itemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateSpace.this, Login.class);
-                Pair[] pairs = new Pair[3];
-                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
-                pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
-                startActivity(intent, options.toBundle());
-                finish();
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.bottom_nav_dashboard:
+                        Intent intent = new Intent(CreateSpace.this, Login.class);
+                        Pair[] pairs = new Pair[3];
+                        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
+                        pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
+                        startActivity(intent, options.toBundle());
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottom_nav_profile:
+                        Intent intent2 = new Intent(CreateSpace.this, Profile.class);
+                        Pair[] pairs2 = new Pair[3];
+                        pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                        pairs2[1] = new Pair<View, String>(sloganTV, "slogan_text");
+                        pairs2[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
+                        ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs2);
+                        startActivity(intent2, options2.toBundle());
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.bottom_nav_add:
+                        return true;
+                }
+                return false;
             }
         });
 
