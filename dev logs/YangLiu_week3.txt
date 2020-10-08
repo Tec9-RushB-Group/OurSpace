@@ -9,3 +9,4 @@ This weeek what I have done:
 4. Verify that the user or space can be created.
 5. add bottom navigation bar.
 6. implement change userName function
+7. implement change profilePhoto function

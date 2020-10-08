@@ -42,6 +42,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -64,7 +65,7 @@ public class Login extends AppCompatActivity {
     //spaces list
     private ListView spaceListView;
     private String currentUserEmail;
-
+    private FirebaseStorage firebaseStorage;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;

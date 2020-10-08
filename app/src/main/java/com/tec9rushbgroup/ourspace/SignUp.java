@@ -50,6 +50,7 @@ public class SignUp extends AppCompatActivity {
     private List<User> userList;
     private List<Space> spaceList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
