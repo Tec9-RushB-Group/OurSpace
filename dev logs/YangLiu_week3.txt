@@ -7,3 +7,4 @@ This weeek what I have done:
 2. Create database for user and space.
 3. Pull data from firebase realtime database.
 4. Verify that the user or space can be created.
+5. add bottom navigation bar.
