@@ -70,7 +70,7 @@ public class Profile extends AppCompatActivity {
 
     String TAG = "Profile";
     private TextView welcomeTV, usernameTV;
-    private Button changeUsernameButton, signOutButton, submitButton;
+    private Button  signOutButton, submitButton;
     private TextInputLayout newName, spaceName;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -78,7 +78,6 @@ public class Profile extends AppCompatActivity {
     private DatabaseReference spaceDatabaseReference, userDatabaseReference;
     private List<User> userList;
     private List<Space> spaceList;
-    private String currentUserEmail;
     private ImageViewHelper profileImage;
     private Uri imageUri;
     private FirebaseStorage firebaseStorage;
@@ -100,9 +99,9 @@ public class Profile extends AppCompatActivity {
         spaceList = new ArrayList<>();
         userList = new ArrayList<>();
         newName = findViewById(R.id.new_name);
-        currentUserEmail = firebaseUser.getEmail();
+
         signOutButton = findViewById(R.id.signout);
-        changeUsernameButton = findViewById(R.id.change_username);
+
 
         welcomeTV = findViewById(R.id.welcome_text);
         profileImage = findViewById(R.id.profile_image);
@@ -133,7 +132,7 @@ public class Profile extends AppCompatActivity {
                                 Pair[] pairs = new Pair[3];
                                 pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                                 pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                                pairs[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
+                                pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
                                 startActivity(intent, options.toBundle());
                                 overridePendingTransition(0, 0);
@@ -141,13 +140,21 @@ public class Profile extends AppCompatActivity {
                         });
             }
         });
-        changeUsernameButton.setOnClickListener(new View.OnClickListener() {
+        usernameTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newName.setVisibility(View.VISIBLE);
-                newName.setEnabled(true);
-                submitButton.setVisibility(View.VISIBLE);
-                submitButton.setEnabled(true);
+                if (newName.getVisibility() == View.VISIBLE){
+                    newName.setVisibility(View.INVISIBLE);
+                    newName.setEnabled(false);
+                    submitButton.setVisibility(View.INVISIBLE);
+                    submitButton.setEnabled(false);
+                }else{
+                    newName.setVisibility(View.VISIBLE);
+                    newName.setEnabled(true);
+                    submitButton.setVisibility(View.VISIBLE);
+                    submitButton.setEnabled(true);
+                }
+
             }
         });
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -350,7 +357,7 @@ public class Profile extends AppCompatActivity {
                         Pair[] pairs = new Pair[3];
                         pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                        pairs[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
+                        pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
                         startActivity(intent, options.toBundle());
                         overridePendingTransition(0, 0);
@@ -360,7 +367,7 @@ public class Profile extends AppCompatActivity {
                         Pair[] pairs2 = new Pair[3];
                         pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
-                        pairs2[2] = new Pair<View, String>(changeUsernameButton, "sign_in_tran");
+                        pairs2[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs2);
                         startActivity(intent2, options2.toBundle());
                         overridePendingTransition(0, 0);

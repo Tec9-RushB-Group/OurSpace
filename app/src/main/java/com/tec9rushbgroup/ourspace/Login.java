@@ -398,7 +398,6 @@ public class Login extends AppCompatActivity {
                         Pair[] pairs = new Pair[2];
                         pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
-
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
                         startActivity(intent, options.toBundle());
                         overridePendingTransition(0,0);
@@ -408,7 +407,6 @@ public class Login extends AppCompatActivity {
                         Pair[] pairs2 = new Pair[2];
                         pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
-
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs2);
                         startActivity(intent2, options2.toBundle());
                         overridePendingTransition(0,0);

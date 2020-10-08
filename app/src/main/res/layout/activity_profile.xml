@@ -90,21 +90,6 @@
             android:text="Submit"
             android:textColor="#fff" />
 
-
-
-        <Button
-            android:id="@+id/change_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_above="@+id/signout"
-            android:layout_marginBottom="5dp"
-            android:background="#000"
-            android:text="Edit Username"
-            android:textColor="#fff"
-            android:transitionName="sign_in_tran" />
         <Button
             android:id="@+id/signout"
             android:layout_width="match_parent"
