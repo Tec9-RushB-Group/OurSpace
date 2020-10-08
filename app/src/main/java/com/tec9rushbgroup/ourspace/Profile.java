@@ -204,6 +204,7 @@ public class Profile extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         pd.dismiss();
+                        updatePhoto();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -296,10 +297,7 @@ public class Profile extends AppCompatActivity {
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                if (!currentPhoto.equals(uri+"")){
-                    currentPhoto = uri+"";
-                    profileImage.setImageURL(uri+"");
-                }
+                profileImage.setImageURL(uri+"");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
