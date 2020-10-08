@@ -204,7 +204,6 @@ public class Profile extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         pd.dismiss();
-                        userDatabaseReference.child(getCurrentUser().getUid()).child("photoPath").setValue("1");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
