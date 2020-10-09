@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         spaceListView = findViewById(R.id.list_view_spaces);
         // initialize environment
         firebaseAuth = FirebaseAuth.getInstance();
@@ -105,7 +105,7 @@ public class Login extends AppCompatActivity {
                 welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
                 signOutButton = findViewById(R.id.signout);
                 usernameTV = findViewById(R.id.display_name);
-                usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "username.otf"));
+                usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
                 initializeBottomNavBar();
 
 

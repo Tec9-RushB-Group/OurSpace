@@ -22,7 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome"
-            android:textSize="74sp"
+            android:textSize="70sp"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:textColor="#000"
             android:transitionName="logo_text"/>
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Create a space with another user!"
             android:layout_below="@id/welcome_text"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:transitionName="slogan_text"/>
 
 
@@ -108,7 +109,6 @@
             android:layout_alignParentBottom="true"
             app:itemBackground="@color/white"
             app:itemIconTint="@color/black"
-            app:itemTextColor="@color/black"
             app:menu="@menu/bottom_nav_menu" />
 
     </RelativeLayout>

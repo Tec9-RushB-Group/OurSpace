@@ -32,7 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +50,12 @@ public class CreateSpace extends AppCompatActivity {
     private List<Space> spaceList;
     private String currentUserEmail;
     private BottomNavigationView bottomNavigationView;
-    private FirebaseStorage firebaseStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_space);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // initialize environment
         firebaseAuth = FirebaseAuth.getInstance();
@@ -71,7 +69,6 @@ public class CreateSpace extends AppCompatActivity {
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.create_text);
         email = findViewById(R.id.email);
-
         inviteButton = findViewById(R.id.invite_button);
         spaceName = findViewById(R.id.space_name);
 

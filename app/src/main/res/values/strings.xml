@@ -21,11 +21,8 @@
     <string name="verify_button">Send Email Verification</string>
     <string name="verified">Verified? Log in!</string>
     <string name="title_activity_profile">Profile</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
+    <string name="logo_text_size">70dp</string>
+
 
 
 </resources>
