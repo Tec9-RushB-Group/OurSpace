@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     String TAG = "Login";
 
-    private Button googleSignButton, signInButton, signOutButton, newUserButton, forgetPasswordButton;
+    private Button googleSignButton, signInButton, signOutButton, newUserButton, forgetPasswordButton, enterSpaceButton;
     private TextView welcomeTV, continueTV, usernameTV;
     private TextInputLayout email, password;
 
@@ -124,6 +124,9 @@ public class Login extends AppCompatActivity {
             password = findViewById(R.id.password);
             signInButton = findViewById(R.id.sign_in_button);
             forgetPasswordButton = findViewById(R.id.forget_button);
+            // for enter current space
+            enterSpaceButton = findViewById(R.id.current_space_name);
+
             forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -183,6 +186,16 @@ public class Login extends AppCompatActivity {
 
                 }
             });
+
+        /*    // for enter current space. *Need a database vaildator -> if statement
+            enterSpaceButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent intent = new Intent(Login.this, CurrentSpace.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this);
+                    startActivity(intent, options.toBundle());
+                }
+            });     work together with "activity_current_space.xml" -> "CurrentSpace.java"*/
 
         }
 
