@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateSpace"
+    android:background="#fff"
     android:orientation="vertical"
-    android:background="#fff">
+    android:id="@+id/profile_screen">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,104 +17,119 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
-
         <TextView
             android:id="@+id/welcome_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/profile_image"
+            android:layout_marginBottom="10dp"
             android:text="@string/welcome"
-            android:textSize="70sp"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
             android:textColor="#000"
-            android:transitionName="logo_text"/>
+            android:textSize="22sp"
+            android:transitionName="logo_text" />
+
+        <com.tec9rushbgroup.ourspace.ImageViewHelper
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/userphoto" />
+
         <TextView
-            android:id="@+id/create_text"
+            android:id="@+id/display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create a space with another user!"
-            android:layout_below="@id/welcome_text"
-            android:textSize="20sp"
-            android:transitionName="slogan_text"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:includeFontPadding="false"
+            android:text="Username"
+            android:textSize="30sp"
+            android:textColor="#000"
+            android:transitionName="slogan_text" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:hint="His/Her Email">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_email_24"
-                android:inputType="textEmailAddress">
-
-            </com.google.android.material.textfield.TextInputEditText>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/space_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/email"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:hint="Space Name"
+            android:id="@+id/new_name"
+            android:hint="New Name"
             app:counterEnabled="true"
-            app:counterMaxLength="16">
-
+            app:counterMaxLength="16"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:transitionName="username_tran"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress">
-
+                android:inputType="text">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
-
         <Button
-            android:id="@+id/invite_button"
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/space_name"
+            android:layout_below="@+id/new_name"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:background="#000"
-            android:text="Send Invitation"
+            android:text="Submit"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/signout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_above="@+id/bottom_nav_bar"
+            android:layout_marginBottom="5dp"
+            android:background="#000"
+            android:text="@string/sign_out"
             android:textColor="#fff"
             android:transitionName="sign_in_tran" />
 
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_nav_bar"
+        <!--
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+            android:id="@+id/nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cnb_menuResource="@menu/bottom_nav_menu"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/round_corners"
+            app:cnb_unselectedColor="#000"
+            app:cnb_radius="6dp"
+            app:cnb_orientationMode="horizontal"
+            android:layout_margin="5dp"
+            android:elevation="3dp"/>
+
+-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_nav_bar"
             app:itemBackground="@color/white"
+            app:itemTextColor="@color/black"
             app:itemIconTint="@color/black"
-            app:menu="@menu/bottom_nav_menu" />
+            app:menu="@menu/bottom_nav_menu"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
-
-
-
 
 </LinearLayout>

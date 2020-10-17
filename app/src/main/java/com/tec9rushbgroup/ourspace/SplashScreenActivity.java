@@ -16,22 +16,23 @@ import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN = 3000;
-    private TextView logo,slogan;
-    private Animation topAnim,bottomAnim;
+    private TextView logo, slogan;
+    private Animation topAnim, bottomAnim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //splash screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splashscreen);
         logo = findViewById(R.id.logo);
         slogan = findViewById(R.id.slogan);
         //set fonts
-        logo.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
-        slogan.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
+        logo.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
+        slogan.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
         //animation
-        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_anim);
-        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
+        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_anim);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
         //hooks
         logo.setAnimation(topAnim);
         slogan.setAnimation(bottomAnim);
@@ -39,14 +40,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this,Login.class);
+                Intent intent = new Intent(SplashScreenActivity.this, Login.class);
                 Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View,String>(logo,"logo_text");
-                pairs[1] = new Pair<View,String>(slogan,"slogan_text");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this,pairs);
-                startActivity(intent,options.toBundle());
+                pairs[0] = new Pair<View, String>(logo, "logo_text");
+                pairs[1] = new Pair<View, String>(slogan, "slogan_text");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this, pairs);
+                startActivity(intent, options.toBundle());
                 finish();
             }
-        },SPLASH_SCREEN);
+        }, SPLASH_SCREEN);
     }
 }

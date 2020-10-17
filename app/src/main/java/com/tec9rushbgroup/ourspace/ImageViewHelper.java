@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImageViewHelper extends androidx.appcompat.widget.AppCompatImageView{
+public class ImageViewHelper extends androidx.appcompat.widget.AppCompatImageView {
     public static final int GET_DATA_SUCCESS = 1;
     public static final int NETWORK_ERROR = 2;
     public static final int SERVER_ERROR = 3;
@@ -24,16 +24,16 @@ public class ImageViewHelper extends androidx.appcompat.widget.AppCompatImageVie
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case GET_DATA_SUCCESS:
                     Bitmap bitmap = (Bitmap) msg.obj;
                     setImageBitmap(bitmap);
                     break;
                 case NETWORK_ERROR:
-                    Toast.makeText(getContext(),"Network Error",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Network Error", Toast.LENGTH_SHORT).show();
                     break;
                 case SERVER_ERROR:
-                    Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -58,7 +58,7 @@ public class ImageViewHelper extends androidx.appcompat.widget.AppCompatImageVie
             @Override
             public void run() {
                 try {
-                    if (path.equals("")){
+                    if (path.equals("")) {
 
                     }
                     URL url = new URL(path);
@@ -80,7 +80,7 @@ public class ImageViewHelper extends androidx.appcompat.widget.AppCompatImageVie
                         msg.what = GET_DATA_SUCCESS;
                         handler.sendMessage(msg);
                         inputStream.close();
-                    }else {
+                    } else {
 
                         handler.sendEmptyMessage(SERVER_ERROR);
                     }

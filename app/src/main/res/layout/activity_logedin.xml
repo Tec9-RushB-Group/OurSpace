@@ -1,49 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#fff"
-    >
+    android:orientation="vertical"
+    android:id="@+id/dashboard">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:padding="20dp"
-        android:background="#FFDAA6">
-        <com.tec9rushbgroup.ourspace.ImageViewHelper
-            android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/userphoto"
-            android:layout_centerVertical="true"/>
+        android:background="#fff"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/welcome"
+            android:textSize="70sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000"
+            android:transitionName="logo_text"/>
+
+
         <TextView
             android:id="@+id/display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/welcome_text"
             android:text="Username"
-            android:textSize="30sp"
-            android:layout_toRightOf="@id/profile_image"
-            android:layout_centerVertical="true"
-            android:includeFontPadding="false"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:transitionName="slogan_text" />
 
 
     </RelativeLayout>
-    <Button
-        android:id="@+id/signout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_out" />
-    <Button
-        android:id="@+id/create_space"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/crete_space" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+    <ListView
+        android:id="@+id/list_view_spaces"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp" />
+
+
+
+        <!--
+        <com.ismaeldivita.chipnavigation.ChipNavigationBar
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cnb_menuResource="@menu/bottom_nav_menu"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/round_corners"
+            app:cnb_unselectedColor="#000"
+            app:cnb_radius="6dp"
+            app:cnb_orientationMode="horizontal"
+            android:layout_margin="5dp"
+            android:elevation="3dp"/>
+
+-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_nav_bar"
+            app:itemBackground="@color/white"
+            app:itemTextColor="@color/black"
+            app:itemIconTint="@color/black"
+            app:menu="@menu/bottom_nav_menu"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>

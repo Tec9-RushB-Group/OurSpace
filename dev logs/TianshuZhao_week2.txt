@@ -1,0 +1,8 @@
+Tianshu Zhao
+101081964
+Week 2
+
+Finished:
+1. space.java for creating space object.
+2. activity_create_space.xml and createSpace.java.
+3. worked on sending objects information to firebase database.

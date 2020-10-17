@@ -1,0 +1,6 @@
+Tianshu Zhao
+101081964
+Week 3
+
+Finished:
+1. finished the basic structure of spaces' ListView element and connect it to firebase database.

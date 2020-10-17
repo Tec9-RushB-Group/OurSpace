@@ -23,16 +23,17 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgetPassword extends AppCompatActivity {
-    private TextView welcomeTV,forgetTV;
+    private TextView welcomeTV, forgetTV;
     private TextInputLayout email;
-    private Button sendButton,backButton;
+    private Button sendButton, backButton;
     private FirebaseAuth auth;
     String TAG = "ForgetPassword";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         auth = FirebaseAuth.getInstance();
         welcomeTV = findViewById(R.id.welcome_text);
         forgetTV = findViewById(R.id.forget_password_text);
@@ -41,8 +42,8 @@ public class ForgetPassword extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
 
 
-        welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(),"logo.ttf"));
-        forgetTV.setTypeface(Typeface.createFromAsset(getAssets(),"slogan.ttf"));
+        welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
+        forgetTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +62,7 @@ public class ForgetPassword extends AppCompatActivity {
                                     sendButton.setText("Email sent");
                                     sendButton.setBackgroundColor(Color.parseColor("#EEEEEE"));
 
-                                }else{
+                                } else {
                                     email.setError("Send filed (Invalid email/User does not exist)");
                                 }
                             }
@@ -75,14 +76,14 @@ public class ForgetPassword extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ForgetPassword.this, Login.class);
                 Pair[] pairs = new Pair[5];
-                pairs[0] = new Pair<View,String>(welcomeTV,"logo_text");
-                pairs[1] = new Pair<View,String>(forgetTV,"slogan_text");
-                pairs[2] = new Pair<View,String>(email,"email_tran");
-                pairs[3] = new Pair<View,String>(sendButton,"sign_in_tran");
-                pairs[4] = new Pair<View,String>(backButton,"sign_up_tran");
+                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+                pairs[1] = new Pair<View, String>(forgetTV, "slogan_text");
+                pairs[2] = new Pair<View, String>(email, "email_tran");
+                pairs[3] = new Pair<View, String>(sendButton, "sign_in_tran");
+                pairs[4] = new Pair<View, String>(backButton, "sign_up_tran");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ForgetPassword.this,pairs);
-                startActivity(intent,options.toBundle());
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ForgetPassword.this, pairs);
+                startActivity(intent, options.toBundle());
             }
 
         });
@@ -98,11 +99,10 @@ public class ForgetPassword extends AppCompatActivity {
         if (TextUtils.isEmpty(emailText)) {
             emailField.setError("Required.");
             valid = false;
-        }else if(!emailText.matches(regex)){
+        } else if (!emailText.matches(regex)) {
             emailField.setError("Invalid Email address.");
             valid = false;
-        }
-        else {
+        } else {
             emailField.setError(null);
         }
 

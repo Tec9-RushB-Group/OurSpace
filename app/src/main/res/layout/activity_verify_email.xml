@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/welcome"
         android:layout_gravity="center"
-        android:textSize="74sp"
+        android:textSize="70sp"
         android:textColor="#000"
         android:transitionName="logo_text"/>
 
