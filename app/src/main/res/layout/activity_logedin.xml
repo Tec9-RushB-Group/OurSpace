@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/welcome_text"
-            android:text="Username"
+            android:text=""
             android:textSize="20sp"
             android:textColor="#000"
             android:transitionName="slogan_text" />

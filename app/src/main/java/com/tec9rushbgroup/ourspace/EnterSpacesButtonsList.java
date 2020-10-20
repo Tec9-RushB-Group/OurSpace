@@ -38,8 +38,11 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
         currentSpaceName.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(context,CurrentSpace.class);
+
+                Intent intent = new Intent(context, CurrentSpace.class);
+                intent.putExtra("uid",spaceList.get(position).getSpaceUid());
                 context.startActivity(intent);
+                context.overridePendingTransition(0,0);
             }
         });
         return listViewItem;

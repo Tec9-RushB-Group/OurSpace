@@ -1,6 +1,7 @@
 package com.tec9rushbgroup.ourspace;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,7 +42,8 @@ public class CurrentSpace extends AppCompatActivity {
         photosButton = findViewById(R.id.photos);
         logsButton = findViewById(R.id.logs);
         anniversaryButton = findViewById(R.id.anniversary);
-
+        String uid = getIntent().getStringExtra("uid");
+        Log.i(TAG,"space uid: " + uid);
 
         // related to "activity_photos.xml", "activity_logs.xml", "activity_anniversary.xml", already created but empty.
         photosButton.setOnClickListener(new View.OnClickListener(){
