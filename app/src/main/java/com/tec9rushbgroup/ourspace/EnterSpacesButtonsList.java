@@ -1,6 +1,9 @@
 package com.tec9rushbgroup.ourspace;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +33,15 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
 
         View listViewItem = inflater.inflate(R.layout.spaces_list_layout, null, true);
         Button currentSpaceName = (Button) listViewItem.findViewById(R.id.current_space_name);
-        TextView currentSpaceStatus = (TextView) listViewItem.findViewById(R.id.current_space_status);
-
         Space space = spaceList.get(position);
-
         currentSpaceName.setText(space.getName());
-        currentSpaceStatus.setText(space.getSpace_stat().toString());
-
+        currentSpaceName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(context,CurrentSpace.class);
+                context.startActivity(intent);
+            }
+        });
         return listViewItem;
     }
 }

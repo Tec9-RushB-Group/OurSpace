@@ -15,7 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.List;
 
 public class CurrentSpace extends AppCompatActivity {
-/*
+
     String TAG = "CurrentSpace";
     private Button photosButton, logsButton, anniversaryButton; //Buttons
 
@@ -58,5 +58,5 @@ public class CurrentSpace extends AppCompatActivity {
             @Override
             public void onClick(View v) {}
         });
-    }   */
+    }
 }

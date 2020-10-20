@@ -23,6 +23,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".VerifyEmail"
             android:screenOrientation="portrait" />
+        <activity android:name=".CurrentSpace"
+            android:screenOrientation="portrait" />
         <activity android:name=".CreateSpace"
             android:screenOrientation="portrait" />
         <activity android:name=".ForgetPassword"
