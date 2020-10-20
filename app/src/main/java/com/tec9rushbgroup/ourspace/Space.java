@@ -5,9 +5,9 @@ public class Space {
     String user2;
     String folder;//folder path in firebase store.
     String name;
-    Boolean user1_stat;//is user 1 willing to have this space?
-    Boolean user2_stat;//is user 2 willing to have this space?
-    Boolean space_stat;//Can this space be displayed?
+    Boolean user1_stat;//is user 1 willing to have this space?                  *unused
+    Boolean user2_stat;//is user 2 willing to have this space?                  *unused
+    Boolean space_stat;//Can this space be displayed?                           *unused
     String spaceUid;
 
     public Space() {
