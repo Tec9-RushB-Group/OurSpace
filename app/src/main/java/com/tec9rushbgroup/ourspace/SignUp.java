@@ -64,13 +64,7 @@ public class SignUp extends AppCompatActivity {
         email = findViewById(R.id.email);
         displayName = findViewById(R.id.display_name);
         // initialize environment
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+        setUpEnvironment();
 
         //set fonts
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
@@ -252,6 +246,15 @@ public class SignUp extends AppCompatActivity {
                     });
 
         }
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 
 

@@ -81,13 +81,7 @@ public class Login extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         spaceListView = findViewById(R.id.list_view_spaces);
         // initialize environment
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+        setUpEnvironment();
 
         // already signed in
         if (firebaseUser != null) {
@@ -435,6 +429,15 @@ public class Login extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 
 }

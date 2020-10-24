@@ -15,10 +15,14 @@ import androidx.appcompat.widget.TintTypedArray;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentSpace extends AppCompatActivity {
@@ -31,23 +35,20 @@ public class CurrentSpace extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
     private DatabaseReference spaceDatabaseReference, userDatabaseReference;
-
+    private List<User> userList;
+    private List<Space> spaceList;
+    private String currentUserEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_space);
 
+        setUpEnvironment();
+
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.slogan_text);
         welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
         sloganTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
-        // setup database.
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-
         // connect to xml.
         logsButton = findViewById(R.id.logs_button);
         anniversaryButton = findViewById(R.id.anniversaries_button);
@@ -106,4 +107,101 @@ public class CurrentSpace extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        userDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                userList.clear();
+                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
+                    User user = spaceSnapshot.getValue(User.class);
+                    userList.add(user);
+                    Log.i(TAG,"user added : " +user.getEmail() );
+                }
+                if (sloganTV!=null){
+                    sloganTV.setText(getSloganString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
+        // Check if user is signed in (non-null) and update UI accordingly.
+        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                spaceList.clear();
+                if (firebaseUser!=null){
+                    currentUserEmail = firebaseUser.getEmail();
+                }
+                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
+                    Space space = spaceSnapshot.getValue(Space.class);
+                    if (firebaseUser!=null){
+                        if (isCurrentUsersSpace(space)) {
+                            spaceList.add(space);
+                        }
+                    }else{
+                        spaceList.add(space);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
+        //updateUI(currentUser);
+    }
+    private boolean isCurrentUsersSpace(Space space) {
+        if (space.getUser1().equals(currentUserEmail) || space.getUser2().equals(currentUserEmail)) {
+            return true;
+        }
+        return false;
+    }
+
+    private String getSloganString(){
+        String user1 = getIntent().getStringExtra("user1");
+        String user2 = getIntent().getStringExtra("user2");
+        Log.i(TAG,"email1 : " +user1 );
+        Log.i(TAG,"email2 : " +user2 );
+        String username1 = "",username2 = "";
+        for (User user : userList){
+            if (user1.equals(user.getEmail())){
+                Log.i(TAG,"name1 : " +user.getUserName() );
+                if(user.getUserName().equals("")){
+                    username1 = user.getEmail();
+                }else {
+                    username1 = user.getUserName();
+                }
+            }else if(user2.equals(user.getEmail())){
+                Log.i(TAG,"name2 : " +user.getUserName() );
+                if(user.getUserName().equals("")){
+                    username2 = user.getEmail();
+                }else {
+                    username2 = user.getUserName();
+                }
+            }
+        }
+        String result = "The Space of "+ username1 +" and " + username2 ;
+        return result;
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
+    }
+
 }

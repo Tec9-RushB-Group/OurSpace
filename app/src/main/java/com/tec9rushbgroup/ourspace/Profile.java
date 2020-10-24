@@ -90,13 +90,9 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         // initialize environment
         currentPhoto="";
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+
+        setUpEnvironment();
+
         newName = findViewById(R.id.new_name);
 
         signOutButton = findViewById(R.id.signout);
@@ -413,5 +409,14 @@ public class Profile extends AppCompatActivity {
             newName.setError(null);
         }
         return valid;
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 }

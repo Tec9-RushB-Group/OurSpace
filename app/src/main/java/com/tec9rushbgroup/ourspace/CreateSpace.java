@@ -58,13 +58,7 @@ public class CreateSpace extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // initialize environment
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+        setUpEnvironment();
 
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.create_text);
@@ -243,6 +237,15 @@ public class CreateSpace extends AppCompatActivity {
         }
 
         return valid;
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 
 }
