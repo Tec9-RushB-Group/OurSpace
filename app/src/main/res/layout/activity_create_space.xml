@@ -99,7 +99,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:background="#000"
-            android:text="Send Invitation"
+            android:text="Create Space"
             android:textColor="#fff"
             android:transitionName="sign_in_tran" />
 

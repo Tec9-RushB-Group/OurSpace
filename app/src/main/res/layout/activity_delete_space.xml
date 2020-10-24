@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrentSpace"
-    >
+    tools:context=".DeleteSpace">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,26 +39,26 @@
 
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
         <Button
-            android:id="@+id/photos_button"
+            android:id="@+id/yes_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
-            android:background="#000"
+            android:background="#FF0000"
             android:textColor="#fff"
-            android:text="Photos" />
+            android:text="Yes, delete this space!" />
+
 
         <Button
-            android:id="@+id/logs_button"
+            android:id="@+id/no_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -67,34 +67,8 @@
             android:layout_marginBottom="5dp"
             android:background="#000"
             android:textColor="#fff"
-            android:layout_below="@id/photos_button"
-            android:text="Logs" />
-
-        <Button
-            android:id="@+id/anniversaries_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:background="#000"
-            android:textColor="#fff"
-            android:layout_below="@id/logs_button"
-            android:text="Anniversaries" />
-
-        <Button
-            android:id="@+id/back_home_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:background="#000"
-            android:textColor="#fff"
-            android:layout_below="@id/anniversaries_button"
-            android:text="Back to Dashboard" />
+            android:layout_below="@id/yes_button"
+            android:text="NO, Back to Dashboard" />
     </RelativeLayout>
 
 </LinearLayout>
