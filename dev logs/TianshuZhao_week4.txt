@@ -1,0 +1,8 @@
+Tianshu Zhao
+101081964
+Week 4
+
+Finished:
+1. Part of UI of "current space".
+2. Logs - UI.
+3. Anniversaries - UI.
