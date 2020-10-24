@@ -415,7 +415,8 @@ public class Login extends AppCompatActivity {
                         pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
-                        startActivity(intent, options.toBundle());
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_nav_profile:
@@ -424,7 +425,8 @@ public class Login extends AppCompatActivity {
                         pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs2);
-                        startActivity(intent2, options2.toBundle());
+                        //startActivity(intent2, options2.toBundle());
+                        startActivity(intent2);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_nav_dashboard:

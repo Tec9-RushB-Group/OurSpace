@@ -3,21 +3,26 @@ package com.tec9rushbgroup.ourspace;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class AnniversaryPage extends AppCompatActivity {
 
     private Button addButton, backToSpace;
-
+    private TextView welcomeTV, sloganTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anniversary_page);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        welcomeTV = findViewById(R.id.welcome_text);
+        sloganTV = findViewById(R.id.slogan_text);
+        welcomeTV.setTypeface(Typeface.createFromAsset(getAssets(), "logo.ttf"));
+        sloganTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
         //BUTTON
         addButton = findViewById(R.id.add_anniversary_page);
         backToSpace = findViewById(R.id.back_to_space_button);
@@ -27,6 +32,7 @@ public class AnniversaryPage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AnniversaryPage.this, AddAnniversary.class);
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
 
@@ -35,6 +41,7 @@ public class AnniversaryPage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AnniversaryPage.this, CurrentSpace.class);
                 startActivity(intent);
+                overridePendingTransition(0,0);
             }
         });
     }

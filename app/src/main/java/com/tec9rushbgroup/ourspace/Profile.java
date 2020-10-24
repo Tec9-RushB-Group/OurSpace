@@ -133,7 +133,8 @@ public class Profile extends AppCompatActivity {
                                 pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                                 pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
-                                startActivity(intent, options.toBundle());
+                                //startActivity(intent, options.toBundle());
+                                startActivity(intent);
                                 overridePendingTransition(0, 0);
                             }
                         });
@@ -358,7 +359,8 @@ public class Profile extends AppCompatActivity {
                         pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
-                        startActivity(intent, options.toBundle());
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.bottom_nav_add:
@@ -368,7 +370,8 @@ public class Profile extends AppCompatActivity {
                         pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         pairs2[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs2);
-                        startActivity(intent2, options2.toBundle());
+                        //startActivity(intent2, options2.toBundle());
+                        startActivity(intent2);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.bottom_nav_profile:
