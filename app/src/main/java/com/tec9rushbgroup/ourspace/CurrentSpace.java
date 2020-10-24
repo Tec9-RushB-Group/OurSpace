@@ -1,11 +1,14 @@
 package com.tec9rushbgroup.ourspace;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TintTypedArray;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,7 +21,7 @@ import java.util.List;
 public class CurrentSpace extends AppCompatActivity {
 
     String TAG = "CurrentSpace";
-    private Button photosButton, logsButton, anniversaryButton; //Buttons
+    private Button photosButton, logsButton, anniversaryButton,backButton; //Buttons
 
     private FirebaseStorage firebaseStorage; //initialize
     private FirebaseAuth firebaseAuth;
@@ -39,26 +42,39 @@ public class CurrentSpace extends AppCompatActivity {
         userDatabaseReference = database.getReference("User");
 
         // connect to xml.
-        photosButton = findViewById(R.id.photos);
         logsButton = findViewById(R.id.logs);
-        anniversaryButton = findViewById(R.id.anniversary);
+        anniversaryButton = findViewById(R.id.anniversaries);
+        backButton = findViewById(R.id.back_home_button);
         String uid = getIntent().getStringExtra("uid");
         Log.i(TAG,"space uid: " + uid);
 
-        // related to "activity_photos.xml", "activity_logs.xml", "activity_anniversary.xml", already created but empty.
-        photosButton.setOnClickListener(new View.OnClickListener(){
+        // for logs, -> "activity_logs_page.xml"
+        logsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View view) {
+                Intent intent = new Intent(CurrentSpace.this, LogsPage.class);
+                startActivity(intent);
+            }
         });
 
-        logsButton.setOnClickListener(new View.OnClickListener(){
+        //for anniversaries, "activity_anniversary_page.xml"
+        anniversaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View view) {
+                Intent intent = new Intent(CurrentSpace.this, AnniversaryPage.class);
+                startActivity(intent);
+            }
         });
 
-        anniversaryButton.setOnClickListener(new View.OnClickListener(){
+        //Back to dashboard.
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View view) {
+                Intent intent = new Intent(CurrentSpace.this, Login.class);
+                startActivity(intent);
+            }
         });
+
+
     }
 }

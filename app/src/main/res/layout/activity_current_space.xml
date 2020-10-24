@@ -19,8 +19,14 @@
         android:text="Logs" />
 
     <Button
-        android:id="@+id/anniversary"
+        android:id="@+id/anniversaries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Anniversary" />
+        android:text="Anniversaries" />
+
+    <Button
+        android:id="@+id/back_home_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to home" />
 </LinearLayout>
