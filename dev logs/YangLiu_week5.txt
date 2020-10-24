@@ -3,5 +3,6 @@ Yang Liu
 Week 5
 
 This weeek what I have done:
-1. 
+1. Implement delete space function.
+2. minor changes to UI.
 
