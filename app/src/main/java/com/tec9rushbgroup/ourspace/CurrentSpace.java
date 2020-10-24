@@ -38,6 +38,7 @@ public class CurrentSpace extends AppCompatActivity {
     private List<User> userList;
     private List<Space> spaceList;
     private String currentUserEmail;
+    private Space currentSpace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,8 @@ public class CurrentSpace extends AppCompatActivity {
         anniversaryButton = findViewById(R.id.anniversaries_button);
         backButton = findViewById(R.id.back_home_button);
         String uid = getIntent().getStringExtra("uid");
+        String user1 = getIntent().getStringExtra("user1");
+        String user2 = getIntent().getStringExtra("user2");
         Log.i(TAG,"space uid: " + uid);
 
         // for logs, -> "activity_logs_page.xml"
@@ -62,6 +65,9 @@ public class CurrentSpace extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(CurrentSpace.this, LogsPage.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                 pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
@@ -79,6 +85,9 @@ public class CurrentSpace extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(CurrentSpace.this, AnniversaryPage.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                 pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
@@ -118,7 +127,7 @@ public class CurrentSpace extends AppCompatActivity {
                 for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
                     User user = spaceSnapshot.getValue(User.class);
                     userList.add(user);
-                    Log.i(TAG,"user added : " +user.getEmail() );
+                   // Log.i(TAG,"user added : " +user.getEmail() );
                 }
                 if (sloganTV!=null){
                     sloganTV.setText(getSloganString());
@@ -146,8 +155,6 @@ public class CurrentSpace extends AppCompatActivity {
                         if (isCurrentUsersSpace(space)) {
                             spaceList.add(space);
                         }
-                    }else{
-                        spaceList.add(space);
                     }
                 }
 
@@ -171,19 +178,19 @@ public class CurrentSpace extends AppCompatActivity {
     private String getSloganString(){
         String user1 = getIntent().getStringExtra("user1");
         String user2 = getIntent().getStringExtra("user2");
-        Log.i(TAG,"email1 : " +user1 );
-        Log.i(TAG,"email2 : " +user2 );
+        //Log.i(TAG,"email1 : " +user1 );
+        //Log.i(TAG,"email2 : " +user2 );
         String username1 = "",username2 = "";
         for (User user : userList){
             if (user1.equals(user.getEmail())){
-                Log.i(TAG,"name1 : " +user.getUserName() );
+                //Log.i(TAG,"name1 : " +user.getUserName() );
                 if(user.getUserName().equals("")){
                     username1 = user.getEmail();
                 }else {
                     username1 = user.getUserName();
                 }
             }else if(user2.equals(user.getEmail())){
-                Log.i(TAG,"name2 : " +user.getUserName() );
+               // Log.i(TAG,"name2 : " +user.getUserName() );
                 if(user.getUserName().equals("")){
                     username2 = user.getEmail();
                 }else {

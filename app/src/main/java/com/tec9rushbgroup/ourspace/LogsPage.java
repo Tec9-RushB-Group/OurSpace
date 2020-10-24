@@ -29,11 +29,17 @@ public class LogsPage extends AppCompatActivity {
         //BUTTON
         addButton = findViewById(R.id.add_log_page);
         backToSpace = findViewById(R.id.back_to_space);
+        String uid = getIntent().getStringExtra("uid");
+        String user1 = getIntent().getStringExtra("user1");
+        String user2 = getIntent().getStringExtra("user2");
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LogsPage.this, AddLogs.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                 pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
@@ -49,6 +55,9 @@ public class LogsPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LogsPage.this, CurrentSpace.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                 pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");

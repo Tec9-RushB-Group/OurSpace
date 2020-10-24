@@ -26,15 +26,21 @@ public class AddLogs extends AppCompatActivity {
         addLog = findViewById(R.id.add_log_button);
         backToLogs = findViewById(R.id.back_to_logs);
 
+        String uid = getIntent().getStringExtra("uid");
+        String user1 = getIntent().getStringExtra("user1");
+        String user2 = getIntent().getStringExtra("user2");
         backToLogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddLogs.this, LogsPage.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                 pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AddLogs.this, pairs);
-                startActivity(intent, options.toBundle());
+                startActivity(intent);
                 overridePendingTransition(0,0);
             }
         });
