@@ -1,0 +1,7 @@
+Yang Liu
+101038916
+Week 4
+
+This weeek what I have done:
+1. Refactoring UI code.
+2. Optimize list view UI.
