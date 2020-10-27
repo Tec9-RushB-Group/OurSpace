@@ -4,49 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogsPage"
+    tools:context=".PhotoPage"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#fff"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
 
-
-        <TextView
-            android:id="@+id/welcome_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome"
-            android:textSize="70sp"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="#000"
-            android:transitionName="logo_text"/>
-        <TextView
-            android:id="@+id/slogan_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View or Add Logs"
-            android:layout_below="@id/welcome_text"
-            android:textSize="20sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="#000"
-            android:transitionName="slogan_text"/>
-
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
+        <ListView
+            android:id="@+id/list_view_photos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:scrollbarFadeDuration="1"
+            android:fadeScrollbars="true"
+            android:divider="@null"
+            android:layout_above="@id/add_photo"/>
         <Button
-            android:id="@+id/add_log_page"
+            android:id="@+id/add_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -54,15 +34,16 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:background="#000"
-            android:text="Add Logs"
+            android:text="Add Photo"
             android:textColor="#fff"
-            android:transitionName="sign_in_tran" />
+            android:transitionName="sign_in_tran"
+            android:layout_above="@id/back_to_space"/>
 
         <Button
             android:id="@+id/back_to_space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add_log_page"
+
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
@@ -70,6 +51,7 @@
             android:background="#000"
             android:text="Back"
             android:textColor="#fff"
+            android:layout_alignParentBottom="true"
             android:transitionName="sign_in_tran" />
     </RelativeLayout>
 </LinearLayout>

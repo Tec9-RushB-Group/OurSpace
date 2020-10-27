@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DeleteSpace"></activity>
+        <activity android:name=".PhotoPage"></activity>
+        <activity android:name=".Photo"></activity>
+        <activity android:name=".DeleteSpace" />
         <activity android:name=".AddAnniversary" />
         <activity android:name=".AnniversaryPage" />
         <activity android:name=".LogsPage" />

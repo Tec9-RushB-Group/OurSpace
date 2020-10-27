@@ -54,11 +54,25 @@ public class CurrentSpace extends AppCompatActivity {
         logsButton = findViewById(R.id.logs_button);
         anniversaryButton = findViewById(R.id.anniversaries_button);
         backButton = findViewById(R.id.back_home_button);
+        photosButton = findViewById(R.id.photos_button);
         String uid = getIntent().getStringExtra("uid");
         String user1 = getIntent().getStringExtra("user1");
         String user2 = getIntent().getStringExtra("user2");
         Log.i(TAG,"space uid: " + uid);
 
+        photosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(CurrentSpace.this, PhotoPage.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
+            }
+        });
         // for logs, -> "activity_logs_page.xml"
         logsButton.setOnClickListener(new View.OnClickListener() {
             @Override
