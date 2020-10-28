@@ -1,5 +1,8 @@
 package com.tec9rushbgroup.ourspace;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Space {
     String user1;
     String user2;
@@ -10,6 +13,7 @@ public class Space {
     Boolean space_stat;//Can this space be displayed?                           *unused
     String spaceUid;
     Integer numOfPhotos;
+
 
     public Space() {
     }
@@ -24,6 +28,7 @@ public class Space {
         this.user2_stat = user2_stat;
         this.space_stat = status;
         this.numOfPhotos = numOfPhotos;
+
     }
 
     public String getUser1() {
@@ -101,4 +106,5 @@ public class Space {
     public void setNumOfPhotos(Integer numOfPhotos) {
         this.numOfPhotos = numOfPhotos;
     }
+
 }

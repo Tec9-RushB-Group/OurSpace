@@ -75,7 +75,7 @@ public class Profile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
-    private DatabaseReference spaceDatabaseReference, userDatabaseReference;
+    private DatabaseReference spaceDatabaseReference, userDatabaseReference,currentUserReference;
     private List<User> userList;
     private List<Space> spaceList;
     private ImageViewHelper profileImage;
@@ -239,6 +239,31 @@ public class Profile extends AppCompatActivity {
                     User user = spaceSnapshot.getValue(User.class);
                     userList.add(user);
                 }
+                if (usernameTV != null && firebaseUser != null) {
+                    //set userName
+                    String displayName = findDisplayName(firebaseUser.getEmail());
+                    usernameTV.setText(displayName);
+                    //set photo
+                    if (getCurrentUser() != null) {
+                        updatePhoto();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        currentUserReference =userDatabaseReference.child(firebaseUser.getUid());
+        currentUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
                 if (usernameTV != null && firebaseUser != null) {
                     //set userName
                     String displayName = findDisplayName(firebaseUser.getEmail());

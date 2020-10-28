@@ -29,12 +29,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.sql.Types.NULL;
 
@@ -45,7 +47,7 @@ public class PhotoPage extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
-    private DatabaseReference spaceDatabaseReference, userDatabaseReference;
+    private DatabaseReference spaceDatabaseReference, userDatabaseReference,photoViewReference;
     private List<User> userList;
     private List<Space> spaceList;
     private FirebaseStorage firebaseStorage;
@@ -109,15 +111,17 @@ public class PhotoPage extends AppCompatActivity {
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading Image...");
         pd.show();
+
         firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Photos/" + getNumOfPhotos());
+        String uid = spaceDatabaseReference.push().getKey();
+        storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Photos/" + uid);
         storageReference.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         pd.dismiss();
                         spaceDatabaseReference.child(getIntent().getStringExtra("uid")+"/numOfPhotos").setValue(getNumOfPhotos()+1);
-                        updatePhotoView();
+                        updatePhotoView2();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -145,31 +149,55 @@ public class PhotoPage extends AppCompatActivity {
         }
         return null;
     }
-    private void updatePhotoView(){
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i<getNumOfPhotos();i++){
-            Log.i(TAG,"updatePhotoView() for loop   i = "+i);
-            firebaseStorage = FirebaseStorage.getInstance();
-            storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Photos/" + i);
 
-            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    list.add(uri+"");
-                    Log.i(TAG,"list.add() : "+uri);
-                    if (list.size() == getNumOfPhotos()){
-                        Log.i(TAG,"list.add() finish  number: "+list.size());
-                        PhotoList adapter = new PhotoList(PhotoPage.this, list,getNumOfPhotos());
+    private void updatePhotoView2(){
+
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Photos");
+        storageReference.listAll()
+                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        List<StorageReference> items = listResult.getItems();
+                        List<String> list = new ArrayList<>();
+                        for (StorageReference r: items){
+                            list.add(r.toString());
+                        }
+                        String uid = getIntent().getStringExtra("uid");
+                        PhotoList adapter = new PhotoList(PhotoPage.this, list,getNumOfPhotos(),items,uid);
                         photoListView = findViewById(R.id.list_view_photos);
                         photoListView.setAdapter(adapter);
+
+                        /*for (StorageReference r: items){
+                            r.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    list.add(uri+"");
+                                    Log.i(TAG,"list.add() : "+uri);
+                                    if (list.size() == items.size()){
+                                        //Log.i(TAG,"list.add() finish  number: "+list.size());
+                                        PhotoList adapter = new PhotoList(PhotoPage.this, list,getNumOfPhotos(),items);
+                                        photoListView = findViewById(R.id.list_view_photos);
+                                        photoListView.setAdapter(adapter);
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                }
+                            });
+
+
+                        }*/
+
                     }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                }
-            });
-        }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
     }
     private int getNumOfPhotos() {
         if (firebaseUser.getEmail() != null) {
@@ -202,7 +230,6 @@ public class PhotoPage extends AppCompatActivity {
             }
 
         });
-
         // Check if user is signed in (non-null) and update UI accordingly.
         spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -222,12 +249,25 @@ public class PhotoPage extends AppCompatActivity {
                         spaceList.add(space);
                     }
                 }
-                photoListView = findViewById(R.id.list_view_photos);
-                if (photoListView != null) {
-                    updatePhotoView();
-                }
             }
 
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
+        photoViewReference = spaceDatabaseReference.child(getIntent().getStringExtra("uid"));
+        photoViewReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(getNumOfPhotos()!=0) {
+                    photoListView = findViewById(R.id.list_view_photos);
+                    if (photoListView != null) {
+                        updatePhotoView2();
+                    }
+                }
+            }
             @Override
             public void onCancelled(DatabaseError error) {
 
