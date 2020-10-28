@@ -8,16 +8,29 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PhotoPage"></activity>
-        <activity android:name=".Photo"></activity>
-        <activity android:name=".DeleteSpace" />
-        <activity android:name=".AddAnniversary" />
-        <activity android:name=".AnniversaryPage" />
-        <activity android:name=".LogsPage" />
-        <activity android:name=".AddLogs" />
+        <activity android:name=".PhotoBrowseActivity"></activity>
+        <activity
+            android:name=".PhotoPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DeleteSpace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddAnniversary"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AnniversaryPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LogsPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddLogs"
+            android:screenOrientation="portrait" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.

@@ -1,18 +1,24 @@
 package com.tec9rushbgroup.ourspace;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.sql.Types.NULL;
@@ -49,6 +56,8 @@ public class PhotoList extends ArrayAdapter<String> {
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     private String uid;
+    private float beforeScale=1.0f;//之前的伸缩值
+    private float nowScale;//当前的伸缩值
 
     public PhotoList(Activity context, List<String> list, int n,List<StorageReference> references,String uid) {
         super(context, R.layout.spaces_list_layout, list);
@@ -83,12 +92,22 @@ public class PhotoList extends ArrayAdapter<String> {
                 image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String[] images = new String[]{uri+""};
+                        ArrayList<String> pictureList = new ArrayList<>();
+                        pictureList.addAll(Arrays.asList(images));
+                        PhotoBrowseActivity.startWithElement(context, pictureList, 0, image);
+                        /*
                         LayoutInflater inflater = context.getLayoutInflater();
                         View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
                         final AlertDialog dialog = new AlertDialog.Builder(context).create();
                         ImageViewHelper img = imgEntryView.findViewById(R.id.large_image);
-                        img.setImageURL(uri+"");
-                        dialog.setView(imgEntryView); // 自定义dialog
+                        image.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = Bitmap.createBitmap(image.getDrawingCache());
+                        image.setDrawingCacheEnabled(false);
+                        img.setScaleType(ImageView.ScaleType. FIT_CENTER);
+                        img.setImageBitmap(bitmap);
+
+                        dialog.setView(imgEntryView);
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         imgEntryView.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View paramView) {
@@ -96,6 +115,8 @@ public class PhotoList extends ArrayAdapter<String> {
                             }
                         });
                         dialog.show();
+
+                         */
                     }
                 });
             }
@@ -126,4 +147,5 @@ public class PhotoList extends ArrayAdapter<String> {
     public boolean isEnabled(int position) {
         return false;
     }
+
 }
