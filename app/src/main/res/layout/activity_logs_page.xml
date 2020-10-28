@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="10dp">
         <Button
             android:id="@+id/add_log_page"
             android:layout_width="match_parent"
@@ -53,6 +53,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
+            android:layout_above="@id/back_to_space"
             android:background="#000"
             android:text="Add Logs"
             android:textColor="#fff"
@@ -62,14 +63,13 @@
             android:id="@+id/back_to_space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add_log_page"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
             android:background="#000"
             android:text="Back"
             android:textColor="#fff"
+            android:layout_alignParentBottom="true"
             android:transitionName="sign_in_tran" />
     </RelativeLayout>
 </LinearLayout>

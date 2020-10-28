@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="10dp">
 
         <Button
             android:id="@+id/add_anniversary_page"
@@ -54,6 +54,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:background="#000"
+            android:layout_above="@id/back_to_space_button"
             android:text="Add Anniversaries"
             android:textColor="#fff"
             android:transitionName="sign_in_tran" />
@@ -65,10 +66,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
             android:background="#000"
             android:text="Back"
-            android:layout_below="@id/add_anniversary_page"
+            android:layout_alignParentBottom="true"
             android:textColor="#fff"
             android:transitionName="sign_in_tran" />
     </RelativeLayout>

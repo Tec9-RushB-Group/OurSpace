@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="10dp">
         <Button
             android:id="@+id/photos_button"
             android:layout_width="match_parent"
@@ -55,6 +55,7 @@
             android:layout_marginBottom="5dp"
             android:background="#000"
             android:textColor="#fff"
+            android:layout_above="@id/logs_button"
             android:text="Photos" />
 
         <Button
@@ -67,7 +68,7 @@
             android:layout_marginBottom="5dp"
             android:background="#000"
             android:textColor="#fff"
-            android:layout_below="@id/photos_button"
+            android:layout_above="@id/anniversaries_button"
             android:text="Logs" />
 
         <Button
@@ -80,7 +81,7 @@
             android:layout_marginBottom="5dp"
             android:background="#000"
             android:textColor="#fff"
-            android:layout_below="@id/logs_button"
+            android:layout_above="@id/back_home_button"
             android:text="Anniversaries" />
 
         <Button
@@ -90,10 +91,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
             android:background="#000"
             android:textColor="#fff"
-            android:layout_below="@id/anniversaries_button"
+            android:layout_alignParentBottom="true"
             android:text="Back to Dashboard" />
     </RelativeLayout>
 
