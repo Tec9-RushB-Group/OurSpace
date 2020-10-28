@@ -1,12 +1,14 @@
 package com.tec9rushbgroup.ourspace;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.SharedElementCallback;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
+//this class is from:   https://github.com/sbLaughing/DragCloseDemo1
 
-
-/**
- */
 public class PhotoBrowseActivity extends AppCompatActivity {
 
 
@@ -74,6 +73,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
         firstDisplayImageIndex = Math.min(getIntent().getIntExtra("index", firstDisplayImageIndex), pictureList.size());
 
         imageViewPager = (BaseAnimCloseViewPager) findViewById(R.id.viewpager);
+
         setViewPagerAdapter();
 
         setEnterSharedElementCallback(new SharedElementCallback() {
@@ -191,13 +191,8 @@ public class PhotoBrowseActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * 设置图片
-     *
-     * @param path
-     */
     private void setImageView(final String path) {
-        if (mCurImage.getDrawable() != null)//判断是否已经加载了图片，避免闪动
+        if (mCurImage.getDrawable() != null)
             return;
         if (TextUtils.isEmpty(path)) {
             mCurImage.setBackgroundColor(Color.GRAY);
@@ -207,7 +202,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
         Glide.with(this).load(path).into(mCurImage);
     }
 
-    // 初始化每个view的image
+
     protected void updateCurrentImageView(final int position) {
         View currentLayout = imageViewPager.findViewWithTag(position);
         if (currentLayout == null) {

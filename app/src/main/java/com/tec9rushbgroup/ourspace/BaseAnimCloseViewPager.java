@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by Laughing on 2017/7/10.
+ * https://github.com/sbLaughing/DragCloseDemo1
  */
 public class BaseAnimCloseViewPager extends ViewPager {
 

@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 import com.nineoldandroids.view.ViewHelper;
 /**
  * Created by Laughing on 2017/7/4.
- * <p/>
- * 只有y轴运动才能放大缩小屏幕，往y轴方向 向上提是放大或者不变，往y轴方向 向下拉是缩小，或者缩小到极限
+ * this class is from:   https://github.com/sbLaughing/DragCloseDemo1
+ *
  */
 public class ScaleViewPager extends BaseAnimCloseViewPager {
 

@@ -42,27 +42,19 @@ import static java.sql.Types.NULL;
 
 public class PhotoList extends ArrayAdapter<String> {
     private Activity context;
-    private List<String> photos;
     String TAG  = "PhotoList";
     int currentIndex ;
     int numOfPhotos;
     private List<StorageReference> references;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
-    private DatabaseReference spaceDatabaseReference, userDatabaseReference,photoViewReference;
-    private List<User> userList;
-    private List<Space> spaceList;
-    private FirebaseStorage firebaseStorage;
-    private StorageReference storageReference;
+    private DatabaseReference spaceDatabaseReference;
+
     private String uid;
-    private float beforeScale=1.0f;//之前的伸缩值
-    private float nowScale;//当前的伸缩值
+
 
     public PhotoList(Activity context, List<String> list, int n,List<StorageReference> references,String uid) {
         super(context, R.layout.spaces_list_layout, list);
         this.context = context;
-        this.photos = list;
         currentIndex = 0;
         numOfPhotos = n;
         this.references = references;
@@ -107,7 +99,7 @@ public class PhotoList extends ArrayAdapter<String> {
                         img.setScaleType(ImageView.ScaleType. FIT_CENTER);
                         img.setImageBitmap(bitmap);
 
-                        dialog.setView(imgEntryView);
+                        dialog.setView(imgEntryView); // 自定义dialog
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                         imgEntryView.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View paramView) {
