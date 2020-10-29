@@ -23,6 +23,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
 
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
 
     private int firstDisplayImageIndex = 0;
     private boolean newPageSelected = false;
-    private ImageView mCurImage;
+    private PhotoView mCurImage;
     private BaseAnimCloseViewPager imageViewPager;
     private List<String> pictureList;
 
@@ -118,7 +119,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 View layout;
                 layout = LayoutInflater.from(PhotoBrowseActivity.this).inflate(R.layout.layout_browse, null);
-//                layout.setOnClickListener(onClickListener);
+                //layout.setOnClickListener(onClickListener);
                 container.addView(layout);
                 layout.setTag(position);
 
@@ -174,6 +175,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
                 finishAfterTransition();
             }
         });
+        //imageViewPager.setOnClickListener(onClickListener);
     }
 
 
@@ -200,6 +202,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
         }
         canDrag = false;
         Glide.with(this).load(path).into(mCurImage);
+        mCurImage.setOnClickListener(onClickListener);
     }
 
 
@@ -215,7 +218,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
             });
             return;
         }
-        mCurImage = (ImageView) currentLayout.findViewById(R.id.image_view);
+        mCurImage = (PhotoView) currentLayout.findViewById(R.id.image_view);
         imageViewPager.setCurrentShowView(mCurImage);
     }
 
