@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/password"
             android:hint="Password"
+            android:maxLength ="16"
             app:passwordToggleEnabled="true"
             android:transitionName="password_tran"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">

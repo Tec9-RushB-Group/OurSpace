@@ -70,6 +70,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:transitionName="username_tran"
+            android:maxLength ="16"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
