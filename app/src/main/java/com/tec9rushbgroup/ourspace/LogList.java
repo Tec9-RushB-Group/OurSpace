@@ -61,16 +61,18 @@ public class LogList extends ArrayAdapter<StorageReference> {
     private FirebaseDatabase database;
     private DatabaseReference spaceDatabaseReference;
 
-    private String uid;
+    private String uid,user1,user2;
 
 
-    public LogList(Activity context, List<StorageReference> list,String uid,int n) {
+    public LogList(Activity context, List<StorageReference> list,String uid,int n,String user1,String user2) {
         super(context, R.layout.spaces_list_layout, list);
         this.context = context;
         currentIndex = 0;
         numOfLogs = n;
         this.uid = uid;
         references = list;
+        this.user1 = user1;
+        this.user2 = user2;
     }
 
     @NonNull
@@ -80,9 +82,7 @@ public class LogList extends ArrayAdapter<StorageReference> {
         View listViewItem = inflater.inflate(R.layout.log_list_layout, null, true);
         Button logDescription = listViewItem.findViewById(R.id.log_description);
         Button deleteButton = listViewItem.findViewById(R.id.delete_button);
-        logDescription.setVisibility(View.INVISIBLE);
         logDescription.setEnabled(false);
-        deleteButton.setVisibility(View.INVISIBLE);
         deleteButton.setEnabled(false);
         StorageReference r = references.get(position);
 
@@ -108,15 +108,15 @@ public class LogList extends ArrayAdapter<StorageReference> {
                             public void onClick(View view) {
                                 Intent intent = new Intent(context, LogDetail.class);
                                 intent.putExtra("uid", uid);
+                                intent.putExtra("user1", user1);
+                                intent.putExtra("user2", user2);
                                 intent.putExtra("content", content);
                                 intent.putExtra("description", logDescription.getText().toString());
                                 context.startActivity(intent);
                                 context.overridePendingTransition(0, 0);
                             }
                         });
-                        logDescription.setVisibility(View.VISIBLE);
                         logDescription.setEnabled(true);
-                        deleteButton.setVisibility(View.VISIBLE);
                         deleteButton.setEnabled(true);
                     }
                 }).addOnFailureListener(new OnFailureListener() {

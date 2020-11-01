@@ -127,12 +127,20 @@ public class AddLogs extends AppCompatActivity {
 
                 file = Uri.fromFile(new File(filePath.toString()+"/"+fileName));
                 storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Logs/"+fileName);
+                addLog.setEnabled(false);
+                backToLogs.setEnabled(false);
+                title.setEnabled(false);
+                content.setEnabled(false);
                 UploadTask uploadTask = storageReference.putFile(file);
-
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),"Failed to Upload",Toast.LENGTH_LONG).show();
+                        addLog.setEnabled(true);
+                        backToLogs.setEnabled(true);
+                        title.setEnabled(true);
+                        content.setEnabled(true);
+                        title.setError("Network Error");
+                        content.setError("Network Error");
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override

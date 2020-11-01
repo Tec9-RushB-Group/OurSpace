@@ -71,7 +71,8 @@ public class PhotoList extends ArrayAdapter<String> {
         ImageViewHelper image = listViewItem.findViewById(R.id.image);
         Button deleteButton = listViewItem.findViewById(R.id.delete_photo_button);
         StorageReference r = references.get(position);
-
+        image.setEnabled(false);
+        deleteButton.setEnabled(false);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +92,8 @@ public class PhotoList extends ArrayAdapter<String> {
                         PhotoBrowseActivity.startWithElement(context, pictureList, 0, image);
                     }
                 });
+                image.setEnabled(true);
+                deleteButton.setEnabled(true);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

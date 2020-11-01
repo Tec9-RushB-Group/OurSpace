@@ -98,9 +98,11 @@ public class LogsPage extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        List<StorageReference> items = listResult.getItems();
                         String uid = getIntent().getStringExtra("uid");
-                        LogList adapter = new LogList(LogsPage.this, items, uid,getNumOfLogs());
+                        String user1 = getIntent().getStringExtra("user1");
+                        String user2 = getIntent().getStringExtra("user2");
+                        List<StorageReference> items = listResult.getItems();
+                        LogList adapter = new LogList(LogsPage.this, items, uid,getNumOfLogs(),user1,user2);
                         logsListView = findViewById(R.id.list_view_logs);
                         logsListView.setAdapter(adapter);
                     }
