@@ -60,7 +60,7 @@ public class AddLogs extends AppCompatActivity {
     private List<User> userList;
     private List<Space> spaceList;
     private FirebaseStorage firebaseStorage;
-    private StorageReference storageReference, logsRef, logFilesRef;
+    private StorageReference storageReference;
     private String fileName;
     private Uri file;
 
@@ -80,8 +80,6 @@ public class AddLogs extends AppCompatActivity {
         // text variable need to pass.
         title = findViewById(R.id.log_title);
         content = findViewById(R.id.log_content);
-
-
         //Buttons
         addLog = findViewById(R.id.add_log_button);
         backToLogs = findViewById(R.id.back_to_logs);
