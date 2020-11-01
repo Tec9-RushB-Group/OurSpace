@@ -94,10 +94,6 @@ public class AddLogs extends AppCompatActivity {
                 intent.putExtra("uid",uid);
                 intent.putExtra("user1",user1);
                 intent.putExtra("user2",user2);
-                Pair[] pairs = new Pair[2];
-                pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
-                pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AddLogs.this, pairs);
                 startActivity(intent);
                 overridePendingTransition(0,0);
             }
@@ -141,7 +137,12 @@ public class AddLogs extends AppCompatActivity {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        spaceDatabaseReference.child(getIntent().getStringExtra("uid")+"/numOfLogs").setValue(getNumOfLogs()+1);
+                        Intent intent = new Intent(AddLogs.this, LogsPage.class);
+                        intent.putExtra("uid",uid);
+                        intent.putExtra("user1",user1);
+                        intent.putExtra("user2",user2);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
                     }
                 });
 
