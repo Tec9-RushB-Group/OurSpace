@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    android:id="@+id/dashboard">
+    android:id="@+id/dashboard"
+    >
 
 
     <RelativeLayout

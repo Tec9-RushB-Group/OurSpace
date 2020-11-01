@@ -131,40 +131,7 @@ public class LogList extends ArrayAdapter<StorageReference> {
                 // Uh-oh, an error occurred!
             }
         });
-        /*
-        r.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                StringBuffer strB = new StringBuffer();   //strB to store content of txt file
-                String str = "" ;
-                String fileUrl = uri+"";
-                URL url = null;
-                try {
-                    url = new URL(fileUrl);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    InputStreamReader isr = new InputStreamReader(connection.getInputStream());
-                    BufferedReader br = new BufferedReader(isr);
-                    while ((str = br.readLine()) != null) {
-                        strB.append(str).append("<br>");
-                    }
-                    br.close();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.i(TAG,"strB: "+strB);
 
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-            }
-        });
-
-         */
         return listViewItem;
     }
 
@@ -182,6 +149,7 @@ public class LogList extends ArrayAdapter<StorageReference> {
             }
         });
     }
+
     @Override
     public boolean isEnabled(int position) {
         return false;
