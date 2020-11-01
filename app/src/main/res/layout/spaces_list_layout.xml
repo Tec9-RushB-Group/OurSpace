@@ -16,7 +16,7 @@
             android:layout_toLeftOf="@id/delete_space_button"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5dp"
-            android:background="#000"
+            android:background="#191919"
             android:textColor="#fff"
             android:layout_marginBottom="5dp" />
         <Button
@@ -24,8 +24,8 @@
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:background="#E75D58"
-            android:textColor="#fff"
+            android:background="#191919"
+            android:textColor="#E75D58"
             android:text="delete"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp" />
