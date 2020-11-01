@@ -80,9 +80,7 @@ public class AddLogs extends AppCompatActivity {
         // text variable need to pass.
         title = findViewById(R.id.log_title);
         content = findViewById(R.id.log_content);
-        String titleText = title.getEditText().getText().toString();
-        String contentText = content.getEditText().getText().toString();
-        fileName = titleText + ".txt";
+
 
         //Buttons
         addLog = findViewById(R.id.add_log_button);
@@ -111,6 +109,9 @@ public class AddLogs extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //create a new text file to LOCAL.
+                String titleText = title.getEditText().getText().toString();
+                String contentText = content.getEditText().getText().toString();
+                fileName = titleText + ".txt";
                 FileOutputStream fos = null;
                 File filePath = null;
 
@@ -131,9 +132,8 @@ public class AddLogs extends AppCompatActivity {
                 }
 
                 file = Uri.fromFile(new File(filePath.toString()+"/"+fileName));
-                storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Logs/");
-                logFilesRef = storageReference.child(file.getLastPathSegment());
-                UploadTask uploadTask = logFilesRef.putFile(file);
+                storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Logs/"+fileName);
+                UploadTask uploadTask = storageReference.putFile(file);
 
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
