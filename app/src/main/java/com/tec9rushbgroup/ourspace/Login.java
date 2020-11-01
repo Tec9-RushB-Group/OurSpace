@@ -370,8 +370,8 @@ public class Login extends AppCompatActivity {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
             startActivity(intent, options.toBundle());
         } else {
-            emailField.setError("LogIn filed (Invalid email/password)");
-            passwordField.setError("LogIn filed (Invalid email/password)");
+            emailField.setError("Login failed (Invalid email/password)");
+            passwordField.setError("Login failed (Invalid email/password)");
         }
     }
 
