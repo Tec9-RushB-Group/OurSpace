@@ -168,28 +168,6 @@ public class PhotoPage extends AppCompatActivity {
                         photoListView = findViewById(R.id.list_view_photos);
                         photoListView.setAdapter(adapter);
 
-                        /*for (StorageReference r: items){
-                            r.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    list.add(uri+"");
-                                    Log.i(TAG,"list.add() : "+uri);
-                                    if (list.size() == items.size()){
-                                        //Log.i(TAG,"list.add() finish  number: "+list.size());
-                                        PhotoList adapter = new PhotoList(PhotoPage.this, list,getNumOfPhotos(),items);
-                                        photoListView = findViewById(R.id.list_view_photos);
-                                        photoListView.setAdapter(adapter);
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                }
-                            });
-
-
-                        }*/
-
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

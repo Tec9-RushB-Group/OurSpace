@@ -88,27 +88,6 @@ public class PhotoList extends ArrayAdapter<String> {
                         ArrayList<String> pictureList = new ArrayList<>();
                         pictureList.addAll(Arrays.asList(images));
                         PhotoBrowseActivity.startWithElement(context, pictureList, 0, image);
-                        /*
-                        LayoutInflater inflater = context.getLayoutInflater();
-                        View imgEntryView = inflater.inflate(R.layout.dialog_photo, null);
-                        final AlertDialog dialog = new AlertDialog.Builder(context).create();
-                        ImageViewHelper img = imgEntryView.findViewById(R.id.large_image);
-                        image.setDrawingCacheEnabled(true);
-                        Bitmap bitmap = Bitmap.createBitmap(image.getDrawingCache());
-                        image.setDrawingCacheEnabled(false);
-                        img.setScaleType(ImageView.ScaleType. FIT_CENTER);
-                        img.setImageBitmap(bitmap);
-
-                        dialog.setView(imgEntryView); // 自定义dialog
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        imgEntryView.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View paramView) {
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.show();
-
-                         */
                     }
                 });
             }

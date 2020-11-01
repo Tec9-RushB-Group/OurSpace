@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogsPage"
+    tools:context=".LogDetail"
     android:orientation="vertical">
 
 
@@ -15,8 +15,6 @@
         android:layout_marginTop="0dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-
-
         <TextView
             android:id="@+id/welcome_text"
             android:layout_width="wrap_content"
@@ -31,21 +29,20 @@
             android:id="@+id/slogan_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View and Create Logs"
+            android:text="Log Detail"
             android:layout_below="@id/welcome_text"
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
             android:textColor="#000"
             android:transitionName="slogan_text"/>
-
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp">
-        <ListView
-            android:id="@+id/list_view_logs"
+        <TextView
+            android:id="@+id/log_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -53,24 +50,12 @@
             android:layout_marginBottom="5dp"
             android:scrollbarFadeDuration="1"
             android:fadeScrollbars="true"
+            android:textSize="25sp"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/add_log_page"/>
-        <Button
-            android:id="@+id/add_log_page"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="5dp"
-            android:layout_above="@id/back_to_space"
-            android:background="#000"
-            android:text="Create Logs"
-            android:textColor="#fff"
-            android:transitionName="sign_in_tran" />
+            android:layout_above="@id/back_button"/>
 
         <Button
-            android:id="@+id/back_to_space"
+            android:id="@+id/back_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
