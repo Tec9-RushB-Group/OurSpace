@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -155,7 +156,12 @@ public class Login extends AppCompatActivity {
                     if (!validateForm()) {
                         return;
                     }
-                    signIn(emailText, passwordText);
+                    final ProgressDialog pd = new ProgressDialog(Login.this);
+                    pd.setTitle("Please wait...");
+                    pd.setMessage("Signing in...");
+                    pd.show();
+                    setAllEnabled(false);
+                    signIn(emailText, passwordText,pd);
                 }
             });
             newUserButton.setOnClickListener(new View.OnClickListener() {
@@ -329,7 +335,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-    private void signIn(String email, String password) {
+    private void signIn(String email, String password,ProgressDialog pd) {
 
 
         // [START sign_in_with_email]
@@ -341,10 +347,14 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
+                            setAllEnabled(true);
+                            pd.dismiss();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            setAllEnabled(true);
+                            pd.dismiss();
                             updateUI(null);
 
                         }
@@ -440,4 +450,12 @@ public class Login extends AppCompatActivity {
         userList = new ArrayList<>();
     }
 
+    private void setAllEnabled(boolean b){
+        email.setEnabled(b);
+        password.setEnabled(b);
+        forgetPasswordButton.setEnabled(b);
+        signInButton.setEnabled(b);
+        googleSignButton.setEnabled(b);
+        newUserButton.setEnabled(b);
+    }
 }
