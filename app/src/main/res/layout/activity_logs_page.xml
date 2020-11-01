@@ -71,5 +71,10 @@
             android:textColor="#fff"
             android:layout_alignParentBottom="true"
             android:transitionName="sign_in_tran" />
+
+        <ListView
+            android:id="@+id/list_view_logs"
+            android:layout_width="match_parent"
+            android:layout_height="387dp" />
     </RelativeLayout>
 </LinearLayout>

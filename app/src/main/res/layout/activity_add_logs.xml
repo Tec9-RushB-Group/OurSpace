@@ -77,15 +77,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
         android:hint="Description"
-        app:counterEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress">
-
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
+        app:counterEnabled="true"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/log_content"

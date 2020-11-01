@@ -13,12 +13,13 @@ public class Space {
     Boolean space_stat;//Can this space be displayed?                           *unused
     String spaceUid;
     Integer numOfPhotos;
+    Integer numOfLogs;
 
 
     public Space() {
     }
 
-    public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status,Integer numOfPhotos) {
+    public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status,Integer numOfPhotos,Integer numOfLogs) {
         this.user1 = user1;
         this.user2 = user2;
         this.folder = folder;
@@ -28,6 +29,7 @@ public class Space {
         this.user2_stat = user2_stat;
         this.space_stat = status;
         this.numOfPhotos = numOfPhotos;
+        this.numOfLogs = numOfLogs;
 
     }
 
@@ -107,4 +109,11 @@ public class Space {
         this.numOfPhotos = numOfPhotos;
     }
 
+    public Integer getNumOfLogs() {
+        return numOfLogs;
+    }
+
+    public void setNumOfLogs(Integer numOfLogs) {
+        this.numOfLogs = numOfLogs;
+    }
 }
