@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -74,7 +75,7 @@ public class PhotoList extends ArrayAdapter<String> {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deletePhoto(r);
+                dialog(r);
             }
         });
         r.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -113,6 +114,23 @@ public class PhotoList extends ArrayAdapter<String> {
             public void onFailure(@NonNull Exception exception) {
             }
         });
+    }
+    private void dialog(StorageReference r){
+        AlertDialog.Builder d = new AlertDialog.Builder(context);
+        d.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deletePhoto(r);
+            }
+        });
+        d.setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+            public void onClick(DialogInterface arg0,int arg1){
+                arg0.dismiss();
+            }
+        });
+        d.setMessage("Are you sure to delete this Photo?");
+        d.show();
     }
     @Override
     public boolean isEnabled(int position) {

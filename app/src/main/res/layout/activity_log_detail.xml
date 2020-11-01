@@ -52,6 +52,7 @@
             android:scrollbarFadeDuration="1"
             android:fadeScrollbars="true"
             android:textSize="20sp"
+            android:textColor="#000"
             android:layout_alignParentTop="true"
             android:layout_above="@id/back_button"/>
 

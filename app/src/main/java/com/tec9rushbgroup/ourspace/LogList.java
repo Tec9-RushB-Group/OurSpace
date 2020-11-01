@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -88,7 +89,7 @@ public class LogList extends ArrayAdapter<StorageReference> {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteLog(r);
+                dialog(r);
             }
         });
         r.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
@@ -155,4 +156,22 @@ public class LogList extends ArrayAdapter<StorageReference> {
         return false;
     }
 
+
+    private void dialog(StorageReference r){
+        AlertDialog.Builder d = new AlertDialog.Builder(context);
+        d.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteLog(r);
+            }
+        });
+        d.setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+            public void onClick(DialogInterface arg0,int arg1){
+                arg0.dismiss();
+            }
+        });
+        d.setMessage("Are you sure to delete this Log?");
+        d.show();
+    }
 }
