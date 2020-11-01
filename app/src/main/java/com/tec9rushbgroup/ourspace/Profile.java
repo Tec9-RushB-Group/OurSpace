@@ -75,7 +75,7 @@ public class Profile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
-    private DatabaseReference spaceDatabaseReference, userDatabaseReference;
+    private DatabaseReference spaceDatabaseReference, userDatabaseReference,currentUserReference;
     private List<User> userList;
     private List<Space> spaceList;
     private ImageViewHelper profileImage;
@@ -90,13 +90,9 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         // initialize environment
         currentPhoto="";
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+
+        setUpEnvironment();
+
         newName = findViewById(R.id.new_name);
 
         signOutButton = findViewById(R.id.signout);
@@ -133,7 +129,8 @@ public class Profile extends AppCompatActivity {
                                 pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                                 pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
-                                startActivity(intent, options.toBundle());
+                                //startActivity(intent, options.toBundle());
+                                startActivity(intent);
                                 overridePendingTransition(0, 0);
                             }
                         });
@@ -260,6 +257,31 @@ public class Profile extends AppCompatActivity {
             }
 
         });
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        currentUserReference =userDatabaseReference.child(firebaseUser.getUid());
+        currentUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                if (usernameTV != null && firebaseUser != null) {
+                    //set userName
+                    String displayName = findDisplayName(firebaseUser.getEmail());
+                    usernameTV.setText(displayName);
+                    //set photo
+                    if (getCurrentUser() != null) {
+                        updatePhoto();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
         /*
         // Check if user is signed in (non-null) and update UI accordingly.
         spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -358,7 +380,8 @@ public class Profile extends AppCompatActivity {
                         pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
-                        startActivity(intent, options.toBundle());
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.bottom_nav_add:
@@ -368,7 +391,8 @@ public class Profile extends AppCompatActivity {
                         pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         pairs2[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs2);
-                        startActivity(intent2, options2.toBundle());
+                        //startActivity(intent2, options2.toBundle());
+                        startActivity(intent2);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.bottom_nav_profile:
@@ -410,5 +434,14 @@ public class Profile extends AppCompatActivity {
             newName.setError(null);
         }
         return valid;
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 }

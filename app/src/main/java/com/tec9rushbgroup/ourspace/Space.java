@@ -1,19 +1,25 @@
 package com.tec9rushbgroup.ourspace;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Space {
     String user1;
     String user2;
     String folder;//folder path in firebase store.
     String name;
-    Boolean user1_stat;//is user 1 willing to have this space?
-    Boolean user2_stat;//is user 2 willing to have this space?
-    Boolean space_stat;//Can this space be displayed?
+    Boolean user1_stat;//is user 1 willing to have this space?                  *unused
+    Boolean user2_stat;//is user 2 willing to have this space?                  *unused
+    Boolean space_stat;//Can this space be displayed?                           *unused
     String spaceUid;
+    Integer numOfPhotos;
+    Integer numOfLogs;
+
 
     public Space() {
     }
 
-    public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status) {
+    public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status,Integer numOfPhotos,Integer numOfLogs) {
         this.user1 = user1;
         this.user2 = user2;
         this.folder = folder;
@@ -22,6 +28,9 @@ public class Space {
         this.user1_stat = user1_stat;
         this.user2_stat = user2_stat;
         this.space_stat = status;
+        this.numOfPhotos = numOfPhotos;
+        this.numOfLogs = numOfLogs;
+
     }
 
     public String getUser1() {
@@ -92,4 +101,19 @@ public class Space {
         this.space_stat = space_stat;
     }
 
+    public Integer getNumOfPhotos() {
+        return numOfPhotos;
+    }
+
+    public void setNumOfPhotos(Integer numOfPhotos) {
+        this.numOfPhotos = numOfPhotos;
+    }
+
+    public Integer getNumOfLogs() {
+        return numOfLogs;
+    }
+
+    public void setNumOfLogs(Integer numOfLogs) {
+        this.numOfLogs = numOfLogs;
+    }
 }

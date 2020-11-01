@@ -41,6 +41,7 @@
             app:counterEnabled="true"
             app:counterMaxLength="16"
             android:transitionName="username_tran"
+            android:maxLength ="16"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -78,6 +79,7 @@
             android:transitionName="password_tran"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:maxLength ="16"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -95,6 +97,7 @@
             app:passwordToggleEnabled="true"
             app:counterEnabled="true"
             app:counterMaxLength="16"
+            android:maxLength ="16"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">

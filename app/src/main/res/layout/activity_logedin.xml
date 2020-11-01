@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    android:id="@+id/dashboard">
+    android:id="@+id/dashboard"
+    >
 
 
     <RelativeLayout
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/welcome_text"
-            android:text="Username"
+            android:text=""
             android:textSize="20sp"
             android:textColor="#000"
             android:transitionName="slogan_text" />
@@ -48,32 +49,19 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
-    <ListView
-        android:id="@+id/list_view_spaces"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp" />
-
-
-
-        <!--
-        <com.ismaeldivita.chipnavigation.ChipNavigationBar
-            android:id="@+id/nav_bar"
+        <ListView
+            android:id="@+id/list_view_spaces"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cnb_menuResource="@menu/bottom_nav_menu"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/round_corners"
-            app:cnb_unselectedColor="#000"
-            app:cnb_radius="6dp"
-            app:cnb_orientationMode="horizontal"
-            android:layout_margin="5dp"
-            android:elevation="3dp"/>
+            android:layout_height="300dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:scrollbarFadeDuration="1"
+            android:fadeScrollbars="true"
+            android:divider="@null"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/bottom_nav_bar"/>
 
--->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

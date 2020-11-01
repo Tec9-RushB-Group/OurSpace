@@ -34,6 +34,8 @@
             android:text="Create a space with another user!"
             android:layout_below="@id/welcome_text"
             android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="#000"
             android:transitionName="slogan_text"/>
 
 
@@ -97,7 +99,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:background="#000"
-            android:text="Send Invitation"
+            android:text="Create Space"
             android:textColor="#fff"
             android:transitionName="sign_in_tran" />
 

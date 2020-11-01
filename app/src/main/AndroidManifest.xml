@@ -3,14 +3,35 @@
     package="com.tec9rushbgroup.ourspace">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".LogDetail"></activity>
+        <activity android:name=".PhotoBrowseActivity" />
+        <activity
+            android:name=".PhotoPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DeleteSpace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddAnniversary"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AnniversaryPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LogsPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddLogs"
+            android:screenOrientation="portrait" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -19,13 +40,20 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity android:name=".Profile"
+        <activity
+            android:name=".Profile"
             android:screenOrientation="portrait" />
-        <activity android:name=".VerifyEmail"
+        <activity
+            android:name=".VerifyEmail"
             android:screenOrientation="portrait" />
-        <activity android:name=".CreateSpace"
+        <activity
+            android:name=".CurrentSpace"
             android:screenOrientation="portrait" />
-        <activity android:name=".ForgetPassword"
+        <activity
+            android:name=".CreateSpace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgetPassword"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SignUp"
@@ -35,6 +63,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

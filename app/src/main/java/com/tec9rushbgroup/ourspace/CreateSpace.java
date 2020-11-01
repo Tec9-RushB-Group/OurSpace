@@ -58,13 +58,7 @@ public class CreateSpace extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // initialize environment
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+        setUpEnvironment();
 
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.create_text);
@@ -91,7 +85,8 @@ public class CreateSpace extends AppCompatActivity {
                         pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
                         pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
-                        startActivity(intent, options.toBundle());
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_nav_profile:
@@ -101,7 +96,8 @@ public class CreateSpace extends AppCompatActivity {
                         pairs2[1] = new Pair<View, String>(sloganTV, "slogan_text");
                         pairs2[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs2);
-                        startActivity(intent2, options2.toBundle());
+                        //(intent2, options2.toBundle());
+                        startActivity(intent2);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_nav_add:
@@ -122,7 +118,7 @@ public class CreateSpace extends AppCompatActivity {
 
                     if (isAbleToCreateSpace(user2, space_name)) {
                         String uid = spaceDatabaseReference.push().getKey();
-                        Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true);
+                        Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true,0,0);
                         spaceDatabaseReference.child(uid).setValue(space);
                         Intent intent = new Intent(CreateSpace.this, Login.class);
                         Pair[] pairs = new Pair[3];
@@ -130,7 +126,8 @@ public class CreateSpace extends AppCompatActivity {
                         pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
                         pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
-                        startActivity(intent, options.toBundle());
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
                         finish();
                     }
 
@@ -240,6 +237,15 @@ public class CreateSpace extends AppCompatActivity {
         }
 
         return valid;
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 
 }

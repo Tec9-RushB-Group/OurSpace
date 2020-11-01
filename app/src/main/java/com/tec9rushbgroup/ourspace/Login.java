@@ -81,13 +81,7 @@ public class Login extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         spaceListView = findViewById(R.id.list_view_spaces);
         // initialize environment
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        spaceDatabaseReference = database.getReference("Spaces");
-        userDatabaseReference = database.getReference("User");
-        spaceList = new ArrayList<>();
-        userList = new ArrayList<>();
+        setUpEnvironment();
 
         // already signed in
         if (firebaseUser != null) {
@@ -108,6 +102,18 @@ public class Login extends AppCompatActivity {
                 usernameTV.setTypeface(Typeface.createFromAsset(getAssets(), "slogan.ttf"));
                 initializeBottomNavBar();
 
+                // for enter current space
+                enterSpaceButton = findViewById(R.id.current_space_name);
+
+                /*    // for enter current space. *Need a database vaildator -> if statement
+            enterSpaceButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent intent = new Intent(Login.this, CurrentSpace.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this);
+                    startActivity(intent, options.toBundle());
+                }
+            });     work together with "activity_current_space.xml" -> "CurrentSpace.java"*/
 
             }
         }
@@ -124,8 +130,7 @@ public class Login extends AppCompatActivity {
             password = findViewById(R.id.password);
             signInButton = findViewById(R.id.sign_in_button);
             forgetPasswordButton = findViewById(R.id.forget_button);
-            // for enter current space
-            enterSpaceButton = findViewById(R.id.current_space_name);
+
 
             forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -187,15 +192,7 @@ public class Login extends AppCompatActivity {
                 }
             });
 
-        /*    // for enter current space. *Need a database vaildator -> if statement
-            enterSpaceButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    Intent intent = new Intent(Login.this, CurrentSpace.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this);
-                    startActivity(intent, options.toBundle());
-                }
-            });     work together with "activity_current_space.xml" -> "CurrentSpace.java"*/
+
 
         }
 
@@ -412,7 +409,8 @@ public class Login extends AppCompatActivity {
                         pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
-                        startActivity(intent, options.toBundle());
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_nav_profile:
@@ -421,7 +419,8 @@ public class Login extends AppCompatActivity {
                         pairs2[0] = new Pair<View, String>(welcomeTV, "logo_text");
                         pairs2[1] = new Pair<View, String>(usernameTV, "slogan_text");
                         ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs2);
-                        startActivity(intent2, options2.toBundle());
+                        //startActivity(intent2, options2.toBundle());
+                        startActivity(intent2);
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.bottom_nav_dashboard:
@@ -430,6 +429,15 @@ public class Login extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    private void setUpEnvironment(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        spaceDatabaseReference = database.getReference("Spaces");
+        userDatabaseReference = database.getReference("User");
+        spaceList = new ArrayList<>();
+        userList = new ArrayList<>();
     }
 
 }

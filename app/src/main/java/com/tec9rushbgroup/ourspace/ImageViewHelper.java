@@ -30,10 +30,10 @@ public class ImageViewHelper extends androidx.appcompat.widget.AppCompatImageVie
                     setImageBitmap(bitmap);
                     break;
                 case NETWORK_ERROR:
-                    Toast.makeText(getContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Network Error", Toast.LENGTH_SHORT).show();
                     break;
                 case SERVER_ERROR:
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
