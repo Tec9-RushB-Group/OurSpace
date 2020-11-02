@@ -70,7 +70,7 @@ public class CurrentSpace extends AppCompatActivity {
                 intent.putExtra("user2",user2);
                 startActivity(intent);
                 overridePendingTransition(0,0);
-
+                finish();
             }
         });
         // for logs, -> "activity_logs_page.xml"
@@ -89,6 +89,7 @@ public class CurrentSpace extends AppCompatActivity {
                // startActivity(intent, options.toBundle());
                 startActivity(intent);
                 overridePendingTransition(0,0);
+                finish();
 
             }
         });
@@ -109,6 +110,7 @@ public class CurrentSpace extends AppCompatActivity {
                 startActivity(intent);
                 //startActivity(intent, options.toBundle());
                 overridePendingTransition(0,0);
+                finish();
 
             }
         });
@@ -125,6 +127,7 @@ public class CurrentSpace extends AppCompatActivity {
                 //startActivity(intent, options.toBundle());
                 startActivity(intent);
                 overridePendingTransition(0,0);
+                finish();
             }
         });
 
@@ -154,40 +157,9 @@ public class CurrentSpace extends AppCompatActivity {
             }
 
         });
-        // Check if user is signed in (non-null) and update UI accordingly.
-        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
 
-                spaceList.clear();
-                if (firebaseUser!=null){
-                    currentUserEmail = firebaseUser.getEmail();
-                }
-                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
-                    Space space = spaceSnapshot.getValue(Space.class);
-                    if (firebaseUser!=null){
-                        if (isCurrentUsersSpace(space)) {
-                            spaceList.add(space);
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-
-        });
-        //updateUI(currentUser);
     }
-    private boolean isCurrentUsersSpace(Space space) {
-        if (space.getUser1().equals(currentUserEmail) || space.getUser2().equals(currentUserEmail)) {
-            return true;
-        }
-        return false;
-    }
+
 
     private String getSloganString(){
         String user1 = getIntent().getStringExtra("user1");

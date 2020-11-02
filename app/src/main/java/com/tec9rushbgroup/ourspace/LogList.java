@@ -114,6 +114,7 @@ public class LogList extends ArrayAdapter<StorageReference> {
                                 intent.putExtra("description", logDescription.getText().toString());
                                 context.startActivity(intent);
                                 context.overridePendingTransition(0, 0);
+                                context.finish();
                             }
                         });
                         logDescription.setEnabled(true);

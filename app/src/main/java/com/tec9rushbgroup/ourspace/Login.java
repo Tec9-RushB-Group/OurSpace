@@ -145,6 +145,7 @@ public class Login extends AppCompatActivity {
                     pairs[4] = new Pair<View, String>(newUserButton, "sign_up_tran");
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
                     startActivity(intent, options.toBundle());
+
                 }
             });
 
@@ -422,6 +423,7 @@ public class Login extends AppCompatActivity {
                         //startActivity(intent, options.toBundle());
                         startActivity(intent);
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.bottom_nav_profile:
                         Intent intent2 = new Intent(Login.this, Profile.class);
@@ -432,6 +434,7 @@ public class Login extends AppCompatActivity {
                         //startActivity(intent2, options2.toBundle());
                         startActivity(intent2);
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.bottom_nav_dashboard:
                         return true;

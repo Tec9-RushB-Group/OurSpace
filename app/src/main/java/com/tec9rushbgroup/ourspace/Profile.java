@@ -132,6 +132,7 @@ public class Profile extends AppCompatActivity {
                                 //startActivity(intent, options.toBundle());
                                 startActivity(intent);
                                 overridePendingTransition(0, 0);
+                                finish();
                             }
                         });
             }
@@ -282,41 +283,6 @@ public class Profile extends AppCompatActivity {
             }
 
         });
-        /*
-        // Check if user is signed in (non-null) and update UI accordingly.
-        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                spaceList.clear();
-                if (firebaseUser!=null){
-                    currentUserEmail = firebaseUser.getEmail();
-                }
-                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
-                    Space space = spaceSnapshot.getValue(Space.class);
-                    if (firebaseUser!=null){
-                        if (isCurrentUsersSpace(space)) {
-                            spaceList.add(space);
-                        }
-                    }else{
-                        spaceList.add(space);
-                    }
-                }
-                spaceListView = findViewById(R.id.list_view_spaces);
-                if (spaceListView != null) {
-                    EnterSpacesButtonsList adapter = new EnterSpacesButtonsList(Login.this, spaceList);
-                    spaceListView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-
-        });
-
-         */
 
     }
     public void updatePhoto() {
@@ -383,6 +349,7 @@ public class Profile extends AppCompatActivity {
                         //startActivity(intent, options.toBundle());
                         startActivity(intent);
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottom_nav_add:
                         Intent intent2 = new Intent(Profile.this, CreateSpace.class);
@@ -394,6 +361,7 @@ public class Profile extends AppCompatActivity {
                         //startActivity(intent2, options2.toBundle());
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
+                        finish();
                         return true;
                     case R.id.bottom_nav_profile:
                         return true;
