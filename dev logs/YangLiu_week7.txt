@@ -1,0 +1,10 @@
+Yang Liu
+101038916
+Week 7
+
+This weeek what I have done:
+1. added some progress bar/dialog in app.
+2. write d2 demo summary and status report.
+3. implement "Logs" function with Tianshu Zhao.
+
+

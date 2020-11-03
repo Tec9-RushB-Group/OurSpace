@@ -37,6 +37,7 @@ public class AddAnniversary extends AppCompatActivity {
                 intent.putExtra("user2",user2);
                 startActivity(intent);
                 overridePendingTransition(0,0);
+                finish();
             }
         });
     }

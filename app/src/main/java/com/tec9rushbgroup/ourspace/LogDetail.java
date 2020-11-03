@@ -44,6 +44,7 @@ public class LogDetail extends AppCompatActivity {
                 intent.putExtra("description", description);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+                finish();
             }
         });
 

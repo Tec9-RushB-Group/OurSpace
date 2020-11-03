@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -144,6 +145,7 @@ public class Login extends AppCompatActivity {
                     pairs[4] = new Pair<View, String>(newUserButton, "sign_up_tran");
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
                     startActivity(intent, options.toBundle());
+
                 }
             });
 
@@ -155,7 +157,12 @@ public class Login extends AppCompatActivity {
                     if (!validateForm()) {
                         return;
                     }
-                    signIn(emailText, passwordText);
+                    final ProgressDialog pd = new ProgressDialog(Login.this);
+                    pd.setTitle("Please wait...");
+                    pd.setMessage("Signing in...");
+                    pd.show();
+                    setAllEnabled(false);
+                    signIn(emailText, passwordText,pd);
                 }
             });
             newUserButton.setOnClickListener(new View.OnClickListener() {
@@ -329,7 +336,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-    private void signIn(String email, String password) {
+    private void signIn(String email, String password,ProgressDialog pd) {
 
 
         // [START sign_in_with_email]
@@ -341,10 +348,14 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
+                            setAllEnabled(true);
+                            pd.dismiss();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            setAllEnabled(true);
+                            pd.dismiss();
                             updateUI(null);
 
                         }
@@ -370,8 +381,8 @@ public class Login extends AppCompatActivity {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this, pairs);
             startActivity(intent, options.toBundle());
         } else {
-            emailField.setError("LogIn filed (Invalid email/password)");
-            passwordField.setError("LogIn filed (Invalid email/password)");
+            emailField.setError("Login failed (Invalid email/password)");
+            passwordField.setError("Login failed (Invalid email/password)");
         }
     }
 
@@ -412,6 +423,7 @@ public class Login extends AppCompatActivity {
                         //startActivity(intent, options.toBundle());
                         startActivity(intent);
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.bottom_nav_profile:
                         Intent intent2 = new Intent(Login.this, Profile.class);
@@ -422,6 +434,7 @@ public class Login extends AppCompatActivity {
                         //startActivity(intent2, options2.toBundle());
                         startActivity(intent2);
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.bottom_nav_dashboard:
                         return true;
@@ -440,4 +453,12 @@ public class Login extends AppCompatActivity {
         userList = new ArrayList<>();
     }
 
+    private void setAllEnabled(boolean b){
+        email.setEnabled(b);
+        password.setEnabled(b);
+        forgetPasswordButton.setEnabled(b);
+        signInButton.setEnabled(b);
+        googleSignButton.setEnabled(b);
+        newUserButton.setEnabled(b);
+    }
 }

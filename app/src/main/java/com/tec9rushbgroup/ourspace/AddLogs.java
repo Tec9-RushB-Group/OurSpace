@@ -96,12 +96,21 @@ public class AddLogs extends AppCompatActivity {
                 intent.putExtra("user2",user2);
                 startActivity(intent);
                 overridePendingTransition(0,0);
+                finish();
             }
         });
 
         addLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog pd = new ProgressDialog(AddLogs.this);
+                pd.setTitle("Please wait...");
+                pd.setMessage("Creating Log...");
+                pd.show();
+                addLog.setEnabled(false);
+                backToLogs.setEnabled(false);
+                title.setEnabled(false);
+                content.setEnabled(false);
                 //create a new text file to LOCAL.
                 String titleText = title.getEditText().getText().toString();
                 String contentText = content.getEditText().getText().toString();
@@ -127,14 +136,11 @@ public class AddLogs extends AppCompatActivity {
 
                 file = Uri.fromFile(new File(filePath.toString()+"/"+fileName));
                 storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Logs/"+fileName);
-                addLog.setEnabled(false);
-                backToLogs.setEnabled(false);
-                title.setEnabled(false);
-                content.setEnabled(false);
                 UploadTask uploadTask = storageReference.putFile(file);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
                         addLog.setEnabled(true);
                         backToLogs.setEnabled(true);
                         title.setEnabled(true);
@@ -145,12 +151,14 @@ public class AddLogs extends AppCompatActivity {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
                         Intent intent = new Intent(AddLogs.this, LogsPage.class);
                         intent.putExtra("uid",uid);
                         intent.putExtra("user1",user1);
                         intent.putExtra("user2",user2);
                         startActivity(intent);
                         overridePendingTransition(0,0);
+                        finish();
                     }
                 });
 

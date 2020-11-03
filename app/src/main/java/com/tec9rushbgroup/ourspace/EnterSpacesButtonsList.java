@@ -76,6 +76,7 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
                 intent.putExtra("user2", spaceList.get(position).getUser2());
                 context.startActivity(intent);
                 context.overridePendingTransition(0, 0);
+                context.finish();
             }
         });
         return listViewItem;

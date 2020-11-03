@@ -73,6 +73,7 @@ public class LogsPage extends AppCompatActivity {
                 //startActivity(intent, options.toBundle());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+                finish();
             }
         });
 
@@ -86,6 +87,7 @@ public class LogsPage extends AppCompatActivity {
                 //startActivity(intent, options.toBundle());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+                finish();
             }
         });
     }
@@ -128,23 +130,7 @@ public class LogsPage extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        userDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                userList.clear();
-                //update userList
-                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
-                    User user = spaceSnapshot.getValue(User.class);
-                    userList.add(user);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-
-        });
         // Check if user is signed in (non-null) and update UI accordingly.
         spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
