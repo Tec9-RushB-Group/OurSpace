@@ -235,6 +235,19 @@ public class CreateSpace extends AppCompatActivity {
 
         return valid;
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CreateSpace.this, Login.class);
+        Pair[] pairs = new Pair[3];
+        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+        pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
+        pairs[2] = new Pair<View, String>(inviteButton, "sign_in_tran");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateSpace.this, pairs);
+        //startActivity(intent, options.toBundle());
+        startActivity(intent);
+        overridePendingTransition(0,0);
+        finish();
+    }
     private void setUpEnvironment(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();

@@ -197,4 +197,17 @@ public class CurrentSpace extends AppCompatActivity {
         userList = new ArrayList<>();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CurrentSpace.this, Login.class);
+        Pair[] pairs = new Pair[2];
+        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+        pairs[1] = new Pair<View, String>(sloganTV, "slogan_text");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CurrentSpace.this, pairs);
+        //startActivity(intent, options.toBundle());
+        startActivity(intent);
+        overridePendingTransition(0,0);
+        finish();
+    }
+
 }

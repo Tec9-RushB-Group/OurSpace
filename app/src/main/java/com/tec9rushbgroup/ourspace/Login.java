@@ -453,6 +453,10 @@ public class Login extends AppCompatActivity {
         userList = new ArrayList<>();
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
     private void setAllEnabled(boolean b){
         email.setEnabled(b);
         password.setEnabled(b);

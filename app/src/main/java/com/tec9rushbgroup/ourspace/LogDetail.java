@@ -2,9 +2,11 @@ package com.tec9rushbgroup.ourspace;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -50,5 +52,23 @@ public class LogDetail extends AppCompatActivity {
 
 
 
+
+    }
+    @Override
+    public void onBackPressed() {
+        String uid = getIntent().getStringExtra("uid");
+        String user1 = getIntent().getStringExtra("user1");
+        String user2 = getIntent().getStringExtra("user2");
+        String content = getIntent().getStringExtra("content");
+        String description = getIntent().getStringExtra("description");
+        Intent intent = new Intent(LogDetail.this, LogsPage.class);
+        intent.putExtra("uid", uid);
+        intent.putExtra("user1", user1);
+        intent.putExtra("user2", user2);
+        intent.putExtra("content", content);
+        intent.putExtra("description", description);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
     }
 }
