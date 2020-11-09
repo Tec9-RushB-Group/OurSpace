@@ -205,6 +205,10 @@ public class PhotoBrowseActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
     protected void updateCurrentImageView(final int position) {
         View currentLayout = imageViewPager.findViewWithTag(position);
         if (currentLayout == null) {

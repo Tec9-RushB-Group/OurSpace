@@ -79,9 +79,6 @@ public class SignUp extends AppCompatActivity {
                     String userName = displayName.getEditText().getText().toString();
                     String userPassword = password.getEditText().getText().toString();
                     if (isAbleToCreateUser(userName)) {
-                        String uid = userDatabaseReference.push().getKey();
-                        User user = new User(userEmail,userName,uid,"1");
-                        userDatabaseReference.child(uid).setValue(user);
                         createAccount(userEmail,userPassword);
                     }
                 }
@@ -197,6 +194,10 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            String userName = displayName.getEditText().getText().toString();
+                            String uid = userDatabaseReference.push().getKey();
+                            User user1 = new User(email,userName,uid,"1");
+                            userDatabaseReference.child(uid).setValue(user1);
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -216,7 +217,20 @@ public class SignUp extends AppCompatActivity {
         //Log.w(TAG, "createUserWithEmail:failure", task.getException());
         // [END create_user_with_email]
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SignUp.this, Login.class);
+        Pair[] pairs = new Pair[6];
+        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+        pairs[1] = new Pair<View, String>(signUpTV, "slogan_text");
+        pairs[2] = new Pair<View, String>(email, "email_tran");
+        pairs[3] = new Pair<View, String>(password, "password_tran");
+        pairs[4] = new Pair<View, String>(signUpButton, "sign_in_tran");
+        pairs[5] = new Pair<View, String>(haveAnAccButton, "sign_up_tran");
 
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this, pairs);
+        startActivity(intent, options.toBundle());
+    }
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {

@@ -370,7 +370,19 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Profile.this, Login.class);
+        Pair[] pairs = new Pair[3];
+        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+        pairs[1] = new Pair<View, String>(usernameTV, "slogan_text");
+        pairs[2] = new Pair<View, String>(signOutButton, "sign_in_tran");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Profile.this, pairs);
+        //startActivity(intent, options.toBundle());
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
+    }
     private String findUserUid() {
         if (firebaseUser.getEmail() != null) {
             for (User u : userList) {

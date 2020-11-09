@@ -108,4 +108,17 @@ public class ForgetPassword extends AppCompatActivity {
 
         return valid;
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ForgetPassword.this, Login.class);
+        Pair[] pairs = new Pair[5];
+        pairs[0] = new Pair<View, String>(welcomeTV, "logo_text");
+        pairs[1] = new Pair<View, String>(forgetTV, "slogan_text");
+        pairs[2] = new Pair<View, String>(email, "email_tran");
+        pairs[3] = new Pair<View, String>(sendButton, "sign_in_tran");
+        pairs[4] = new Pair<View, String>(backButton, "sign_up_tran");
+
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ForgetPassword.this, pairs);
+        startActivity(intent, options.toBundle());
+    }
 }
