@@ -79,9 +79,6 @@ public class SignUp extends AppCompatActivity {
                     String userName = displayName.getEditText().getText().toString();
                     String userPassword = password.getEditText().getText().toString();
                     if (isAbleToCreateUser(userName)) {
-                        String uid = userDatabaseReference.push().getKey();
-                        User user = new User(userEmail,userName,uid,"1");
-                        userDatabaseReference.child(uid).setValue(user);
                         createAccount(userEmail,userPassword);
                     }
                 }
@@ -197,6 +194,10 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            String userName = displayName.getEditText().getText().toString();
+                            String uid = userDatabaseReference.push().getKey();
+                            User user1 = new User(email,userName,uid,"1");
+                            userDatabaseReference.child(uid).setValue(user1);
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();

@@ -46,7 +46,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 pairs[1] = new Pair<View, String>(slogan, "slogan_text");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreenActivity.this, pairs);
                 startActivity(intent, options.toBundle());
-                finish();
+
             }
         }, SPLASH_SCREEN);
     }
