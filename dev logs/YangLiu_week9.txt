@@ -1,0 +1,7 @@
+Yang Liu
+101038916
+Week 9
+
+This weeek what I have done:
+1. Write D3, draw diagrams for D3.
+

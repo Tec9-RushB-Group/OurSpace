@@ -2,7 +2,7 @@ Yang Liu
 101038916
 Week 5
 
-This weeek what I have done:
+This week what I have done:
 1. Implement delete space function.
 2. minor changes to UI.
 

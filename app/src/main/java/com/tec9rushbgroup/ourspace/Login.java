@@ -85,7 +85,7 @@ public class Login extends AppCompatActivity {
         setUpEnvironment();
 
         // already signed in
-        if (firebaseUser != null) {
+        if (isUserLoggedIn()) {
             boolean emailVerified = firebaseUser.isEmailVerified();
             Log.i(TAG, "isEmailVerified: " + emailVerified);
             //go to verifyEmail Screen
@@ -464,5 +464,11 @@ public class Login extends AppCompatActivity {
         signInButton.setEnabled(b);
         googleSignButton.setEnabled(b);
         newUserButton.setEnabled(b);
+    }
+
+    private boolean isUserLoggedIn(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        return firebaseUser != null;
     }
 }

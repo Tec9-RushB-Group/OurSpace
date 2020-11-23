@@ -2,7 +2,7 @@ Yang Liu
 101038916
 Week 6
 
-This weeek what I have done:
+This week what I have done:
 1. Implement view and add photos function.
 2. Implement delete function.
 3. click on photos to view details.
