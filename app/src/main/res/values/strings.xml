@@ -23,5 +23,25 @@
     <string name="title_activity_profile">Profile</string>
     <string name="logo_text_size">70dp</string>
 
+    <plurals name ="days">
+        <item quantity="zero">%d Days</item>
+        <item quantity="one">%d Day</item>
+        <item quantity="other">%d Days</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="zero">%d Hours</item>
+        <item quantity="one">%d Hour</item>
+        <item quantity="other">%d Hours</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="zero">%d Minutes</item>
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minutes</item>
+    </plurals>
+    <plurals name="seconds">
+        <item quantity="zero">%d Seconds</item>
+        <item quantity="one">%d Second</item>
+        <item quantity="other">%d Seconds</item>
+    </plurals>
 
 </resources>
