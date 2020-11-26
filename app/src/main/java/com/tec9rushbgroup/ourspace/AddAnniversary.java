@@ -19,24 +19,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import cn.iwgang.countdownview.CountdownView;
 
 public class AddAnniversary extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private Button addAnniversary, backToAnniversaries;
+    private Button addAnniversary, backToAnniversaries,btnDatePicker;
     private TextView welcomeTV, sloganTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_anniversary);
 
-        Button btnDatePicker = findViewById(R.id.btnDatePicker);
-        btnDatePicker.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"date picker");
-            }
-        });
+        btnDatePicker = findViewById(R.id.btnDatePicker);
+
 
         welcomeTV = findViewById(R.id.welcome_text);
         sloganTV = findViewById(R.id.slogan_text);
@@ -60,6 +53,13 @@ public class AddAnniversary extends AppCompatActivity implements DatePickerDialo
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
+            }
+        });
+        btnDatePicker.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(),"date picker");
             }
         });
 
