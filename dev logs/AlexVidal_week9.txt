@@ -1,0 +1,7 @@
+Alexander Vidal
+101111609
+Week 9
+
+Tasks:
+- Front end testing
+	- Comprised of fixing typos throughout the app
