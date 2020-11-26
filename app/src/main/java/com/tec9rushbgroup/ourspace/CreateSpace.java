@@ -137,7 +137,7 @@ public class CreateSpace extends AppCompatActivity {
     private boolean isAbleToCreateSpace(String emailText, String name) {
         boolean result = true;
         if (currentUserEmail.equals(emailText)) {
-            email.setError("You can not create space with yourself!");
+            email.setError("You cannot create a space with yourself!");
             result = false;
         }
         boolean tempResult = false;
@@ -219,7 +219,7 @@ public class CreateSpace extends AppCompatActivity {
             email.setError("Required.");
             valid = false;
         } else if (!emailText.matches(regex)) {
-            email.setError("Invalid Email address.");
+            email.setError("Invalid Email Address.");
             valid = false;
         } else {
             email.setError(null);

@@ -129,7 +129,7 @@ public class EnterSpacesButtonsList extends ArrayAdapter<Space> {
                 arg0.dismiss();
             }
         });
-        d.setMessage("Are you sure to delete this Space?");
+        d.setMessage("Would you like to delete this Space?");
         d.show();
     }
 

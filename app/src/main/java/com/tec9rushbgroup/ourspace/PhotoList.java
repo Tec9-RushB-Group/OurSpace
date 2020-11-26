@@ -132,7 +132,7 @@ public class PhotoList extends ArrayAdapter<String> {
                 arg0.dismiss();
             }
         });
-        d.setMessage("Are you sure to delete this Photo?");
+        d.setMessage("Would you like to delete this Photo?");
         d.show();
     }
     @Override

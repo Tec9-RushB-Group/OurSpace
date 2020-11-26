@@ -151,7 +151,7 @@ public class SignUp extends AppCompatActivity {
             emailField.setError("Required.");
             valid = false;
         } else if (!emailText.matches(regex)) {
-            emailField.setError("Invalid Email address.");
+            emailField.setError("Invalid Email Address.");
             valid = false;
         } else {
             emailField.setError(null);
@@ -205,7 +205,7 @@ public class SignUp extends AppCompatActivity {
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            emailField.setError("Invalid Email address/Existed Email Address.");
+                            emailField.setError("Invalid/Existing Email Address.");
                             updateUI(null);
                         }
 
