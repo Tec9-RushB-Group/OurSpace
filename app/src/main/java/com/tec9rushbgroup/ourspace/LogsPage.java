@@ -43,6 +43,7 @@ public class LogsPage extends AppCompatActivity {
     private DatabaseReference spaceDatabaseReference, userDatabaseReference, listViewReference;
     private List<User> userList;
     private List<Space> spaceList;
+    private List<Log> logList;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     private String currentUserEmail;
@@ -92,41 +93,16 @@ public class LogsPage extends AppCompatActivity {
         });
     }
 
-    private void updateListView() {
+    private void updateListView2() {
+        String uid = getIntent().getStringExtra("uid");
+        String user1 = getIntent().getStringExtra("user1");
+        String user2 = getIntent().getStringExtra("user2");
 
-        firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference().child("Space/" + getIntent().getStringExtra("uid") + "/Logs");
-        storageReference.listAll()
-                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                    @Override
-                    public void onSuccess(ListResult listResult) {
-                        String uid = getIntent().getStringExtra("uid");
-                        String user1 = getIntent().getStringExtra("user1");
-                        String user2 = getIntent().getStringExtra("user2");
-                        List<StorageReference> items = listResult.getItems();
-                        LogList adapter = new LogList(LogsPage.this, items, uid,getNumOfLogs(),user1,user2);
-                        logsListView = findViewById(R.id.list_view_logs);
-                        logsListView.setAdapter(adapter);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Uh-oh, an error occurred!
-                    }
-                });
+        logsListView = findViewById(R.id.list_view_logs);
+        LogList2 adapter = new LogList2(LogsPage.this, logList, uid,user1,user2,logList.size());
+        logsListView.setAdapter(adapter);
     }
 
-    private int getNumOfLogs() {
-        if (firebaseUser.getEmail() != null) {
-            for (Space u : spaceList) {
-                if (u.getSpaceUid().equals(getIntent().getStringExtra("uid"))) {
-                    return u.getNumOfLogs();
-                }
-            }
-        }
-        return NULL;
-    }
     @Override
     public void onBackPressed() {
         String uid = getIntent().getStringExtra("uid");
@@ -144,26 +120,23 @@ public class LogsPage extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-        // Check if user is signed in (non-null) and update UI accordingly.
-        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
+        database = FirebaseDatabase.getInstance();
+        database.getReference("Logs").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
-                spaceList.clear();
+                logList.clear();
                 if (firebaseUser != null) {
                     currentUserEmail = firebaseUser.getEmail();
                 }
                 for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
-                    Space space = spaceSnapshot.getValue(Space.class);
+                    Log log = spaceSnapshot.getValue(Log.class);
                     if (firebaseUser != null) {
-                        if (isCurrentUsersSpace(space)) {
-                            spaceList.add(space);
+                        if (isCurrentUsersLog(log)) {
+                            logList.add(log);
                         }
-                    } else {
-                        spaceList.add(space);
                     }
                 }
+                updateListView2();
             }
 
             @Override
@@ -172,6 +145,7 @@ public class LogsPage extends AppCompatActivity {
             }
 
         });
+
         listViewReference = spaceDatabaseReference.child(getIntent().getStringExtra("uid"));
         listViewReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -179,7 +153,7 @@ public class LogsPage extends AppCompatActivity {
 
                 logsListView = findViewById(R.id.list_view_logs);
                 if (logsListView != null) {
-                    updateListView();
+                    updateListView2();
                 }
 
             }
@@ -198,6 +172,12 @@ public class LogsPage extends AppCompatActivity {
         }
         return false;
     }
+    private boolean isCurrentUsersLog(Log log) {
+        if (log.getSpaceUID().equals(getIntent().getStringExtra("uid"))) {
+            return true;
+        }
+        return false;
+    }
 
     private void setUpEnvironment() {
         firebaseStorage = FirebaseStorage.getInstance();
@@ -208,6 +188,7 @@ public class LogsPage extends AppCompatActivity {
         userDatabaseReference = database.getReference("User");
         spaceList = new ArrayList<>();
         userList = new ArrayList<>();
+        logList = new ArrayList<>();
     }
 
 

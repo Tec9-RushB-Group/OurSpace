@@ -114,53 +114,36 @@ public class AddLogs extends AppCompatActivity {
                 //create a new text file to LOCAL.
                 String titleText = title.getEditText().getText().toString();
                 String contentText = content.getEditText().getText().toString();
-                fileName = titleText + ".txt";
-                FileOutputStream fos = null;
-                File filePath = null;
-
-                try{
-                    fos = openFileOutput(fileName, MODE_PRIVATE);
-                    fos.write(contentText.getBytes());
-                    filePath = getFilesDir();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }finally {
-                    if(fos != null){
-                        try{
-                            fos.close();
-                        }catch(IOException e){
-                            e.printStackTrace();
-                        }
-                    }
+                String LUid = userDatabaseReference.push().getKey();
+                if (LUid == null){
+                    pd.dismiss();
+                    addLog.setEnabled(true);
+                    backToLogs.setEnabled(true);
+                    title.setEnabled(true);
+                    content.setEnabled(true);
+                    title.setError("Network Error");
+                    content.setError("Network Error");
+                    return;
                 }
+                Log log = new Log(titleText,contentText,getIntent().getStringExtra("uid"),LUid);
+                database = FirebaseDatabase.getInstance();
+                database.getReference("Logs").child(LUid).setValue(log);
+                database = FirebaseDatabase.getInstance();
+                spaceDatabaseReference = database.getReference("Spaces");
+                int num = getNumOfLogs() +1;
+                spaceDatabaseReference.child(getIntent().getStringExtra("uid")+"/numOfLogs").setValue(num);
 
-                file = Uri.fromFile(new File(filePath.toString()+"/"+fileName));
-                storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Logs/"+fileName);
-                UploadTask uploadTask = storageReference.putFile(file);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        addLog.setEnabled(true);
-                        backToLogs.setEnabled(true);
-                        title.setEnabled(true);
-                        content.setEnabled(true);
-                        title.setError("Network Error");
-                        content.setError("Network Error");
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Intent intent = new Intent(AddLogs.this, LogsPage.class);
-                        intent.putExtra("uid",uid);
-                        intent.putExtra("user1",user1);
-                        intent.putExtra("user2",user2);
-                        startActivity(intent);
-                        overridePendingTransition(0,0);
-                        finish();
-                    }
-                });
+                pd.dismiss();
+                String uid = getIntent().getStringExtra("uid");
+                String user1 = getIntent().getStringExtra("user1");
+                String user2 = getIntent().getStringExtra("user2");
+                Intent intent = new Intent(AddLogs.this, LogsPage.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+                finish();
 
             }
         });

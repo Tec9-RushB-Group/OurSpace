@@ -106,7 +106,6 @@ public class AddAnniversary extends AppCompatActivity {
                 backToAnniversaries.setEnabled(false);
                 btnDatePicker.setEnabled(false);
                 description.setEnabled(false);
-                //create a new text file to LOCAL.
                 String AUid = userDatabaseReference.push().getKey();
                 if (AUid == null){
                     pd.dismiss();
