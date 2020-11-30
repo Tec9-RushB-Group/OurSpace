@@ -19,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5dp"
 
-            android:text="LOADING..."
+            android:text=" LOADING..."
             android:background="#000000"
             android:textColor="#FFFFFF"
             android:layout_marginBottom="5dp" />
@@ -32,7 +32,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5dp"
             android:layout_marginTop="4dp"
-            android:text="LOADING..."
+            android:text=""
             android:background="#000000"
             android:textColor="#FFFFFF"
             android:layout_marginBottom="5dp" />
