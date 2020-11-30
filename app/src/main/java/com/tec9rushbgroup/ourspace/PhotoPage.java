@@ -140,16 +140,6 @@ public class PhotoPage extends AppCompatActivity {
                     }
                 });
     }
-    private User getCurrentUser() {
-        if (firebaseUser.getEmail() != null) {
-            for (User u : userList) {
-                if (firebaseUser.getEmail().equals(u.getEmail())) {
-                    return u;
-                }
-            }
-        }
-        return null;
-    }
 
     private void updatePhotoView2(){
 
@@ -193,33 +183,6 @@ public class PhotoPage extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
-        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                spaceList.clear();
-                if (firebaseUser!=null){
-                    currentUserEmail = firebaseUser.getEmail();
-                }
-                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
-                    Space space = spaceSnapshot.getValue(Space.class);
-                    if (firebaseUser!=null){
-                        if (isCurrentUsersSpace(space)) {
-                            spaceList.add(space);
-                        }
-                    }else{
-                        spaceList.add(space);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-
-        });
         photoViewReference = spaceDatabaseReference.child(getIntent().getStringExtra("uid"));
         photoViewReference.addValueEventListener(new ValueEventListener() {
             @Override
