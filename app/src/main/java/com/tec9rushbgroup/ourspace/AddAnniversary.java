@@ -39,6 +39,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.sql.Types.NULL;
+
 public class AddAnniversary extends AppCompatActivity {
     private Button addAnniversary, backToAnniversaries, btnDatePicker;
     private TextView welcomeTV, sloganTV;
@@ -80,7 +82,7 @@ public class AddAnniversary extends AppCompatActivity {
         addAnniversary = findViewById(R.id.add_anniversary_button);
         backToAnniversaries = findViewById(R.id.back_to_anniversaries);
         description = findViewById(R.id.anniversary_description);
-        String uid = getIntent().getStringExtra("uid");
+        String spaceUid = getIntent().getStringExtra("uid");
         String user1 = getIntent().getStringExtra("user1");
         String user2 = getIntent().getStringExtra("user2");
         addAnniversary.setOnClickListener(new View.OnClickListener() {
@@ -105,11 +107,40 @@ public class AddAnniversary extends AppCompatActivity {
                 btnDatePicker.setEnabled(false);
                 description.setEnabled(false);
                 //create a new text file to LOCAL.
-                String uid = userDatabaseReference.push().getKey();
-                fileName = uid+"&"+descriptionText+"&"+ year + " " + (month+1) + " " + day +".txt";
+                String AUid = userDatabaseReference.push().getKey();
+                if (AUid == null){
+                    pd.dismiss();
+                    addAnniversary.setEnabled(true);
+                    backToAnniversaries.setEnabled(true);
+                    btnDatePicker.setEnabled(true);
+                    description.setEnabled(true);
+                    description.setError("Network Error");
+                    return;
+                }
+                Anniversary anniversary = new Anniversary(descriptionText,year + " " + (month+1) + " " + day,spaceUid,AUid);
+                database = FirebaseDatabase.getInstance();
+                database.getReference("Anniversaries").child(AUid).setValue(anniversary);
+                database = FirebaseDatabase.getInstance();
+                spaceDatabaseReference = database.getReference("Spaces");
+                int num = getNumOfAnniversaries() +1;
+                spaceDatabaseReference.child(spaceUid+"/numOfAnniversaries").setValue(num);
+
+                pd.dismiss();
+                String uid = getIntent().getStringExtra("uid");
+                String user1 = getIntent().getStringExtra("user1");
+                String user2 = getIntent().getStringExtra("user2");
+                Intent intent = new Intent(AddAnniversary.this, AnniversaryPage.class);
+                intent.putExtra("uid",uid);
+                intent.putExtra("user1",user1);
+                intent.putExtra("user2",user2);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+                finish();
+
+              /*
+                fileName = AUid+"&"+descriptionText+"&"+ year + " " + (month+1) + " " + day +".txt";
                 FileOutputStream fos = null;
                 File filePath = null;
-
                 try{
                     fos = openFileOutput(fileName, MODE_PRIVATE);
                     fos.write(descriptionText.getBytes());
@@ -155,7 +186,7 @@ public class AddAnniversary extends AppCompatActivity {
                         finish();
                     }
                 });
-
+*/
             }
         });
 
@@ -178,6 +209,7 @@ public class AddAnniversary extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(AddAnniversary.this,dateSetListener,year,month,day);
+
                 datePickerDialog.show();//显示DatePickerDialog组件
             }
         });
@@ -203,6 +235,16 @@ public class AddAnniversary extends AppCompatActivity {
         }
     };
 
+    private int getNumOfAnniversaries() {
+        if (firebaseUser.getEmail() != null) {
+            for (Space u : spaceList) {
+                if (u.getSpaceUid().equals(getIntent().getStringExtra("uid"))) {
+                    return u.getNumOfAnniversaries();
+                }
+            }
+        }
+        return NULL;
+    }
     private void setUpEnvironment(){
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
