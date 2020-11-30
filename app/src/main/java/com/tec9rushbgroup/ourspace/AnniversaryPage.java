@@ -134,6 +134,32 @@ public class AnniversaryPage extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        spaceDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                spaceList.clear();
+                if (firebaseUser != null) {
+                    currentUserEmail = firebaseUser.getEmail();
+                }
+                for (DataSnapshot spaceSnapshot : snapshot.getChildren()) {
+                    Space space = spaceSnapshot.getValue(Space.class);
+                    if (firebaseUser != null) {
+                        if (isCurrentUsersSpace(space)) {
+                            spaceList.add(space);
+                        }
+                    } else {
+                        spaceList.add(space);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+        });
         listView = findViewById(R.id.list_view_anniversary);
         if (listView != null) {
             updateListView();
