@@ -14,12 +14,13 @@ public class Space {
     String spaceUid;
     Integer numOfPhotos;
     Integer numOfLogs;
+    Integer numOfAnniversaries;
 
 
     public Space() {
     }
 
-    public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status,Integer numOfPhotos,Integer numOfLogs) {
+    public Space(String spaceUid, String user1, String user2, String folder, String name, Boolean user1_stat, Boolean user2_stat, Boolean status,Integer numOfPhotos,Integer numOfLogs,Integer numOfAnniversaries) {
         this.user1 = user1;
         this.user2 = user2;
         this.folder = folder;
@@ -30,6 +31,7 @@ public class Space {
         this.space_stat = status;
         this.numOfPhotos = numOfPhotos;
         this.numOfLogs = numOfLogs;
+        this.numOfAnniversaries = numOfAnniversaries;
 
     }
 
@@ -115,5 +117,13 @@ public class Space {
 
     public void setNumOfLogs(Integer numOfLogs) {
         this.numOfLogs = numOfLogs;
+    }
+
+    public void setNumOfAnniversaries(Integer numOfAnniversaries) {
+        this.numOfAnniversaries = numOfAnniversaries;
+    }
+
+    public Integer getNumOfAnniversaries() {
+        return numOfAnniversaries;
     }
 }

@@ -120,7 +120,7 @@ public class CreateSpace extends AppCompatActivity {
 
                     if (isAbleToCreateSpace(user2, space_name)) {
                         String uid = spaceDatabaseReference.push().getKey();
-                        Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true,0,0);
+                        Space space = new Space(uid, currentUserEmail, user2, "./", space_name, true, true, true,0,0,0);
                         spaceDatabaseReference.child(uid).setValue(space);
                         Intent intent = new Intent(CreateSpace.this, Login.class);
                         startActivity(intent);
