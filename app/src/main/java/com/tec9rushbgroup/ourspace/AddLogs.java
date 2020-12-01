@@ -130,20 +130,21 @@ public class AddLogs extends AppCompatActivity {
                 database.getReference("Logs").child(LUid).setValue(log);
                 database = FirebaseDatabase.getInstance();
                 spaceDatabaseReference = database.getReference("Spaces");
-                int num = getNumOfLogs() +1;
+                int num = getIntent().getIntExtra("num", 0) +1;
                 spaceDatabaseReference.child(getIntent().getStringExtra("uid")+"/numOfLogs").setValue(num);
 
-                pd.dismiss();
                 String uid = getIntent().getStringExtra("uid");
                 String user1 = getIntent().getStringExtra("user1");
                 String user2 = getIntent().getStringExtra("user2");
                 Intent intent = new Intent(AddLogs.this, LogsPage.class);
-                intent.putExtra("uid",uid);
-                intent.putExtra("user1",user1);
-                intent.putExtra("user2",user2);
+                intent.putExtra("uid", uid);
+                intent.putExtra("user1", user1);
+                intent.putExtra("user2", user2);
+                pd.dismiss();
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
+
 
             }
         });
@@ -174,15 +175,6 @@ public class AddLogs extends AppCompatActivity {
         userList = new ArrayList<>();
     }
 
-    private int getNumOfLogs() {
-        if (firebaseUser.getEmail() != null) {
-            for (Space u : spaceList) {
-                if (u.getSpaceUid().equals(getIntent().getStringExtra("uid"))) {
-                    return u.getNumOfLogs();
-                }
-            }
-        }
-        return NULL;
-    }
+
 
 }

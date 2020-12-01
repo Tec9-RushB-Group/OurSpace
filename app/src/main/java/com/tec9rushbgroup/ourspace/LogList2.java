@@ -97,13 +97,6 @@ public class LogList2 extends ArrayAdapter<Log> {
         int num = numOfLogs-1;
         spaceDatabaseReference.child(spaceUid+"/numOfLogs").setValue(num);
         pd.dismiss();
-        Intent intent = new Intent(context, LogsPage.class);
-        intent.putExtra("uid", spaceUid);
-        intent.putExtra("user1", user1);
-        intent.putExtra("user2", user2);
-        context.startActivity(intent);
-        context.overridePendingTransition(0, 0);
-        context.finish();
     }
 
     @Override

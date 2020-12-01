@@ -83,15 +83,9 @@ public class AnniversaryList2 extends ArrayAdapter<Anniversary> {
         database.getReference("Anniversaries").child(a.getUID()).setValue(null);
         database = FirebaseDatabase.getInstance();
         spaceDatabaseReference = database.getReference("Spaces");
-        spaceDatabaseReference.child(spaceUid+"/numOfAnniversaries").setValue(numOfAnniversaries-1);
+        int num = numOfAnniversaries -1 ;
+        spaceDatabaseReference.child(spaceUid+"/numOfAnniversaries").setValue(num);
         pd.dismiss();
-        Intent intent = new Intent(context, AnniversaryPage.class);
-        intent.putExtra("uid", spaceUid);
-        intent.putExtra("user1", user1);
-        intent.putExtra("user2", user2);
-        context.startActivity(intent);
-        context.overridePendingTransition(0, 0);
-        context.finish();
     }
 
     @Override

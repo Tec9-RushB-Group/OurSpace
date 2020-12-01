@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +31,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.sql.Types.NULL;
 
@@ -71,6 +74,7 @@ public class LogsPage extends AppCompatActivity {
                 intent.putExtra("uid", uid);
                 intent.putExtra("user1", user1);
                 intent.putExtra("user2", user2);
+                intent.putExtra("num", spaceList.get(0).getNumOfLogs());
                 //startActivity(intent, options.toBundle());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
@@ -91,16 +95,6 @@ public class LogsPage extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private void updateListView2() {
-        String uid = getIntent().getStringExtra("uid");
-        String user1 = getIntent().getStringExtra("user1");
-        String user2 = getIntent().getStringExtra("user2");
-
-        logsListView = findViewById(R.id.list_view_logs);
-        LogList2 adapter = new LogList2(LogsPage.this, logList, uid,user1,user2,logList.size());
-        logsListView.setAdapter(adapter);
     }
 
     @Override
@@ -136,7 +130,6 @@ public class LogsPage extends AppCompatActivity {
                         }
                     }
                 }
-                updateListView2();
             }
 
             @Override
@@ -150,12 +143,17 @@ public class LogsPage extends AppCompatActivity {
         listViewReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                spaceList.clear();
+                Space s = snapshot.getValue(Space.class);
+                spaceList.add(s);
                 logsListView = findViewById(R.id.list_view_logs);
                 if (logsListView != null) {
-                    updateListView2();
+                    String uid = getIntent().getStringExtra("uid");
+                    String user1 = getIntent().getStringExtra("user1");
+                    String user2 = getIntent().getStringExtra("user2");
+                    LogList2 adapter = new LogList2(LogsPage.this, logList, uid,user1,user2,s.getNumOfLogs());
+                    logsListView.setAdapter(adapter);
                 }
-
             }
 
             @Override
@@ -164,6 +162,26 @@ public class LogsPage extends AppCompatActivity {
             }
 
         });
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateView();
+            }
+        }, 800);
+
+
+    }
+    private void updateView(){
+        logsListView = findViewById(R.id.list_view_logs);
+        if (logsListView != null) {
+            String uid = getIntent().getStringExtra("uid");
+            String user1 = getIntent().getStringExtra("user1");
+            String user2 = getIntent().getStringExtra("user2");
+            LogList2 adapter = new LogList2(LogsPage.this, logList, uid,user1,user2,spaceList.get(0).getNumOfLogs());
+            logsListView.setAdapter(adapter);
+        }
     }
 
     private boolean isCurrentUsersSpace(Space space) {

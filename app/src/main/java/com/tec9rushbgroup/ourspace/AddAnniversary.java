@@ -121,71 +121,21 @@ public class AddAnniversary extends AppCompatActivity {
                 database.getReference("Anniversaries").child(AUid).setValue(anniversary);
                 database = FirebaseDatabase.getInstance();
                 spaceDatabaseReference = database.getReference("Spaces");
-                int num = getNumOfAnniversaries() +1;
+                int num = getIntent().getIntExtra("num", 0) +1;
                 spaceDatabaseReference.child(spaceUid+"/numOfAnniversaries").setValue(num);
 
-                pd.dismiss();
+
                 String uid = getIntent().getStringExtra("uid");
                 String user1 = getIntent().getStringExtra("user1");
                 String user2 = getIntent().getStringExtra("user2");
                 Intent intent = new Intent(AddAnniversary.this, AnniversaryPage.class);
-                intent.putExtra("uid",uid);
-                intent.putExtra("user1",user1);
-                intent.putExtra("user2",user2);
+                intent.putExtra("uid", uid);
+                intent.putExtra("user1", user1);
+                intent.putExtra("user2", user2);
+                pd.dismiss();
                 startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
-
-              /*
-                fileName = AUid+"&"+descriptionText+"&"+ year + " " + (month+1) + " " + day +".txt";
-                FileOutputStream fos = null;
-                File filePath = null;
-                try{
-                    fos = openFileOutput(fileName, MODE_PRIVATE);
-                    fos.write(descriptionText.getBytes());
-                    filePath = getFilesDir();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }finally {
-                    if(fos != null){
-                        try{
-                            fos.close();
-                        }catch(IOException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                file = Uri.fromFile(new File(filePath.toString()+"/"+fileName));
-                storageReference = firebaseStorage.getReference().child("Space/"+getIntent().getStringExtra("uid")+"/Anniversary/"+fileName);
-                UploadTask uploadTask = storageReference.putFile(file);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        addAnniversary.setEnabled(true);
-                        backToAnniversaries.setEnabled(true);
-                        btnDatePicker.setEnabled(true);
-                        description.setEnabled(true);
-                        description.setError("Network Error");
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        String uid = getIntent().getStringExtra("uid");
-                        String user1 = getIntent().getStringExtra("user1");
-                        String user2 = getIntent().getStringExtra("user2");
-                        Intent intent = new Intent(AddAnniversary.this, AnniversaryPage.class);
-                        intent.putExtra("uid",uid);
-                        intent.putExtra("user1",user1);
-                        intent.putExtra("user2",user2);
-                        startActivity(intent);
-                        overridePendingTransition(0,0);
-                        finish();
-                    }
-                });
-*/
             }
         });
 

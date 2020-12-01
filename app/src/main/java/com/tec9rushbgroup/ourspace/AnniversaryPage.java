@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,6 +29,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.sql.Types.NULL;
 
@@ -69,6 +72,7 @@ public class AnniversaryPage extends AppCompatActivity {
                 intent.putExtra("uid",uid);
                 intent.putExtra("user1",user1);
                 intent.putExtra("user2",user2);
+                intent.putExtra("num", spaceList.get(0).getNumOfAnniversaries());
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 finish();
@@ -88,17 +92,10 @@ public class AnniversaryPage extends AppCompatActivity {
             }
         });
     }
-
-    private void updateListView2() {
-        String uid = getIntent().getStringExtra("uid");
-        String user1 = getIntent().getStringExtra("user1");
-        String user2 = getIntent().getStringExtra("user2");
-
-
-        AnniversaryList2 adapter = new AnniversaryList2(AnniversaryPage.this, anniversaryList, uid,user1,user2,anniversaryList.size());
-        listView = findViewById(R.id.list_view_anniversary);
-        listView.setAdapter(adapter);
+    private  int getNumOfAnniversaries(){
+        return spaceList.get(0).getNumOfAnniversaries();
     }
+
 
     private void setUpEnvironment(){
         firebaseStorage = FirebaseStorage.getInstance();
@@ -130,7 +127,6 @@ public class AnniversaryPage extends AppCompatActivity {
                         }
                     }
                 }
-                updateListView2();
             }
 
             @Override
@@ -147,10 +143,12 @@ public class AnniversaryPage extends AppCompatActivity {
         listViewReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                spaceList.clear();
+                Space s = snapshot.getValue(Space.class);
+                spaceList.add(s);
                 listView = findViewById(R.id.list_view_anniversary);
                 if (listView != null) {
-                    updateListView2();
+                    updateView();
                 }
             }
             @Override
@@ -159,6 +157,24 @@ public class AnniversaryPage extends AppCompatActivity {
             }
 
         });
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateView();
+            }
+        }, 800);
+
+
+    }
+    private void updateView(){
+        if (listView != null) {
+            String uid = getIntent().getStringExtra("uid");
+            String user1 = getIntent().getStringExtra("user1");
+            String user2 = getIntent().getStringExtra("user2");
+            AnniversaryList2 adapter = new AnniversaryList2(AnniversaryPage.this, anniversaryList, uid,user1,user2,spaceList.get(0).getNumOfAnniversaries());
+            listView.setAdapter(adapter);
+        }
     }
 
 
