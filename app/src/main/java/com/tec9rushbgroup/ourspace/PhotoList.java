@@ -110,7 +110,9 @@ public class PhotoList extends ArrayAdapter<String> {
             public void onSuccess(Void aVoid) {
                 database = FirebaseDatabase.getInstance();
                 spaceDatabaseReference = database.getReference("Spaces");
-                spaceDatabaseReference.child(uid+"/numOfPhotos").setValue(numOfPhotos-1);
+                numOfPhotos -= 1;
+                spaceDatabaseReference.child(uid+"/numOfPhotos").setValue(numOfPhotos);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

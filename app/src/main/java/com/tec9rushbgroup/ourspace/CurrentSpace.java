@@ -63,7 +63,9 @@ public class CurrentSpace extends AppCompatActivity {
         photosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String uid = getIntent().getStringExtra("uid");
+                String user1 = getIntent().getStringExtra("user1");
+                String user2 = getIntent().getStringExtra("user2");
                 Intent intent = new Intent(CurrentSpace.this, PhotoPage.class);
                 intent.putExtra("uid",uid);
                 intent.putExtra("user1",user1);
@@ -77,7 +79,9 @@ public class CurrentSpace extends AppCompatActivity {
         logsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String uid = getIntent().getStringExtra("uid");
+                String user1 = getIntent().getStringExtra("user1");
+                String user2 = getIntent().getStringExtra("user2");
                 Intent intent = new Intent(CurrentSpace.this, LogsPage.class);
                 intent.putExtra("uid",uid);
                 intent.putExtra("user1",user1);
@@ -98,7 +102,9 @@ public class CurrentSpace extends AppCompatActivity {
         anniversaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String uid = getIntent().getStringExtra("uid");
+                String user1 = getIntent().getStringExtra("user1");
+                String user2 = getIntent().getStringExtra("user2");
                 Intent intent = new Intent(CurrentSpace.this, AnniversaryPage.class);
                 intent.putExtra("uid",uid);
                 intent.putExtra("user1",user1);

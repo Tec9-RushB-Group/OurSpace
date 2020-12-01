@@ -120,9 +120,20 @@ public class PhotoPage extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        int num = getNumOfPhotos() + 1;
+                        spaceDatabaseReference.child(getIntent().getStringExtra("uid")+"/numOfPhotos").setValue(num);
+                        String uid = getIntent().getStringExtra("uid");
+                        String user1 = getIntent().getStringExtra("user1");
+                        String user2 = getIntent().getStringExtra("user2");
+                        Intent intent = new Intent(PhotoPage.this, PhotoPage.class);
+                        intent.putExtra("uid",uid);
+                        intent.putExtra("user1",user1);
+                        intent.putExtra("user2",user2);
                         pd.dismiss();
-                        spaceDatabaseReference.child(getIntent().getStringExtra("uid")+"/numOfPhotos").setValue(getNumOfPhotos()+1);
-                        updatePhotoView2();
+                        //startActivity(intent, options.toBundle());
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -187,12 +198,10 @@ public class PhotoPage extends AppCompatActivity {
         photoViewReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if(getNumOfPhotos()!=0) {
-                    photoListView = findViewById(R.id.list_view_photos);
-                    if (photoListView != null) {
-                        updatePhotoView2();
-                    }
-                }
+                Space space = snapshot.getValue(Space.class);
+                spaceList.add(space);
+                photoListView = findViewById(R.id.list_view_photos);
+                if (photoListView != null) { updatePhotoView2(); }
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -200,7 +209,8 @@ public class PhotoPage extends AppCompatActivity {
             }
 
         });
-
+        photoListView = findViewById(R.id.list_view_photos);
+        if (photoListView != null) { updatePhotoView2(); }
 
 
     }
