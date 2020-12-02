@@ -1,0 +1,9 @@
+Yang Liu
+101038916
+Week 10
+
+This weeek what I have done:
+1. implement "Anniversaries" function using Firebase database.
+2. implement "Logs" function using Firebase database (was using Firebase storage).
+3. Write D4 document.
+
