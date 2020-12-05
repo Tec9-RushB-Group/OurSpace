@@ -1,0 +1,8 @@
+Tianshu Zhao
+101081964
+Week 6
+
+Finished:
+1. learn about firebase storge impelemention.
+2. addLog UI
+3. addAnniversiary UI
