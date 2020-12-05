@@ -1,0 +1,7 @@
+Alexander Vidal
+101111609
+Week 6
+
+Tasks:
+- Front end testing
+	- Comprised of multiple testing throughout different emulators

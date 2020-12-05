@@ -1,0 +1,8 @@
+Alexander Vidal
+101111609
+Week 2
+
+Tasks:
+
+- Re-familiarize with java
+- Learn android studio
