@@ -1,0 +1,4 @@
+Austin Wright 101072025
+
+1. Tried to make the Login class go to the main screen activity but somehow broke the code
+2. Had to revert

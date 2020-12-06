@@ -1,0 +1,8 @@
+Tianshu Zhao
+101081964
+Week 7
+
+Finished:
+1. connected log function to firebase storage and save log as txt.
+2. impelemented logs list view and finish developing this part with Yang.
+3. practised the d2 demo but finally Autsin did it. 
